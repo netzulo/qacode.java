@@ -1,4 +1,4 @@
-package ntz.test.app;
+package ntz.app;
 
 
 import org.testng.annotations.Test;
@@ -6,10 +6,11 @@ import org.testng.annotations.Test;
 import ntz.drivers.TrandashaBase;
 import ntz.drivers.ITrandasha.BrowserMode;
 import ntz.drivers.ITrandasha.DriverType;
-import ntz.drivers.navs.pages.Page;
+import ntz.drivers.navs.pages.PageBase;
 import ntz.exceptions.PageException;
 import ntz.tests.ATestInfo;
 import ntz.tests.ITestInfo;
+import ntz.tests.TestInfoBase;
 
 import org.testng.annotations.BeforeMethod;
 
@@ -20,10 +21,10 @@ import org.testng.annotations.DataProvider;
 * @since 2013-01-1
 * @version 0.5.1
 */
-public class TrandashaTest extends ATestInfo implements ITestInfo{
+public class TrandashaTest extends TestInfoBase implements ITestInfo{
 
 	/*** Test Dependencies fields******************************************************************/
-	private TrandashaBase bot;
+	
 	/*** Test-NG VARs *****************************************************************************/
 	/*** Test-NG Methods***************************************************************************/
 	@BeforeMethod
@@ -70,7 +71,7 @@ public class TrandashaTest extends ATestInfo implements ITestInfo{
 			if(type == DriverType.REMOTE) this.bot = new TrandashaBase(type,browser,url);
 			else this.bot = new TrandashaBase(type,browser,url);
 			
-			this.pageInit(bot, new Page(bot,"http://google.com"));
+			this.pageInit(bot, new PageBase(bot,"http://google.com"));
 			
 			this.botFinish(bot);
 		} catch (Exception | AssertionError e) { onErrorAtFinish(e);}		

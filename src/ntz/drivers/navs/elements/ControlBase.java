@@ -33,6 +33,11 @@ public class ControlBase extends AControl implements IControl{
 	}
 	
 	@Override
+	public void clickJS() throws ControlException{
+		super.clickJS();
+	}
+	
+	@Override
 	public void textClear() throws ControlException{
 		super.textClear();
 	}
@@ -57,6 +62,26 @@ public class ControlBase extends AControl implements IControl{
 	public List<WebElement> childrensByCss(String selector){
 		return super.childrensByCss(selector);
 	}
+	
+	
+	@Override
+	public WebElement childrenByXPath(String selector) {
+		return super.childrenByXPath(selector);
+	}
+
+	@Override
+	public List<WebElement> childrensByXPath(String selector) {
+		return super.childrensByXPath(selector);
+	}
+	@Override
+	public boolean takeScreenShot(){
+		return super.takeScreenShot();
+	}
+	@Override
+	public boolean takeScreenShot(WebDriver driver){
+		return super.equals(driver);
+	}
+
 	/** "Private" methods***************************************************************************/
 	
 	@Override
@@ -70,14 +95,12 @@ public class ControlBase extends AControl implements IControl{
 		super.readAttributes();		
 	}
 	
+	
 	@Override
-	public boolean takeScreenShot(){
-		return super.takeScreenShot();
+	public void loadControl() {
+		super.loadControl();
 	}
-	@Override
-	public boolean takeScreenShot(WebDriver driver){
-		return super.equals(driver);
-	}
+
 	/**Protected methods*************************************************************************/
 	/**GETs & SETs*******************************************************************************/
 	@Override

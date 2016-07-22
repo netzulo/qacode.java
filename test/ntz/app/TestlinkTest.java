@@ -1,4 +1,4 @@
-package ntz.test.app;
+package ntz.app;
 
 import org.testng.annotations.Test;
 

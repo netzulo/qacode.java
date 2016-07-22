@@ -8,17 +8,17 @@ import ntz.exceptions.PageException;
 * @since 2016-03-31
 * @version 0.5.1
 */
-public class Page extends APage {
+public class PageBase extends APage {
 
-	public Page() throws PageException {
+	public PageBase() throws PageException {
 		super();
 	}
 
-	public Page(TrandashaBase bot, String url) throws PageException {
+	public PageBase(TrandashaBase bot, String url) throws PageException {
 		super(bot, url);
 	}
 
-	public Page(TrandashaBase bot, String url, boolean navigateCurrentUrl) throws PageException {
+	public PageBase(TrandashaBase bot, String url, boolean navigateCurrentUrl) throws PageException {
 		super(bot, url, navigateCurrentUrl);
 	}
 

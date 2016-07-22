@@ -18,7 +18,7 @@ import ntz.tests.errors.ITestErrorMessage;
 public abstract class ATestInfo implements ITestInfo {
 
 	/**@FIELDs***********************************************************************************/
-		
+	protected TrandashaBase bot;	
 	/**@CONSTRUCTORs***********************************************************************************/
 	
 	public ATestInfo() {}
@@ -64,8 +64,10 @@ public abstract class ATestInfo implements ITestInfo {
 	
 	@Override
 	public IPage pageInit(TrandashaBase bot,IPage page){
+		Log.info("[TESTs][INFO]: Loading IPage");
 		IPage myPage = page;
-		PageFactory.initElements(bot.webNav.getDriver(), myPage);		
+		PageFactory.initElements(bot.webNav.getDriver(), myPage);
+		Log.info("[TESTs][DONE]: Loaded IPage");
 		return myPage;
 	}
 	

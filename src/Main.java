@@ -1,4 +1,4 @@
-import ntz.test.app.TrandashaTest;
+import ntz.app.TrandashaTest;
 import ntz.tests.reports.TestLauncher;
 /**
 * @author netzulo.com

@@ -25,7 +25,7 @@ public class Nav {
 	/**Fields************************************************************************************/	
 	private List<ControlBase> controls ;
 	private WebDriver driver;
-
+	private JavascriptExecutor driverJS;
 	/**Constructors******************************************************************************/
 
 	public Nav(WebDriver driver) throws WebNavException{
@@ -33,6 +33,7 @@ public class Nav {
 			throw new WebNavException("[WebNav][ERROR]: Error at build webNav driver, NULL driver");
 		}else{
 			this.driver = driver;
+			this.driverJS = ((JavascriptExecutor)driver);
 			controls = new ArrayList<>();
 		}
 	}
@@ -237,24 +238,23 @@ public class Nav {
 	 * DON'T TESTED WELL, DON'T LOG ANYTHING
 	 * @throws Exception
 	 * */
-	public void clickSafeJS(WebElement element) {
+	public void clickJS(WebElement element) {
 		String errCode;
 		try {
 			if (element.isEnabled() && element.isDisplayed()) {
-				System.out.println("Clicking on element with using java script click");
-
-				((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+				Log.info("Clicking on element with using java script click");
+				this.driverJS.executeScript(IJscripts.js_click, element);
 			} else {
-				System.out.println("Unable to click on element");
+				Log.error("Unable to click on element");
 			}
 		} catch (StaleElementReferenceException e) {
 			errCode = "Element is not attached to the page document";
-			Log.info(errCode);			
+			Log.error(errCode);			
 			
 		} catch (NoSuchElementException e) {
-			System.out.println("Element was not found in DOM "+ e.getStackTrace());
+			Log.error("Element was not found in DOM "+ e.getStackTrace());
 		} catch (Exception e) {
-			System.out.println("Unable to click on element "+ e.getStackTrace());
+			Log.error("Unable to click on element "+ e.getStackTrace());
 		}
 		//throw new WebNavException("[WebNav.getCurrentUrl][ERROR-105]: keyboard command failed CONTROL+LEFT_SHIFT+W", e);
 	}
@@ -292,7 +292,7 @@ public class Nav {
 		if(currChk != null){
 			if(currChk.endsWith("true")){
 				if(isChecked){
-					this.clickSafeJS(ele);
+					this.clickJS(ele);
 				}
 				else{
 					// No hace nada por que el checkbox ya esta deshabilitado
