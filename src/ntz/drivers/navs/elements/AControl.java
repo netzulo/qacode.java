@@ -4,207 +4,222 @@ import java.util.Hashtable;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import ntz.drivers.modules.IJscripts;
 import ntz.exceptions.ControlException;
-import ntz.tests.errors.ITestErrorMessage;
-
 /**
 * @author netzulo.com
-* @since 2016-07-22
-* @version 0.5.1
+* @since 2016-07-23
+* @version 0.5.3
 * 
 * <p></p>
 * <p></p>
 * <p></p>
 */
-public abstract class AControl implements IControl {
-	/**Fields************************************************************************************/	
+public class AControl implements IControl {
 
-	protected WebElement element;
+	/**Fields************************************************************************************/
+	/***/
 	protected WebDriver driver;
-	protected JavascriptExecutor driverJS;
+	/***/
+	protected WebElement element;
+	/***/
+	protected String selector;	
 	//---
+	/***/
 	protected String tagName;
-	//---
-	protected Hashtable<String,String> eventsJS = new Hashtable<>();	
+	/***/
 	protected TakesScreenshot screenShot;
+	/***/
 	protected byte[] screenShotAsBytes;
-	protected String screenShotAsBase64;
-	
+	/***/
+	protected String screenShotAsBase64;	
 	//---
-	protected String text;
-	
-	//---
-	//Atributos HTML comunes a TODOS los elementos	
-	protected String id;
-	protected String className;
-	protected String style;	
-	
+	/***/
+	protected Hashtable<String,String> eventsJS = new Hashtable<>();
+	/***/
+	protected Hashtable<String,String> stylesHTML = new Hashtable<>();
+	/***/	
+	protected Hashtable<String,String> stylesCSS = new Hashtable<>();		
 	/**Constructors******************************************************************************/
-	
-
-	/**
-	 * Try to create an instance of BOT using WebElement param
-	 * verify what WebElement it's not null
-	 * */
-	public AControl(WebElement currentEle) throws ControlException{
-		if(currentEle == null){ throw new ControlException("[BOT][ERROR]: Constructor, element param it's null"); }
+	public AControl(WebDriver driver) throws ControlException{		
+		if(driver == null){throw new ControlException();}
 		else{
-			this.element = currentEle;			
-			this.tagName = this.element.getTagName();	
-			
-			readTagText();			
+			this.driver = driver;
+		}
+	}
+	public AControl(WebDriver driver,String selector) throws ControlException {
+		this(driver);
+		
+		if(selector.length() <= 0){throw new ControlException();}
+		else{
+			this.element = driver.findElement(By.cssSelector(selector));
+			if(this.element == null){
+				throw new ControlException("Can't found element");
+			}
+		}
+	}
+	public AControl(WebDriver driver,WebElement element)throws ControlException {
+		this(driver);
+		
+		if(element == null){throw new ControlException();}
+		else{
+			this.element = element;
 		}
 	}	
-
-	public AControl(WebDriver driver, String cssSelector) throws ControlException{
-		this(driver.findElement(By.cssSelector(cssSelector)));		
-	}
-
-	/********************************************************************************/
-	@Override
-	public void readAttributes() {
-		id = this.element.getAttribute("id");
-		className = this.element.getAttribute("class");
-		style = this.element.getAttribute("style");		
-	}
 	
+	/**Commons **********************************************************************************/
 	
 	@Override
-	public void loadControl() {
-		// TODO carga la configuracion para el control this
+	public IControl Init() throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
+	}
+	@Override
+	public IControl Init(int searcherTypeInt) throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
+	}
+	@Override
+	public IControl Init(SearchMode searcher) throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
+	}
+	@Override
+	public IControl InitElement() throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
+	}
+	@Override
+	public IControl InitHTML() throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
+	}
+	@Override
+	public IControl InitCSS() throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
+	}
+	@Override
+	public IControl InitJS() throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
+	}
+	@Override
+	public boolean runControl() throws ControlException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean eleScreenShot() throws ControlException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean eleWrite(String text) throws ControlException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean eleWrite(String text, boolean isClear) throws ControlException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean eleClear() throws ControlException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public void eleClick() throws ControlException {
+		// TODO Auto-generated method stub
 		
 	}
-	/********************************************************************************/
-	
 	@Override
-	public void click() throws ControlException {
-		if(element != null){
-			try {
-				element.click();
-			} catch (Exception e) {
-				throw new ControlException(ITestErrorMessage.ERROR_clickEle);
-			}
-		}
+	public void eleClickByJS() throws ControlException {
+		// TODO Auto-generated method stub
+		
 	}
-	
 	@Override
-	public void clickJS() throws ControlException {
-		if(element != null){
-			try {
-				this.driverJS.executeScript(IJscripts.js_click, element);
-			} catch (Exception e) {
-				throw new ControlException(ITestErrorMessage.ERROR_clickEle);
-			}
-		}
+	public IControl eleChild() throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
 	}
-
 	@Override
-	public void textClear() throws ControlException {
-		if(element != null){
-			try {
-				element.clear();
-			} catch (Exception e) {
-				throw new ControlException(ITestErrorMessage.ERROR_clearEle);
-			}
-		}		
+	public IControl eleChildByPos(int... childsPosition) throws ControlException{
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
 	}
-
 	@Override
-	public void textWrite(String text) throws ControlException {
-		if(element != null){
-			try {				
-				element.sendKeys(text);
-			} catch (Exception e) {
-				throw new ControlException(ITestErrorMessage.ERROR_writeEle);
-			}
-		}
+	public IControl eleChildFirst() throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
 	}
-
 	@Override
-	public void textClearAndWrite(String text) throws ControlException {
-		if(element != null){
-			this.textClear();
-			this.textWrite(text);			
-		}		
+	public IControl eleChildLast() throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
 	}
-
 	@Override
-	public WebElement childrenByCss(String selector) {
-		return this.element.findElement(By.cssSelector(selector));		
+	public List<IControl> eleChildren() throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
 	}
-	
 	@Override
-	public List<WebElement> childrensByCss(String selector){
-		return this.element.findElements(By.cssSelector(selector));
+	public List<IControl> eleChildrenByPos(int... childsPosition) throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
 	}
-	
 	@Override
-	public WebElement childrenByXPath(String selector) {
-		return this.element.findElement(By.xpath(selector));		
+	public IControl eleNext() throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
 	}
-	
 	@Override
-	public List<WebElement> childrensByXPath(String selector){
-		return this.element.findElements(By.xpath(selector));
+	public IControl elePrevious() throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
 	}
-
 	@Override
-	public String readTagText() {
-		String tagText = "";
-		if(this.tagName.contains("input")) {
-			tagText = this.text = this.element.getAttribute("value");
-		}
-		else{
-			tagText = this.text = this.element.getText();
-		}	
-		return tagText;
+	public IControl eleParent() throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
 	}
-	
-
 	@Override
-	public boolean takeScreenShot() {
-		return this.takeScreenShot(this.driver);
+	public WebDriver getDriver() throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
 	}
-
 	@Override
-	public boolean takeScreenShot(WebDriver driver) {
-		boolean isTaked;
-		try {
-			this.screenShot = (TakesScreenshot) ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-			this.screenShotAsBytes = (byte[]) ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
-			this.screenShotAsBase64 = (String) ((TakesScreenshot)driver).getScreenshotAs(OutputType.BASE64);
-			isTaked = true;
-		} catch (Exception e) {
-			isTaked = false;
-		}
-		return isTaked;	
+	public String getSelector() throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
 	}
-	
-	/**GETs & SETs methods****************************************************************************/
 	@Override
-	public WebElement getElement() {
-		return this.element;
+	public String getTagName() throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
 	}
-
 	@Override
-	public String getText() {
-		return this.text;		
+	public TakesScreenshot getScreenshot() throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
 	}
-
 	@Override
-	public TakesScreenshot getScreenShot() {
-		return screenShot;
+	public byte[] getScreenshotAsBytes() throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
 	}
-
 	@Override
-	public void setDriver(WebDriver driver) {
-		this.driver = driver;
+	public String getScreenshotAsBase64() throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
+	}
+	@Override
+	public WebElement getElement() throws ControlException {
+		// TODO Auto-generated method stub
+		throw new ControlException("Funtion not defined");
 	}
 }

@@ -10,118 +10,155 @@ import ntz.exceptions.ControlException;
 /**
 * @author netzulo.com
 * @since 2016-07-22
-* @version 0.5.1
+* @version 0.5.3
 * 
 * <p></p>
 * <p></p>
 * <p></p>
 */
 public class ControlBase extends AControl implements IControl{
+	
+	
 	/**Fields************************************************************************************/		
 	/**Constructors******************************************************************************/
-		
-	
-	public ControlBase(WebElement currentEle) throws ControlException{
-		super(currentEle);
-	}	
 
-	public ControlBase(WebDriver driver, String cssSelector) throws ControlException{
-		super(driver,cssSelector);		
+	public ControlBase(WebDriver driver, String selector) throws ControlException {
+		super(driver, selector);
 	}
-			
+	public ControlBase(WebDriver driver, WebElement element) throws ControlException {
+		super(driver, element);
+	}
+	public ControlBase(WebDriver driver) throws ControlException {
+		super(driver);
+	}
+	
 	/**Public methods****************************************************************************/
-	
 	@Override
-	public void click() throws ControlException{
-		super.click();
-	}
-	
-	@Override
-	public void clickJS() throws ControlException{
-		super.clickJS();
-	}
-	
-	@Override
-	public void textClear() throws ControlException{
-		super.textClear();
-	}
-	
-	@Override
-	public void textWrite(String text) throws ControlException{
-		super.textWrite(text);
-	}
-	
-	@Override
-	public void textClearAndWrite(String text) throws ControlException{
-		super.textClearAndWrite(text);
-	}
-	
-	
-	@Override
-	public WebElement childrenByCss(String selector){
-		return super.childrenByCss(selector);
-	}
-	
-	@Override
-	public List<WebElement> childrensByCss(String selector){
-		return super.childrensByCss(selector);
-	}
-	
-	
-	@Override
-	public WebElement childrenByXPath(String selector) {
-		return super.childrenByXPath(selector);
-	}
-
-	@Override
-	public List<WebElement> childrensByXPath(String selector) {
-		return super.childrensByXPath(selector);
+	public IControl Init() throws ControlException {
+		return super.Init();
 	}
 	@Override
-	public boolean takeScreenShot(){
-		return super.takeScreenShot();
+	public IControl Init(int searcherTypeInt) throws ControlException {
+		return super.Init(searcherTypeInt);
 	}
 	@Override
-	public boolean takeScreenShot(WebDriver driver){
-		return super.equals(driver);
+	public IControl Init(SearchMode searcher) throws ControlException {
+		return super.Init(searcher);
 	}
-
-	/** "Private" methods***************************************************************************/
-	
 	@Override
-	public String readTagText() {
-		return super.readTagText();
+	public IControl InitElement() throws ControlException {
+		return super.InitElement();
 	}
-
-	
 	@Override
-	public void readAttributes(){
-		super.readAttributes();		
+	public IControl InitHTML() throws ControlException {
+		return super.InitHTML();
 	}
-	
-	
 	@Override
-	public void loadControl() {
-		super.loadControl();
+	public IControl InitCSS() throws ControlException {
+		return super.InitCSS();
 	}
-
-	/**Protected methods*************************************************************************/
-	/**GETs & SETs*******************************************************************************/
+	@Override
+	public IControl InitJS() throws ControlException {
+		return super.InitJS();
+	}
+	@Override
+	public boolean runControl() {
+		return super.runControl();
+	}
+	@Override
+	public boolean eleScreenShot() {
+		return super.eleScreenShot();
+	}
+	@Override
+	public boolean eleWrite(String text) {
+		return super.eleWrite(text);
+	}
+	@Override
+	public boolean eleWrite(String text, boolean isClear) {
+		return super.eleWrite(text, isClear);
+	}
+	@Override
+	public boolean eleClear() {
+		return super.eleClear();
+	}
+	@Override
+	public void eleClick() {
+		super.eleClick();
+	}
+	@Override
+	public void eleClickByJS() {
+		super.eleClickByJS();
+	}
+	@Override
+	public IControl eleChild() {
+		return super.eleChild();
+	}
+	@Override
+	public IControl eleChildByPos(int... childsPosition) {
+		return super.eleChildByPos(childsPosition);
+	}
+	@Override
+	public IControl eleChildFirst() {
+		return super.eleChildFirst();
+	}
+	@Override
+	public IControl eleChildLast() {
+		return super.eleChildLast();
+	}
+	@Override
+	public List<IControl> eleChildren() {
+		return super.eleChildren();
+	}
+	@Override
+	public List<IControl> eleChildrenByPos(int... childsPosition) {
+		return super.eleChildrenByPos(childsPosition);
+	}
+	@Override
+	public IControl eleNext() {
+		return super.eleNext();
+	}
+	@Override
+	public IControl elePrevious() {
+		return super.elePrevious();
+	}
+	@Override
+	public IControl eleParent() {
+		return super.eleParent();
+	}
+	@Override
+	public WebDriver getDriver() {
+		return super.getDriver();
+	}
+	@Override
+	public String getSelector() {
+		return super.getSelector();
+	}
+	@Override
+	public String getTagName() {
+		return super.getTagName();
+	}
+	@Override
+	public TakesScreenshot getScreenshot() {
+		return super.getScreenshot();
+	}
+	@Override
+	public byte[] getScreenshotAsBytes() {
+		return super.getScreenshotAsBytes();
+	}
+	@Override
+	public String getScreenshotAsBase64() {
+		return super.getScreenshotAsBase64();
+	}
 	@Override
 	public WebElement getElement() {
 		return super.getElement();
 	}
-	@Override
-	public String getText(){
-		return super.getText();
-	}
-	@Override
-	public TakesScreenshot getScreenShot(){
-		return super.getScreenShot();
-	}	
 	
-	@Override
-	public void setDriver(WebDriver driver){
-		super.setDriver(driver);
-	}
+
+	/** "Private" methods***************************************************************************/
+
+	/**Protected methods*************************************************************************/
+	/**GETs & SETs*******************************************************************************/
+	
+	
 }

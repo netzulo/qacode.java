@@ -3,534 +3,322 @@ package ntz.drivers.navs.pages;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import ntz.drivers.TrandashaBase	;
-import ntz.drivers.modules.Nav;
-import ntz.drivers.navs.elements.ControlTable;
+import ntz.drivers.ITrandasha;
+import ntz.drivers.TrandashaBase;
+import ntz.drivers.navs.elements.IControl;
+import ntz.drivers.navs.pages.modules.IModel;
 import ntz.exceptions.PageException;
-import ntz.exceptions.ControlException;
 import ntz.exceptions.WebNavException;
-import ntz.logs.Log;
-import ntz.tests.errors.ITestErrorMessage;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 /**
 * @author netzulo.com
-* @since 2013-01-1
-* @version 0.5.1
+* @since 2016-07-22
+* @version 0.5.2
+* 
+* <p></p>
+* <p></p>
+* <p></p>
 */
 public abstract class APage implements IPage{
 	
-	protected String url;
-	protected TrandashaBase bot;
+	/**Fields************************************************************************************/
 
+
+
+	/***/
+	protected SearchType searcher;
+	
+	/*PAGE********************************************************/	
+	
+	
+
+
+	/***/
+	protected String url;
+	
+	/***/
+	protected TrandashaBase bot;
+		
+	/*MODELS********************************************************/
+	
+	/***/
+	protected List<IModel> models;
+	
+	/**Constructors******************************************************************************/
+	
+	/**
+	 * @throws PageException
+	 */
 	public APage() throws PageException{
 		throw new PageException("[APage][ERROR-100]: Constructor without params denied");
 	}
-	public APage(TrandashaBase bot, String url) throws PageException{
-		//Param: driver
-		if(bot!=null){
-			this.bot = bot;
-		}else{
-			throw new PageException("[APage][ERROR-101]: Constructor error on bot");
-		} 
-		//Param: url
-		if(url!=null && url.equals("") != true){
-			this.setUrl(url);
-		}
+	
+	
+	/**
+	 * @throws PageException
+	 */
+	public APage(ITrandasha bot) throws PageException{
+		
+		if(bot == null){ throw new PageException("Bad url provided");}
 		else{
-			throw new PageException("[APage][ERROR-102]:  Constructor error on url");
+			this.bot = (TrandashaBase) bot;
+			models = new ArrayList<>();
 		}
-		
-	}//APage
+	}
 	
-	public APage(TrandashaBase bot, String url, boolean navigateCurrentUrl) throws PageException{
-		//Param: driver
-		if(bot!=null){
-			this.bot = bot;
-		}else{
-			throw new PageException("[APage][ERROR-101]: Constructor error on bot");
-		} 
-		//Param: url
-		if(url!=null && url.equals("") != true){
-			this.setUrl(url);
-			
-			if(navigateCurrentUrl){
-				try {
-					this.bot.webNav.navigate(url);
-				} catch (WebNavException e) {
-					throw new PageException("[APage.()][ERROR-108]: error at navigate to url |"+url, e);
-				}
-			}
-			else{
-				throw new PageException("[APage.()][ERROR-109]: User better APage(Bot bot, String url) |");
-			}
-		}
+	/**
+	 * @throws PageException
+	 */
+	public APage(ITrandasha bot, String pageUrl) throws PageException{
+		this(bot);
+		if(pageUrl.length() <= 0){ throw new PageException("Bad url provided");}
 		else{
-			throw new PageException("[APage][ERROR-102]:  Constructor error on url");
-		}
-		
-	}//APage
-	
-	/** Overrides ************************************************************************************************************/
-	@Override
-	public List<String> tableGetRow(List<WebElement> tableRowColsList)  throws PageException{
-		List<String> resultsRows = new ArrayList<>();
-		List<String> resultsCols = new ArrayList<>();
-		for (WebElement rowEle : tableRowColsList) {//			
-			
-			List<WebElement> cols = rowEle.findElements(By.cssSelector("td > span"));
-			
-			for (WebElement colEle : cols) {
-				resultsCols.add(colEle.getText());
-			}				
-			resultsRows.add(resultsCols.toString());
-			resultsCols = new ArrayList<>();
-		}
-		
-		return resultsRows;
-	}	
-	
-	@Override
-	public List<String>	tableRowExist(){
-		return null;
-		
-	}
-	
-	@Override
-	public WebDriver getCurrentDriver(){
-		WebDriver driver = null;
-		WebDriver _driver = this.bot.webNav.getDriver();
-		if(_driver  != null){
-			driver = _driver ; 
-		}//else
-		return driver;
-	}
-	
-	@Override
-	public void searchControlsByJS(String textJS, String...selectores) throws PageException{
-		WebDriver driver = null;
-		List<Boolean> foundElements;
-		//SELECCIONA EL DRIVER
-		driver = getCurrentDriver();
-		
-		if(driver !=null){		
-			//Limpia la lista de busquedas antes de empezar
-			this.busquedasLimpiar();
-			//Lanza las busquedas CSS sobre el navegador remoto
-			foundElements = this.busquedasLanzarJS(textJS, selectores);
-			//Por cada busqueda, comprueba si hay elemento			
-			this.busquedasResultLog(foundElements);
-		}//if
-	}
-	
-	@Override
-	public List<Boolean> searchControls(String...selectors) throws PageException {
-		//WebNavigation nav = getServer().webNav;
-		//RemoteWebDriver driver = this.bot.getRemoteDriver();
-		WebDriver driver = null;
-		List<Boolean> foundElements = null;
-		
-		//SELECCIONA EL DRIVER
-		driver = getCurrentDriver();
-				
-		if(driver !=null){		
-			//Limpia la lista de busquedas antes de empezar
-			this.busquedasLimpiar();
-			//Lanza las busquedas CSS sobre el navegador remoto
-			foundElements = this.busquedasLanzar(selectors);
-			//Por cada busqueda, comprueba si hay elemento			
-			this.busquedasResultLog(foundElements);
-		}//if
-		return foundElements;
-		
-	}
-		
-	@Override
-	public List<Boolean> searchControls(boolean isValidNULL,String...selectors) throws PageException {
-		//WebNavigation nav = getServer().webNav;
-		//RemoteWebDriver driver = this.bot.getRemoteDriver();
-		WebDriver driver = null;
-		List<Boolean> foundElements = null;
-		
-		//SELECCIONA EL DRIVER
-		driver = getCurrentDriver();
-				
-		if(driver !=null){		
-			//Limpia la lista de busquedas antes de empezar
-			this.busquedasLimpiar();
-			//Lanza las busquedas CSS sobre el navegador remoto
-			foundElements = this.busquedasLanzar(true,selectors);
-			//Por cada busqueda, comprueba si hay elemento			
-			//this.busquedasResultLog(foundElements);
-			//EVITA que falle con resultados FALSE
-		}//if
-		return foundElements;
-		
-	}
-	
-	@Override
-	public boolean isUrlChanged() throws PageException {
-		boolean isUrlChange = false;
-		try {
-			String urlPage = this.url;
-			String currentUrl = this.bot.webNav.getCurrentUrl();
-			
-			boolean isSamePage = urlPage.endsWith(currentUrl);
-			if(!isSamePage){
-				isUrlChange = true;
-			}
-			
-		} catch (WebNavException e) {
-			throw new PageException("[APage.isUrlChanged][ERROR-3xx]: Can't find current url");
-		}
-		
-		
-		return isUrlChange;
-	}
-	
-	@Override
-	public void goPageUrl() throws PageException {
-		try {
-			this.bot.webNav.navigate(this.getUrl());
-		} catch (WebNavException e) {
-			throw new PageException();
+			this.url = pageUrl;
 		}
 	}
 
+	/**
+	 * @throws PageException
+	 */
+	public APage(ITrandasha bot, String pageUrl, boolean isNavigateNow) throws PageException{
+		this(bot, pageUrl);
+		if(isNavigateNow){
+			this.navToPageUrl();
+		}
+	}
+
+	
+	/**
+	 * Just use on inherits of PageBase class
+	 * @throws PageException
+	 */
+	public APage(ITrandasha bot, String pageUrl, boolean isNavigateNow, boolean isInitElements) throws PageException{
+		this(bot, pageUrl,isNavigateNow);
+		if(isInitElements){
+			PageFactory.initElements(this.bot.webNav.getDriver(), this);
+		}
+	}
+
+	
+	/**Overrides*********************************************************************************/
+
+	
 	@Override
-	public void tabOpen() throws PageException {
+	public void addModel(IModel model) {
+		// TODO Auto-generated method stub
+		throw new NotImplementedException();
+	}
+
+
+	@Override
+	public void addControlToModel(IControl control) throws PageException {
+		// TODO Auto-generated method stub
+		throw new NotImplementedException();
+	}
+
+
+	@Override
+	public void addControlToModel(String selector) throws PageException {
+		// TODO Auto-generated method stub
+		throw new NotImplementedException();
+	}
+
+
+	@Override
+	public void addControlToModel(int modelPosition, IControl control) throws PageException {
+		// TODO Auto-generated method stub
+		throw new NotImplementedException();
+	}
+
+
+	@Override
+	public void addControlsToModel(IControl control) throws PageException {
+		// TODO Auto-generated method stub
+		throw new NotImplementedException();
+	}
+
+
+	@Override
+	public void addControlsToModel(String... selectors) throws PageException {
+		// TODO Auto-generated method stub
+		throw new NotImplementedException();
+	}
+
+
+	@Override
+	public void addControlsToModel(List<String> selectors) throws PageException {
+		// TODO Auto-generated method stub
+		throw new NotImplementedException();
+	}
+
+
+	@Override
+	public void addControlsToModel(int modelPosition, IControl control) throws PageException {
+		// TODO Auto-generated method stub
+		throw new NotImplementedException();
+	}
+
+
+	@Override
+	public void addControlsToModel(int modelPosition, String... selectors) throws PageException {
+		// TODO Auto-generated method stub
+		throw new NotImplementedException();
+	}
+
+
+	@Override
+	public void addControlsToModel(int modelPosition, List<String> selectors) throws PageException {
+		// TODO Auto-generated method stub
+		throw new NotImplementedException();
+	}
+
+
+	@Override
+	public void findControlsByJs(String... selectors) throws PageException {
+		// TODO Auto-generated method stub
+		throw new NotImplementedException();
+	}
+
+
+	@Override
+	public void findControlsByJs(String scriptJs, String... selectors) throws PageException {
+		// TODO Auto-generated method stub
+		throw new NotImplementedException();
+	}
+
+
+	@Override
+	public void findControlsByCss(String... selectors) throws PageException {
+		// TODO Auto-generated method stub
+		throw new NotImplementedException();
+	}
+
+
+	@Override
+	public void findControlsByXpath(String... selectors) throws PageException {
+		// TODO Auto-generated method stub
+		throw new NotImplementedException();
+	}
+
+
+	@Override
+	public boolean isUrlChanged() throws PageException {
+		// TODO Auto-generated method stub
+		throw new NotImplementedException();
+	}
+
+
+	@Override
+	public void navToPageUrl() throws PageException {		
+		try {
+			this.bot.webNav.navigate(this.url);
+		} catch (Exception e) {
+			throw new PageException("Error at navigate to: "+ this.url);
+		}
+	}
+
+
+	@Override
+	public void navTabOpen() throws PageException {
 		try {
 			this.bot.webNav.tabOpen();
 		} catch (WebNavException e) {
-			throw new PageException("[APage.tabOpen][ERROR-3xx]: Can't open a new tab");
-		}		
+			throw new PageException("[APage.navTabOpen][ERROR-xxx]: Can't open a new tab");
+		}	
 	}
-	
+
+
 	@Override
-	public void tabChange(int numTab) throws PageException {
+	public void navTabChange(int numTab) throws PageException {
 		try {
 			this.bot.webNav.tabChange(numTab);
 		} catch (WebNavException e) {
-			throw new PageException("[APage.tabOpen][ERROR-3xx]: Can't open a new tab");
-		}
+			throw new PageException("[APage.navTabChange][ERROR-xxx]: Can't open a new tab");
+		}	
 	}
 
+
 	@Override
-	public void tabClose() throws PageException {
+	public void navTabClose() throws PageException {
 		try {
+			this.bot.webNav.tabOpen();
+		} catch (WebNavException e) {
+			throw new PageException("[APage.navTabClose][ERROR-xxx]: Can't open a new tab");
+		}	
+	}
+
+
+	@Override
+	public void navTabClose(int numTabToClose) throws PageException {
+		try {
+			this.navTabChange(numTabToClose);
 			this.bot.webNav.tabClose();
 		} catch (WebNavException e) {
-			throw new PageException("[APage.tabOpen][ERROR-3xx]: Can't open a new tab");
+			throw new PageException("[APage.navTabClose][ERROR-3xx]: Can't open a new tab");
 		}
 	}
-	
+
+
 	@Override
-	public void changeFrame(int numberFrame) throws PageException{
+	public void navToIframe(int numIframeToChange) throws PageException {
 		try {
-			if(numberFrame == -1){
+			if(numIframeToChange == -1){
 				this.bot.webNav.getDriver().switchTo().defaultContent();
 			}else{
-				this.bot.webNav.getDriver().switchTo().frame(numberFrame);
+				this.bot.webNav.getDriver().switchTo().frame(numIframeToChange);
 			}
 		} catch (Exception e) {
-			throw new PageException("[PLogin.changeFrame][ERROR-2xx]: ");
+			throw new PageException("[APage.navToIframe][ERROR-xxx]: ");
 		}
-	
-	}
-	@Override
-	public boolean isTableEmpty(WebElement checkerElement, String checkerText) throws PageException{
-		String txtFound;			
-		try {
-			PageFactory.initElements(this.bot.webNav.getDriver(), this);
-			txtFound = checkerElement.getText();
-			
-			if(txtFound.equalsIgnoreCase(checkerText) == true){
-				return true;
-			}
-			else if(txtFound.isEmpty() == true){
-				return false;
-			}
-			else {
-				throw new PageException("");
-			}
-		} catch (Exception e) {
-			return false;
-		}
-	}
-	
-	@Override
-	public void chkBtnActive(WebElement checkElement, boolean isClick) throws PageException{		
-		try {
-			if(checkElement.isSelected()){
-				throw new PageException("[Checkbox][ERROR]: El checkbox ya esta selecionado");
-			}
-			else{
-				if(isClick){
-					checkElement.click();
-				}			
-			}		
-		} catch (Exception e) {
-			throw new PageException("[Checkbox][ERROR]: error desconocido");
-		}
-	}	
-	
-	@Override
-	public int txtErrorRequired(){
-		 List<WebElement> element = this.bot.webNav.getDriver().findElements(By.cssSelector(("[id*='rfvtxtText']")));
-		 int num = element.size();	
-		 
-		 
-		 
-		 return num;
-	}
-	
-	/********************************************************************************************/
-	
-	
-	/**GETs SETs methods*************************************************************************/
-	public String getUrl() {
-		return url;
 	}
 
-	public void setUrl(String url) {
+
+	@Override
+	public String getUrl() throws PageException {		
+		return this.url;
+	}
+
+
+	@Override
+	public void setUrl(String url) throws PageException {
 		this.url = url;
-	}	
-
-	/**Protected methods*************************************************************************/
-	
-	
-	
-	/**
-	 * Limpia la lista de controles
-	 * <p>before execute: </p>
-	 * <p>after execute: protected List<Boolean> busquedasLanzar(String...selectores)</p>
-	 * @throws PageException
-	 * */
-	protected void busquedasLimpiar() throws PageException{
-		try {
-			//.isEmpty() --> genera un error
-			//probando con .size()
-			if(this.bot.webNav.getControls().size() > 0){
-				this.bot.webNav.searchCleaner();
-			}
-		} catch (WebNavException e) {
-			throw new PageException("[APage.busquedasLimpiar][Error-200]: Error at use search cleaner");
-		}
-	}
-	
-	/**
-	 * Lanza busquedas sobre selectores css sobre un script javascript iterando la lista de selectores
-	 * 
-	 * example: "return document.querySelector('"+selectores[i]+"')"
-	 */
-	protected List<Boolean> busquedasLanzarJS(String scriptJS, String...selectores) throws PageException{
-		Nav nav = bot.webNav;
-		WebDriver driver = null;
-		List<Boolean> foundElements = new ArrayList<>();
-		
-		//SELECCIONA EL DRIVER
-		driver = getCurrentDriver();
-		
-		//Si el driver no es nulo
-		if(driver !=null){			
-			//Realiza busqueda CSS y añade el elemento --> notifica resultado busqueda en foundElements
-			for (int i = 0; i < selectores.length; i++) {				
-				try {
-					if(scriptJS.equalsIgnoreCase("") == true){
-						scriptJS = "return window.frames[1].frames[1].frames[2].document.querySelector('"+selectores[i]+"')[0]";
-					}else{
-						//scriptJS = "return document.querySelector('"+selectores[i]+"')";
-					}
-					
-					WebElement ele = null;
-					String eleText = "EMPTY";
-					
-					try{
-						ele = (WebElement) ((JavascriptExecutor) driver).executeScript(scriptJS, new Object[0]);
-					}catch(Exception err){
-						throw new PageException("[APage.busquedasLanzarJS][Error-201]: Error at search by JS code");
-					}					
-					
-					if(ele != null){
-						foundElements.add(nav.searchAndAdd(ele));
-					}
-					else{
-						try{
-							eleText = (String) ((JavascriptExecutor) driver).executeScript(scriptJS, new Object[0]);
-						}catch(Exception err){
-							throw new PageException("[APage.busquedasLanzarJS][Error-201]: Error at search by JS code");
-						}
-						if(eleText.endsWith("EMPTY") == true || eleText != null){
-							//foundElements.add(nav.searchAndAdd(eleText));
-							foundElements.add(true);
-						}
-//						else{
-//							foundElements.add(false);
-//						}
-						
-					}
-					//foundElements.add(nav.searchAndAdd(selectores[i]));
-				}
-				catch (WebNavException e) {
-					throw new PageException("[APage.busquedasLanzarJS][Error-201]: Error at use search launcher");
-				}//elemento Web
-			}//for
-		}
-		return foundElements;
-	}
-	
-	/**
-	 * Lanza una busqueda de selectores CSS
-	 * <p>before execute: protected void busquedasLimpiar()</p>
-	 * <p>after execute: protected List<Boolean> busquedasLanzar(String...selectores)</p>
-	 * @throws PageException
-	 * */
-	protected List<Boolean> busquedasLanzar(String...selectores) throws PageException{
-		Nav nav = bot.webNav;
-		//RemoteWebDriver driver = this.bot.getRemoteDriver();
-		WebDriver driver = null;
-		List<Boolean> foundElements = new ArrayList<>();
-		boolean isLocated; //temp for locate elements via CSSselector
-		//SELECCIONA EL DRIVER
-		driver = getCurrentDriver();		
-		
-		//Si el driver no es nulo
-		if(driver !=null){			
-			//Realiza busqueda CSS y añade el elemento --> notifica resultado busqueda en foundElements
-			for (int i = 0; i < selectores.length; i++) {
-				try {
-					isLocated = nav.searchAndAdd(selectores[i]);
-					
-					foundElements.add(isLocated);
-				} catch (WebNavException e) {
-					throw new PageException("[APage.busquedasLanzar][Error-201]: Error at use search launcher | Error at search");
-				}//elemento Web
-			}
-		}
-		
-		return foundElements;
-	}
-	
-	/**
-	 * Lanza una busqueda de selectores CSS permitiendo selectores encontrados NULLs
-	 * <p>before execute: protected void busquedasLimpiar()</p>
-	 * <p>after execute: protected List<Boolean> busquedasLanzar(String...selectores)</p>
-	 * @throws PageException
-	 * */
-	protected List<Boolean> busquedasLanzar(boolean isValidNull,String...selectores) throws PageException{
-		Nav nav = bot.webNav;
-		//RemoteWebDriver driver = this.bot.getRemoteDriver();
-		WebDriver driver = null;
-		List<Boolean> foundElements = new ArrayList<>();
-		boolean isLocated; //temp for locate elements via CSSselector
-		//SELECCIONA EL DRIVER
-		driver = getCurrentDriver();		
-		
-		//Si el driver no es nulo
-		if(driver !=null){			
-			//Realiza busqueda CSS y añade el elemento --> notifica resultado busqueda en foundElements
-			for (int i = 0; i < selectores.length; i++) {
-				try {
-					isLocated = nav.searchAndAdd(selectores[i],isValidNull);
-					
-					foundElements.add(isLocated);
-				} catch (ControlException e) {
-					throw new PageException("[APage.busquedasLanzar][Error-201]: Error at use search launcher | Error at search");
-				}//elemento Web
-			}
-		}
-		
-		return foundElements;
-	}
-		
-	/**
-	 * Genera resultados en el LOG a partir de una lista de valores booleanos
-	 * <p>before execute: protected List<Boolean> busquedasLanzar(String...selectores)</p>
-	 * <p>after execute: </p>
-	 * @throws PageException
-	 * */
-	protected void busquedasResultLog(List<Boolean> foundElements) throws PageException{
-		//Por cada busqueda, comprueba si hay elemento
-		String codError202 = "[APage.busquedasResultLog][Error-202]: Error at use search results";
-		String codOK = "[APage.busquedasResultLog][OK]: found element by CSS selector";		
-		for (Boolean isEle : foundElements) {		
-			if(!isEle){	
-				Log.error(codError202);
-				throw new PageException(codError202);
-			}
-			else{
-				Log.info(codOK);
-			}
-		}//for
-	}
-		
-	/**FIELDS  **********************************************************************************/	
-	/*································································*/
-	
-	/*································································*/
-	/**OVERRIDES methods*************************************************************************/
-	
-	
-	@Override
-	public ControlTable tableData(WebElement tableElement) throws PageException {
-		ControlTable tbl = null;
-		try {
-			tbl = new ControlTable(tableElement);
-		} catch (Exception e) {
-			String err = String.format("[CONTROL][ERROR]: %s", e.getMessage());
-			throw new PageException(err, e);
-		}
-		return tbl;
-	}	
-	
-	@Override
-	public boolean tableDataContains(String textToSearch) throws PageException{
-		try {
-			return tableData().isContain(textToSearch);
-		} catch (PageException e) {
-			throw new PageException(ITestErrorMessage.ERROR_notImplemented);
-		}
-	}
-	
-	
-	@Override
-	public IPage frmSearch(String txtFilter, String txtSearch){		
-		this.frmSearch(txtFilter, txtSearch, true);		
-		return this;
-	}
-	
-	
-	@Override
-	public IPage frmSearch(String txtFilter, String txtSearch, boolean searchNow){
-		
-		return this;
-	}
-	
-	/**NOT IMPLEMENTED methods*************************************************************************/
-	@Override
-	public void searchCustom() throws PageException {
-		throw new PageException(ITestErrorMessage.ERROR_notImplemented);
-	}
-	
-	@Override
-	public void init() throws PageException {
-		PageFactory.initElements(this.bot.webNav.getDriver(), this);
 	}
 
-	@Override
-	public void finish() throws PageException {
-		throw new PageException(ITestErrorMessage.ERROR_notImplemented);		
-	}
 
 	@Override
-	public boolean isUrl(String url) throws PageException {
-		throw new PageException(ITestErrorMessage.ERROR_notImplemented);	
+	public ITrandasha getCurrentBot() throws PageException {
+		return this.bot;
 	}
 
+
+	@Override
+	public void setCurrentBot(ITrandasha bot) throws PageException {
+		this.bot = (TrandashaBase) bot;
+	}
+
+
+	@Override
+	public SearchType getSearcher() throws PageException {
+		return searcher;
+	}
+
+
+	@Override
+	public void setSearcher(SearchType searcher) throws PageException {
+		this.searcher = searcher;
+	}
 	
+	
+	@Override
+	public List<IModel> getModels() {
+		return this.models;
+	}
+	
+	@Override
+	public IModel getModel(int modelPosition) {
+		return this.models.get(modelPosition);
+	}
 }
