@@ -9,6 +9,11 @@ import java.io.PrintWriter;
 */
 public class PageException extends Exception {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5348091100817344287L;
+
 	public PageException() {
 		// TODO Auto-generated constructor stub
 	}

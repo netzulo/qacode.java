@@ -6,6 +6,7 @@ import ntz.tests.reports.TestLauncher;
 * @version 0.5.1
 */
 public class Main {
+	@SuppressWarnings("rawtypes")
 	public static void main(String[] args) {
 		String outputDir = "/results";
 		TestLauncher launcher = new TestLauncher(true);

@@ -2,7 +2,7 @@ package ntz.app;
 
 import org.testng.annotations.Test;
 
-import ntz.exceptions.BotException;
+import ntz.exceptions.TrandashaException;
 import ntz.testlink.TestlinkConnector;
 /**
 * @author netzulo.com
@@ -11,7 +11,7 @@ import ntz.testlink.TestlinkConnector;
 */
 public class TestlinkTest {
 	@Test
-	public void ConnectorTest() throws BotException {
+	public void ConnectorTest() throws TrandashaException {
 		TestlinkConnector testlink;
 		
 		try {		
@@ -25,7 +25,7 @@ public class TestlinkTest {
 			System.out.println(testlink.toString());
 		  
 		} catch (Exception e) {
-			throw new BotException("Error al usar TestlinkConnector",e);
+			throw new TrandashaException("Error al usar TestlinkConnector",e);
 		}
 	  
 	}

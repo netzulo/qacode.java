@@ -7,31 +7,36 @@ import java.io.PrintWriter;
 * @since 2016-03-31
 * @version 0.5.1
 */
-public class BotException extends Exception {
+public class TrandashaException extends Exception {
 
 	
 
-	public BotException() {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2848949700805834691L;
+
+	public TrandashaException() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public BotException(String arg0, Throwable arg1, boolean arg2, boolean arg3) {
+	public TrandashaException(String arg0, Throwable arg1, boolean arg2, boolean arg3) {
 		super(arg0, arg1, arg2, arg3);
 		// TODO Auto-generated constructor stub
 	}
 
-	public BotException(String arg0, Throwable arg1) {
+	public TrandashaException(String arg0, Throwable arg1) {
 		super(arg0, arg1);
 		// TODO Auto-generated constructor stub
 	}
 
-	public BotException(String arg0) {
+	public TrandashaException(String arg0) {
 		super(arg0);
 		// TODO Auto-generated constructor stub
 	}
 
-	public BotException(Throwable arg0) {
+	public TrandashaException(Throwable arg0) {
 		super(arg0);
 		// TODO Auto-generated constructor stub
 	}

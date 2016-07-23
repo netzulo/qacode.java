@@ -22,7 +22,7 @@ import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium;
 
 import ntz.drivers.modules.NavEventListener;
 import ntz.drivers.modules.Nav;
-import ntz.exceptions.BotException;
+import ntz.exceptions.TrandashaException;
 import ntz.exceptions.WebNavException;
 import ntz.tests.errors.ITestErrorMessage;
 /**
@@ -53,16 +53,16 @@ public abstract class ATrandasha implements ITrandasha{
 	
 	/**
 	 * Redirects to ABotBase(int browser) throws BotException CONSTRUCTOR
-	 * @throws BotException 
+	 * @throws TrandashaException 
 	 * */
-	public ATrandasha(BrowserMode browser) throws BotException {	
+	public ATrandasha(BrowserMode browser) throws TrandashaException {	
 		open(browser.ordinal());
 	}
 	
 	/**
 	 * Primary Constructor: just a local server
 	 * */
-	public ATrandasha(int browser) throws BotException {	
+	public ATrandasha(int browser) throws TrandashaException {	
 		open(browser);
 		
 		isDriversReady(); // not neccessary on local
@@ -70,16 +70,16 @@ public abstract class ATrandasha implements ITrandasha{
 	//--
 	/**
 	 * Redirects to ABotBase(int browser, int mode, "VALUE_DEFAULT") throws BotException CONSTRUCTOR
-	 * @throws BotException 
+	 * @throws TrandashaException 
 	 * */
-	public ATrandasha(int type, int browser) throws BotException {	
+	public ATrandasha(int type, int browser) throws TrandashaException {	
 		this(type, browser, "VALUE_DEFAULT");		
 	}
 	/**
 	 * Redirects to ABotBase(int browser, int mode) throws BotException CONSTRUCTOR
-	 * @throws BotException 
+	 * @throws TrandashaException 
 	 * */
-	public ATrandasha(DriverType type, BrowserMode browser) throws BotException {
+	public ATrandasha(DriverType type, BrowserMode browser) throws TrandashaException {
 		this(type.ordinal(),browser.ordinal());		
 	}	
 	//--
@@ -89,9 +89,9 @@ public abstract class ATrandasha implements ITrandasha{
 	 * Establise other drivers from currentDriver
 	 * Checks all ready drivers , not null drivers	
 	 * */
-	public ATrandasha(int type, int browser,String _serverUrl) throws BotException {	
+	public ATrandasha(int type, int browser,String _serverUrl) throws TrandashaException {	
 		if(_serverUrl.isEmpty() || _serverUrl.length() < 7){
-			throw new BotException(ITestErrorMessage.ERROR_serverUrlNULL);
+			throw new TrandashaException(ITestErrorMessage.ERROR_serverUrlNULL);
 		}else{			
 			//--
 			if(!_serverUrl.contains("VALUE_DEFAULT")){
@@ -118,16 +118,16 @@ public abstract class ATrandasha implements ITrandasha{
 	
 	/**
 	 * Redirects to ABotBase(int browser, int mode,String _serverUrl) throws BotException CONSTRUCTOR
-	 * @throws BotException 
+	 * @throws TrandashaException 
 	 * */
-	public ATrandasha(DriverType type, BrowserMode browser, String _serverUrl) throws BotException {	
+	public ATrandasha(DriverType type, BrowserMode browser, String _serverUrl) throws TrandashaException {	
 		//throw new BotException(IExceptionMsg.DEV_notImplemented);				
 		this(type.ordinal(),browser.ordinal(),_serverUrl);
 	}
 	//----------------------------------------------------------------------------------------
 	
 	@Override
-	public void open(int num) throws BotException {		
+	public void open(int num) throws TrandashaException {		
 		try {
 			switch (num) {
 			case 0 :
@@ -149,25 +149,25 @@ public abstract class ATrandasha implements ITrandasha{
 				openEdge();
 				break;				
 			default :
-				throw new BotException(ITestErrorMessage.ERROR_botNull);
+				throw new TrandashaException(ITestErrorMessage.ERROR_botNull);
 			}		
 		} catch (Exception e) {
-			throw new BotException(ITestErrorMessage.ERROR_localBrowserNULL);
+			throw new TrandashaException(ITestErrorMessage.ERROR_localBrowserNULL);
 		}
 	}
 	
 	@Override
-	public void openRemote(int browser) throws BotException {		
+	public void openRemote(int browser) throws TrandashaException {		
 		try {
 			Capabilities _caps = getCaps(browser);
 			currDriver = new RemoteWebDriver(new URL(serverUrl), _caps);
 		} catch (MalformedURLException e) {
-			throw new BotException(ITestErrorMessage.ERROR_remoteBrowserNULL);
+			throw new TrandashaException(ITestErrorMessage.ERROR_remoteBrowserNULL);
 		}
 	}
 	
 	@Override
-	public Capabilities getCaps(int browser) throws BotException {
+	public Capabilities getCaps(int browser) throws TrandashaException {
 		Capabilities caps;
 		switch (browser) {
 		case 0 :
@@ -189,7 +189,7 @@ public abstract class ATrandasha implements ITrandasha{
 			caps = capsEdge();
 			break;				
 		default :
-			throw new BotException(ITestErrorMessage.ERROR_botNull);
+			throw new TrandashaException(ITestErrorMessage.ERROR_botNull);
 		}	
 		return caps;
 	}
@@ -205,72 +205,72 @@ public abstract class ATrandasha implements ITrandasha{
 	}
 	//----------------------------------------------------------------------------------------
 	@Override
-	public WebDriver getDriverLocal() throws BotException {
+	public WebDriver getDriverLocal() throws TrandashaException {
 		if(currDriver == null){
-			throw new BotException("");
+			throw new TrandashaException("");
 		}else{
 			return currDriver;
 		}
 	}
 
 	@Override
-	public WebDriver getDriverRemote() throws BotException {
+	public WebDriver getDriverRemote() throws TrandashaException {
 		if(currDriver == null){
-			throw new BotException(ITestErrorMessage.ERROR_botNull);
+			throw new TrandashaException(ITestErrorMessage.ERROR_botNull);
 		}else{
 			return currDriver;
 		}
 	}
 	
 	@Override
-	public RemoteWebDriver getDriverAsRemote() throws BotException {
+	public RemoteWebDriver getDriverAsRemote() throws TrandashaException {
 		if(currDriver == null){
-			throw new BotException(ITestErrorMessage.ERROR_botNull);
+			throw new TrandashaException(ITestErrorMessage.ERROR_botNull);
 		}else{
 			return (RemoteWebDriver)currDriver;
 		}
 	}
 
 	@Override
-	public WebDriver getDriverEvent() throws BotException {
+	public WebDriver getDriverEvent() throws TrandashaException {
 		if(currDriver == null){
-			throw new BotException(ITestErrorMessage.ERROR_botNull);
+			throw new TrandashaException(ITestErrorMessage.ERROR_botNull);
 		}else{
 			return currDriver;
 		}
 	}
 	
 	@Override
-	public EventFiringWebDriver getDriverAsEvent() throws BotException {
+	public EventFiringWebDriver getDriverAsEvent() throws TrandashaException {
 		if(currDriver == null){
-			throw new BotException(ITestErrorMessage.ERROR_botNull);
+			throw new TrandashaException(ITestErrorMessage.ERROR_botNull);
 		}else{
 			return (EventFiringWebDriver)currDriver;
 		}
 	}
 	
 	@Override
-	public JavascriptExecutor getDriverJsExec() throws BotException {
+	public JavascriptExecutor getDriverJsExec() throws TrandashaException {
 		if(currDriver == null){
-			throw new BotException(ITestErrorMessage.ERROR_botNull);
+			throw new TrandashaException(ITestErrorMessage.ERROR_botNull);
 		}else{
 			return (JavascriptExecutor)currDriver;
 		}
 	}
 	
 	@Override
-	public NavEventListener getDriverListener() throws BotException {
+	public NavEventListener getDriverListener() throws TrandashaException {
 		if(currDriver == null){
-			throw new BotException(ITestErrorMessage.ERROR_botNull);
+			throw new TrandashaException(ITestErrorMessage.ERROR_botNull);
 		}else{
 			return this.driverListener;
 		}
 	}
 	
 	@Override
-	public WebDriverWait getDriverWait() throws BotException {
+	public WebDriverWait getDriverWait() throws TrandashaException {
 		if(currDriver == null){
-			throw new BotException(ITestErrorMessage.ERROR_botNull);
+			throw new TrandashaException(ITestErrorMessage.ERROR_botNull);
 		}else{
 			return this.driverWait;
 		}
@@ -415,13 +415,13 @@ public abstract class ATrandasha implements ITrandasha{
 	 * <br>
 	 * */
 	@Override
-	public void loadDrivers() throws BotException{
+	public void loadDrivers() throws TrandashaException{
 		try {
 			this.driverWait = new WebDriverWait(currDriver,5000);
 			this.driverJs = new EventFiringWebDriver(currDriver);
 			this.driverListener = new NavEventListener(currDriver);
 		} catch (Exception e) {
-			throw new BotException(e.getMessage(),e);
+			throw new TrandashaException(e.getMessage(),e);
 		}
 	}
 	/**
@@ -430,11 +430,11 @@ public abstract class ATrandasha implements ITrandasha{
 	 * <br>
 	 * */
 	@Override
-	public void loadModules() throws BotException{
+	public void loadModules() throws TrandashaException{
 		try {
 			this.webNav = new Nav(currDriver);
 		} catch (WebNavException e) {
-			throw new BotException(e.getMessage(),e);
+			throw new TrandashaException(e.getMessage(),e);
 		}
 	}
 }

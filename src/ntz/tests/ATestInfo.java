@@ -5,7 +5,7 @@ import org.testng.Assert;
 
 import ntz.drivers.TrandashaBase;
 import ntz.drivers.navs.pages.IPage;
-import ntz.exceptions.BotException;
+import ntz.exceptions.TrandashaException;
 import ntz.exceptions.PageException;
 import ntz.exceptions.WebNavException;
 import ntz.logs.Log;
@@ -23,29 +23,29 @@ public abstract class ATestInfo implements ITestInfo {
 	
 	public ATestInfo() {}
 	/**@throws WebNavException 
-	 * @throws BotException 
+	 * @throws TrandashaException 
 	 * @Public_methods***************************************************************************/
 	
 	@SuppressWarnings("null")
 	@Override
-	public TrandashaBase botInit(TrandashaBase bot) throws BotException{
+	public TrandashaBase botInit(TrandashaBase bot) throws TrandashaException{
 		Log.info("[TESTs][INIT]: starting bot");
 		try {
 			
-			if(bot == null) throw new BotException();
+			if(bot == null) throw new TrandashaException();
 			
 			Log.info("[TESTs][DONE]: started bot");			
-		} catch (BotException e) {
+		} catch (TrandashaException e) {
 			Log.error("[TESTs][ERROR]: can't start bot");
 			bot.close();
-			throw new BotException(e);
+			throw new TrandashaException(e);
 			}
 		return bot;
 	} 
 	
 	@Override
-	public TrandashaBase botInit(TrandashaBase bot, boolean isLogin) throws BotException{
-		throw new BotException(ITestErrorMessage.ERROR_notImplemented);
+	public TrandashaBase botInit(TrandashaBase bot, boolean isLogin) throws TrandashaException{
+		throw new TrandashaException(ITestErrorMessage.ERROR_notImplemented);
 	} 
 	
 	@Override

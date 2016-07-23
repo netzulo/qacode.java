@@ -9,6 +9,11 @@ import java.io.PrintWriter;
 */
 public class LogException extends Exception {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3717062354138439401L;
+
 	public LogException() {
 		super();
 		// TODO Auto-generated constructor stub

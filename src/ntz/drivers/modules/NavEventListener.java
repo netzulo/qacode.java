@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 
-import ntz.exceptions.BotException;
+import ntz.exceptions.TrandashaException;
 import ntz.logs.Log;
 /**
 * @author netzulo.com
@@ -16,9 +16,9 @@ public class NavEventListener implements WebDriverEventListener {
 	
 	private WebDriver driver;
 	
-	public NavEventListener(WebDriver driver) throws BotException {
+	public NavEventListener(WebDriver driver) throws TrandashaException {
 		if(driver == null){
-			throw new BotException("[EventDriverListener.constructor][ERROR]: Error at build EventDriverListener with NULL driver");
+			throw new TrandashaException("[EventDriverListener.constructor][ERROR]: Error at build EventDriverListener with NULL driver");
 		}else{
 			this.driver = driver;
 		}

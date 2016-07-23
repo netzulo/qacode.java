@@ -8,7 +8,6 @@ import ntz.drivers.ITrandasha.BrowserMode;
 import ntz.drivers.ITrandasha.DriverType;
 import ntz.drivers.navs.pages.PageBase;
 import ntz.exceptions.PageException;
-import ntz.tests.ATestInfo;
 import ntz.tests.ITestInfo;
 import ntz.tests.TestInfoBase;
 

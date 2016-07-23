@@ -75,8 +75,7 @@ public class Nav {
 		boolean isFound = false;//subChecks
 		boolean isAdded = false;//subChecks
 		boolean isResult = false;//return
-		WebElement currentEle = null;
-		WebDriver driver = this.getDriver();
+		WebElement currentEle = null;		
 		//Search element
 		try {
 			

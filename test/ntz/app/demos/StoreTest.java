@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import ntz.drivers.TrandashaBase;
 import ntz.drivers.navs.pages.IPage;
 import ntz.drivers.navs.pages.PageBase;
-import ntz.exceptions.BotException;
+import ntz.exceptions.TrandashaException;
 import ntz.exceptions.PageException;
 import ntz.drivers.ITrandasha.BrowserMode;
 import ntz.drivers.ITrandasha.DriverType;
@@ -18,7 +18,7 @@ public class StoreTest extends TestInfoBase implements ITestInfo{
 	
 	
 	@Test
-	public void LoadPage() throws BotException, PageException {
+	public void LoadPage() throws TrandashaException, PageException {
 		try {
 			this.bot = new TrandashaBase(DriverType.LOCAL, BrowserMode.CHROME);
 			IPage mainPage = new PageBase(bot,"http://store.demoqa.com/",true);

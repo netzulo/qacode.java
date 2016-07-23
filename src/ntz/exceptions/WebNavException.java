@@ -9,6 +9,11 @@ import java.io.PrintWriter;
 */
 public class WebNavException extends Exception {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 583304745013191469L;
+
 	public WebNavException() {
 		// TODO Auto-generated constructor stub
 	}

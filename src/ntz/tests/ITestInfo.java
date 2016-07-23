@@ -2,7 +2,7 @@ package ntz.tests;
 
 import ntz.drivers.TrandashaBase;
 import ntz.drivers.navs.pages.IPage;
-import ntz.exceptions.BotException;
+import ntz.exceptions.TrandashaException;
 import ntz.exceptions.PageException;
 import ntz.tests.errors.ITestErrorMessage;
 /**
@@ -14,9 +14,9 @@ public interface ITestInfo extends ITestErrorMessage{
 	
 	///BOTS
 	
-	TrandashaBase botInit(TrandashaBase bot) throws BotException;
+	TrandashaBase botInit(TrandashaBase bot) throws TrandashaException;
 	
-	TrandashaBase botInit(TrandashaBase bot, boolean isLogin) throws  BotException;
+	TrandashaBase botInit(TrandashaBase bot, boolean isLogin) throws  TrandashaException;
 		
 	void botFinish(TrandashaBase bot);
 	

@@ -9,6 +9,11 @@ import java.io.PrintWriter;
 */
 public class ControlException extends Exception {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5680150269131330800L;
+
 	public ControlException() {
 		super();
 		// TODO Auto-generated constructor stub

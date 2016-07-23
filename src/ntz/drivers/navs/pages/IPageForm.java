@@ -1,30 +1,35 @@
 package ntz.drivers.navs.pages;
+import java.util.List;
+
+import ntz.drivers.navs.elements.IControl;
 import ntz.exceptions.PageException;
 
 
 /**
- * Best Web Scrapper ever
- * @author netzulo.com
- * @since 2016-04-04
- * @version 0.5.1
- */
+* @author netzulo.com
+* @since 2016-07-22
+* @version 0.5.2
+* 
+* <p></p>
+* <p></p>
+* <p></p>
+*/
 public interface IPageForm {
+	enum ValidationType{TEXT,NUMERIC,DATE,PHONE,EMAIL}
 	
-	/**
-	 * Rellena un formulario con la informacion especificada 
-	 * */
-	boolean formFill(String... texts ) throws PageException;
 	
-	/**
-	 * Rellena un formulario con la informacion especificada y hace submit del formulario
-	 * */
-	boolean formFill(boolean isSubmit,String... texts ) throws PageException;
-	
+	/***/
+	boolean formFill(String...selectors) throws PageException;
+	/***/
+	boolean formFill(IControl... controls) throws PageException;
+	/***/
+	boolean formFill(List<IControl> controls) throws PageException;
 
-	/**
-	 * Valida la integridad de los datos para los distitntos campos y hace click sobre el boton de confirmacion o SUBMIT del formulario
-	 * */
-	boolean formSubmit(boolean validateFields) throws PageException;
-
+	//---
+	
+	/***/
+	boolean formSubmit(String...texts);
+	/***/
+	boolean formSubmit(String[] texts,ValidationType...validationTypes);
 	
 }

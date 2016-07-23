@@ -8,7 +8,7 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import ntz.drivers.modules.NavEventListener;
-import ntz.exceptions.BotException;
+import ntz.exceptions.TrandashaException;
 /**
 * @author netzulo.com
 * @since 2013-01-1
@@ -112,19 +112,19 @@ public interface ITrandasha {
 	* @since 2013-01-1
 	* @version 0.5.1
 	*/
-	void open(int browser) throws BotException;
+	void open(int browser) throws TrandashaException;
 	/**
 	* @author netzulo.com
 	* @since 2013-01-1
 	* @version 0.5.1
 	*/
-	void openRemote(int browser) throws BotException;
+	void openRemote(int browser) throws TrandashaException;
 	/**
 	* @author netzulo.com
 	* @since 2013-01-1
 	* @version 0.5.1
 	*/
-	Capabilities getCaps(int browser) throws BotException;
+	Capabilities getCaps(int browser) throws TrandashaException;
 	/**
 	* @author netzulo.com
 	* @since 2013-01-1
@@ -137,49 +137,49 @@ public interface ITrandasha {
 	* @since 2013-01-1
 	* @version 0.5.1
 	*/
-	WebDriver getDriverLocal()throws BotException;
+	WebDriver getDriverLocal()throws TrandashaException;
 	/**
 	* @author netzulo.com
 	* @since 2013-01-1
 	* @version 0.5.1
 	*/
-	WebDriver getDriverRemote()throws BotException;
+	WebDriver getDriverRemote()throws TrandashaException;
 	/**
 	* @author netzulo.com
 	* @since 2013-01-1
 	* @version 0.5.1
 	*/
-	RemoteWebDriver getDriverAsRemote() throws BotException;
+	RemoteWebDriver getDriverAsRemote() throws TrandashaException;
 	/**
 	* @author netzulo.com
 	* @since 2013-01-1
 	* @version 0.5.1
 	*/
-	WebDriver getDriverEvent() throws BotException;
+	WebDriver getDriverEvent() throws TrandashaException;
 	/**
 	* @author netzulo.com
 	* @since 2013-01-1
 	* @version 0.5.1
 	*/
-	EventFiringWebDriver getDriverAsEvent() throws BotException;
+	EventFiringWebDriver getDriverAsEvent() throws TrandashaException;
 	/**
 	* @author netzulo.com
 	* @since 2013-01-1
 	* @version 0.5.1
 	*/
-	JavascriptExecutor getDriverJsExec() throws BotException;
+	JavascriptExecutor getDriverJsExec() throws TrandashaException;
 	/**
 	* @author netzulo.com
 	* @since 2013-01-1
 	* @version 0.5.1
 	*/
-	NavEventListener getDriverListener() throws BotException;
+	NavEventListener getDriverListener() throws TrandashaException;
 	/**
 	* @author netzulo.com
 	* @since 2013-01-1
 	* @version 0.5.1
 	*/
-	WebDriverWait getDriverWait() throws BotException;
+	WebDriverWait getDriverWait() throws TrandashaException;
 	//---
 	
 	/**
@@ -281,13 +281,13 @@ public interface ITrandasha {
 	* @since 2013-01-1
 	* @version 0.5.1
 	*/
-	void loadDrivers() throws BotException;
+	void loadDrivers() throws TrandashaException;
 	
 	/**
 	* @author netzulo.com
 	* @since 2013-01-1
 	* @version 0.5.1
 	*/
-	void loadModules() throws BotException;
+	void loadModules() throws TrandashaException;
 	
 }

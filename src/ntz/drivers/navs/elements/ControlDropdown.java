@@ -9,11 +9,14 @@ import org.openqa.selenium.WebElement;
 import ntz.exceptions.ControlException;
 
 /**
- * @author netzulo.com
- * @since 2016-07-22
- * @version 0.5.1
- * @update 0.5.1_a
- */
+* @author netzulo.com
+* @since 2016-07-22
+* @version 0.5.1
+* @update 0.5.1_a
+* <p></p>
+* <p></p>
+* <p></p>
+*/
 public class ControlDropdown extends ControlBase implements IControl {
 
 	/**Fields************************************************************************************/

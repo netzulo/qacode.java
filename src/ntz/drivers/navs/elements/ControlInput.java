@@ -6,8 +6,12 @@ import org.openqa.selenium.WebElement;
 import ntz.exceptions.ControlException;
 /**
 * @author netzulo.com
-* @since 2013-01-1
+* @since 2016-07-22
 * @version 0.5.1
+* 
+* <p></p>
+* <p></p>
+* <p></p>
 */
 public class ControlInput extends ControlBase implements IControl {
 
