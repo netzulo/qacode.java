@@ -13,7 +13,7 @@ import ntz.exceptions.ControlException;
 * <p></p>
 * <p></p>
 */
-public class ControlInput extends ControlBase implements IControl {
+public class bug_ControlInput extends ControlBase implements IControl {
 
 	protected String name;
 	protected String value;
@@ -39,12 +39,12 @@ public class ControlInput extends ControlBase implements IControl {
 	
 	
 	
-	public ControlInput(WebElement currentEle) throws ControlException {
+	public bug_ControlInput(WebElement currentEle) throws ControlException {
 		super(currentEle);
 		readAttributes();
 	}
 
-	public ControlInput(WebDriver driver, String cssSelector) throws ControlException {
+	public bug_ControlInput(WebDriver driver, String cssSelector) throws ControlException {
 		super(driver, cssSelector);
 		readAttributes();
 	}

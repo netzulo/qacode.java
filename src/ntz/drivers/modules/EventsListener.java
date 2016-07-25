@@ -9,14 +9,18 @@ import ntz.exceptions.TrandashaException;
 import ntz.logs.Log;
 /**
 * @author netzulo.com
-* @since 2013-01-1
-* @version 0.5.1
+* @since 2016-07-25
+* @version 0.5.4
+* 
+* <p></p>
+* <p></p>
+* <p></p>
 */
-public class NavEventListener implements WebDriverEventListener {
+public class EventsListener implements WebDriverEventListener {
 	
 	private WebDriver driver;
 	
-	public NavEventListener(WebDriver driver) throws TrandashaException {
+	public EventsListener(WebDriver driver) throws TrandashaException {
 		if(driver == null){
 			throw new TrandashaException("[EventDriverListener.constructor][ERROR]: Error at build EventDriverListener with NULL driver");
 		}else{

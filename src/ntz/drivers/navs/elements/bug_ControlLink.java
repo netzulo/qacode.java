@@ -14,7 +14,7 @@ import ntz.exceptions.ControlException;
 * <p></p>
 * <p></p>
 */
-public class ControlLink extends ControlBase {
+public class bug_ControlLink extends ControlBase {
 	
 	/*** Specifies that the target will be downloaded when a user clicks on the hyperlink*/
 	protected String download;
@@ -39,10 +39,10 @@ public class ControlLink extends ControlBase {
 	
 	
 	
-	public ControlLink(WebDriver driver, String cssSelector) throws ControlException {
+	public bug_ControlLink(WebDriver driver, String cssSelector) throws ControlException {
 		super(driver, cssSelector);
 	}
-	public ControlLink(WebElement currentEle) throws ControlException {
+	public bug_ControlLink(WebElement currentEle) throws ControlException {
 		super(currentEle);
 	}
 		

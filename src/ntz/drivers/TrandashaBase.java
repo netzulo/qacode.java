@@ -3,8 +3,12 @@ package ntz.drivers;
 import ntz.exceptions.TrandashaException;
 /**
 * @author netzulo.com
-* @since 2013-01-1
-* @version 0.5.1
+* @since 2016-07-25
+* @version 0.5.4
+* 
+* <p></p>
+* <p></p>
+* <p></p>
 */
 public class TrandashaBase extends ATrandasha implements ITrandasha{
 

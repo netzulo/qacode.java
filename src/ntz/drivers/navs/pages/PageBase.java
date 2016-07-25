@@ -5,6 +5,7 @@ import java.util.List;
 import ntz.drivers.ITrandasha;
 import ntz.drivers.navs.elements.IControl;
 import ntz.drivers.navs.pages.modules.IModel;
+import ntz.exceptions.NavException;
 import ntz.exceptions.PageException;
 /**
 * @author netzulo.com
@@ -21,7 +22,7 @@ public class PageBase extends APage {
 
 	public PageBase() throws PageException {super();}
 
-	public PageBase(ITrandasha bot, String pageUrl, boolean isNavigateNow, boolean isInitElements)throws PageException {super(bot, pageUrl, isNavigateNow, isInitElements);}
+	public PageBase(ITrandasha bot, String pageUrl, boolean isNavigateNow, boolean isInitElements)throws PageException, NavException {super(bot, pageUrl, isNavigateNow, isInitElements);}
 
 	public PageBase(ITrandasha bot, String pageUrl, boolean isNavigateNow) throws PageException {super(bot, pageUrl, isNavigateNow);}
 

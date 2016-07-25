@@ -79,4 +79,8 @@ public interface IControl {
 	byte[] getScreenshotAsBytes() throws ControlException;
 	/***/
 	String getScreenshotAsBase64() throws ControlException;
+	
+	
+	//**DEBUG*/
+	String toString();
 }

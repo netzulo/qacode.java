@@ -18,19 +18,19 @@ import ntz.tests.errors.ITestErrorMessage;
 * <p></p>
 * <p></p>
 */
-public class ControlAlert extends ControlBase implements IControl{
+public class bug_ControlAlert extends ControlBase implements IControl{
 	/**Fields************************************************************************************/
 	protected Alert elementAlert;
 	protected Credentials creeds;	
 	
 	/**Constructors******************************************************************************/
 		
-	public ControlAlert(WebElement currentEle) throws ControlException {
+	public bug_ControlAlert(WebElement currentEle) throws ControlException {
 		super(currentEle);
 		elementAlert = driver.switchTo().alert();
 	}
 
-	public ControlAlert(WebDriver driver, String cssSelector) throws ControlException {
+	public bug_ControlAlert(WebDriver driver, String cssSelector) throws ControlException {
 		super(driver, cssSelector);		
 	}
 	

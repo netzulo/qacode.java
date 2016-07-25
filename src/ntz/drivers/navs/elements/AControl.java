@@ -1,13 +1,16 @@
 package ntz.drivers.navs.elements;
 
+import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import ntz.drivers.modules.IJscripts;
 import ntz.exceptions.ControlException;
 /**
 * @author netzulo.com
@@ -20,6 +23,8 @@ import ntz.exceptions.ControlException;
 */
 public class AControl implements IControl {
 
+
+	
 	/**Fields************************************************************************************/
 	/***/
 	protected WebDriver driver;
@@ -31,6 +36,8 @@ public class AControl implements IControl {
 	/***/
 	protected String tagName;
 	/***/
+	protected String text;
+	/***/
 	protected TakesScreenshot screenShot;
 	/***/
 	protected byte[] screenShotAsBytes;
@@ -38,16 +45,19 @@ public class AControl implements IControl {
 	protected String screenShotAsBase64;	
 	//---
 	/***/
-	protected Hashtable<String,String> eventsJS = new Hashtable<>();
+	protected Hashtable<String,String> eventsJS;
 	/***/
-	protected Hashtable<String,String> stylesHTML = new Hashtable<>();
+	protected Hashtable<String,String> stylesHTML;
 	/***/	
-	protected Hashtable<String,String> stylesCSS = new Hashtable<>();		
+	protected Hashtable<String,String> stylesCSS;
 	/**Constructors******************************************************************************/
 	public AControl(WebDriver driver) throws ControlException{		
 		if(driver == null){throw new ControlException();}
 		else{
 			this.driver = driver;
+			eventsJS = new Hashtable<>();
+			stylesHTML = new Hashtable<>();
+			stylesCSS = new Hashtable<>();		
 		}
 	}
 	public AControl(WebDriver driver,String selector) throws ControlException {
@@ -55,9 +65,12 @@ public class AControl implements IControl {
 		
 		if(selector.length() <= 0){throw new ControlException();}
 		else{
+			this.selector = selector;
 			this.element = driver.findElement(By.cssSelector(selector));
-			if(this.element == null){
-				throw new ControlException("Can't found element");
+			if(this.element == null){throw new ControlException("Can't found element");}
+			else{
+				//init element
+				this.Init();
 			}
 		}
 	}
@@ -66,46 +79,87 @@ public class AControl implements IControl {
 		
 		if(element == null){throw new ControlException();}
 		else{
+			this.selector = "NOTLOADED";
 			this.element = element;
+			if(this.element == null){throw new ControlException("Can't found element");}
+			else{
+				//init element
+				this.Init();
+			}
 		}
 	}	
 	
 	/**Commons **********************************************************************************/
 	
 	@Override
-	public IControl Init() throws ControlException {
-		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+	public IControl Init() throws ControlException {		
+		Init(SearchMode.ELEMENT);
+		Init(SearchMode.HTML);
+		Init(SearchMode.CSS);
+		Init(SearchMode.JS);
+		return this;
 	}
 	@Override
 	public IControl Init(int searcherTypeInt) throws ControlException {
-		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		switch (searcherTypeInt) {
+		case 0:
+			InitElement();
+			break;
+		case 1:
+			InitHTML();
+			break;
+		case 2:
+			InitCSS();
+			break;
+		case 3:			
+			InitJS();
+			break;
+		default:
+			throw new ControlException();
+		}
+		return this;
 	}
 	@Override
 	public IControl Init(SearchMode searcher) throws ControlException {
-		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		return Init(searcher.ordinal());		
 	}
 	@Override
 	public IControl InitElement() throws ControlException {
-		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		this.tagName = this.element.getTagName();
+		this.text = this.element.getText();
+		return this;
 	}
 	@Override
 	public IControl InitHTML() throws ControlException {
-		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		this.stylesHTML.put("id", this.element.getAttribute("id"));
+		this.stylesHTML.put("class", this.element.getAttribute("class"));
+		this.stylesHTML.put("style", this.element.getAttribute("style"));		
+		return this;
 	}
 	@Override
-	public IControl InitCSS() throws ControlException {
-		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+	public IControl InitCSS() throws ControlException {		
+		//Margins
+		this.stylesCSS.put("margin-top", this.element.getCssValue("margin-top"));
+		this.stylesCSS.put("margin-right", this.element.getCssValue("margin-right"));
+		this.stylesCSS.put("margin-bottom", this.element.getCssValue("margin-bottom"));
+		this.stylesCSS.put("margin-left", this.element.getCssValue("margin-left"));
+		//Paddings
+		this.stylesCSS.put("padding-top", this.element.getCssValue("padding-top"));
+		this.stylesCSS.put("padding-right", this.element.getCssValue("padding-right"));
+		this.stylesCSS.put("padding-bottom", this.element.getCssValue("padding-bottom"));
+		this.stylesCSS.put("padding-left", this.element.getCssValue("padding-left"));
+		return this;
 	}
 	@Override
 	public IControl InitJS() throws ControlException {
-		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		String allEleEvents = "";
+		try {
+			allEleEvents = ((JavascriptExecutor)this.driver).executeScript(IJscripts.js_getAllEventListeners, this.element).toString();
+		} catch (Exception e) {}
+		
+		this.eventsJS.put("", this.element.getCssValue("margin-left"));
+		
+		return this;
 	}
 	@Override
 	public boolean runControl() throws ControlException {
@@ -222,4 +276,15 @@ public class AControl implements IControl {
 		// TODO Auto-generated method stub
 		throw new ControlException("Funtion not defined");
 	}
+	
+	//**DEBUG*/
+	
+	@Override
+	public String toString() {
+		return "AControl {'driver':" + driver + ", 'element':" + element + ", 'selector':" + selector + ", 'tagName':" + tagName
+				+ ", 'screenShot':" + screenShot + ", 'screenShotAsBytes':" + Arrays.toString(screenShotAsBytes)
+				+ ", 'screenShotAsBase64':" + screenShotAsBase64 + ", 'eventsJS':" + eventsJS + ", 'stylesHTML':" + stylesHTML
+				+ ", 'stylesCSS':" + stylesCSS + "}";
+	}
+	
 }

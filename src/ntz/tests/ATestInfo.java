@@ -5,9 +5,9 @@ import org.testng.Assert;
 
 import ntz.drivers.TrandashaBase;
 import ntz.drivers.navs.pages.IPage;
-import ntz.exceptions.TrandashaException;
+import ntz.exceptions.NavException;
 import ntz.exceptions.PageException;
-import ntz.exceptions.WebNavException;
+import ntz.exceptions.TrandashaException;
 import ntz.logs.Log;
 import ntz.tests.errors.ITestErrorMessage;
 /**
@@ -37,7 +37,9 @@ public abstract class ATestInfo implements ITestInfo {
 			Log.info("[TESTs][DONE]: started bot");			
 		} catch (TrandashaException e) {
 			Log.error("[TESTs][ERROR]: can't start bot");
-			bot.close();
+			try {
+				bot.close();
+			} catch (NavException e1) {	e1.printStackTrace();}
 			throw new TrandashaException(e);
 			}
 		return bot;
@@ -62,11 +64,18 @@ public abstract class ATestInfo implements ITestInfo {
 
 	/**@Pages******************************************************************************/
 	
+	/***/
 	@Override
 	public IPage pageInit(TrandashaBase bot,IPage page){
 		Log.info("[TESTs][INFO]: Loading IPage");
 		IPage myPage = page;
-		PageFactory.initElements(bot.webNav.getDriver(), myPage);
+		try {
+			PageFactory.initElements(bot.webNav.getDriver(), myPage);
+		} catch (NavException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Log.error("[TESTs][ERROR]: NOT Loaded IPage");
+		}
 		Log.info("[TESTs][DONE]: Loaded IPage");
 		return myPage;
 	}
@@ -75,6 +84,7 @@ public abstract class ATestInfo implements ITestInfo {
 	
 	/**@Commons***************************************************************************/
 	
+	/***/
 	@Override
 	public void onErrorAtFinish(Throwable e) throws PageException{
 		String msg = e.getMessage();

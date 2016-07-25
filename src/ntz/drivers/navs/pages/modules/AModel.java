@@ -11,6 +11,7 @@ import ntz.drivers.TrandashaBase;
 import ntz.drivers.navs.elements.ControlBase;
 import ntz.drivers.navs.elements.IControl;
 import ntz.exceptions.ModelException;
+import ntz.exceptions.NavException;
 /**
 * @author netzulo.com
 * @since 2016-07-22
@@ -37,15 +38,16 @@ public abstract class AModel implements IModel {
 		controls = new ArrayList<>();
 	}
 	
-	/***/
-	public AModel(ITrandasha _bot, String[] _selectors) throws ModelException{
+	/**
+	 * @throws NavException */
+	public AModel(ITrandasha _bot, String[] _selectors) throws ModelException, NavException{
 		this(_bot);
 		for (String selector : _selectors) {
 			if(selector == null){throw new ModelException();}
 			else{
 				WebElement ele = ((TrandashaBase)this.bot).webNav.getDriver().findElement(By.cssSelector(selector));
 				try {
-					this.controls.add(new ControlBase(ele));
+					this.controls.add(new ControlBase(((TrandashaBase)this.bot).webNav.getDriver(), ele));
 					
 				} catch (Exception e) {throw new ModelException("Error at try to load element");}
 			}

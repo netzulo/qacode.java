@@ -62,103 +62,107 @@ public class ControlBase extends AControl implements IControl{
 		return super.InitJS();
 	}
 	@Override
-	public boolean runControl() {
+	public boolean runControl() throws ControlException {
 		return super.runControl();
 	}
 	@Override
-	public boolean eleScreenShot() {
+	public boolean eleScreenShot() throws ControlException {
 		return super.eleScreenShot();
 	}
 	@Override
-	public boolean eleWrite(String text) {
+	public boolean eleWrite(String text) throws ControlException {
 		return super.eleWrite(text);
 	}
 	@Override
-	public boolean eleWrite(String text, boolean isClear) {
+	public boolean eleWrite(String text, boolean isClear) throws ControlException {
 		return super.eleWrite(text, isClear);
 	}
 	@Override
-	public boolean eleClear() {
+	public boolean eleClear() throws ControlException {
 		return super.eleClear();
 	}
 	@Override
-	public void eleClick() {
+	public void eleClick() throws ControlException {
 		super.eleClick();
 	}
 	@Override
-	public void eleClickByJS() {
+	public void eleClickByJS() throws ControlException {
 		super.eleClickByJS();
 	}
 	@Override
-	public IControl eleChild() {
+	public IControl eleChild() throws ControlException {
 		return super.eleChild();
 	}
 	@Override
-	public IControl eleChildByPos(int... childsPosition) {
+	public IControl eleChildByPos(int... childsPosition) throws ControlException {
 		return super.eleChildByPos(childsPosition);
 	}
 	@Override
-	public IControl eleChildFirst() {
+	public IControl eleChildFirst() throws ControlException {
 		return super.eleChildFirst();
 	}
 	@Override
-	public IControl eleChildLast() {
+	public IControl eleChildLast() throws ControlException {
 		return super.eleChildLast();
 	}
 	@Override
-	public List<IControl> eleChildren() {
+	public List<IControl> eleChildren() throws ControlException {
 		return super.eleChildren();
 	}
 	@Override
-	public List<IControl> eleChildrenByPos(int... childsPosition) {
+	public List<IControl> eleChildrenByPos(int... childsPosition) throws ControlException {
 		return super.eleChildrenByPos(childsPosition);
 	}
 	@Override
-	public IControl eleNext() {
+	public IControl eleNext() throws ControlException {
 		return super.eleNext();
 	}
 	@Override
-	public IControl elePrevious() {
+	public IControl elePrevious() throws ControlException {
 		return super.elePrevious();
 	}
 	@Override
-	public IControl eleParent() {
+	public IControl eleParent() throws ControlException {
 		return super.eleParent();
 	}
 	@Override
-	public WebDriver getDriver() {
+	public WebDriver getDriver() throws ControlException {
 		return super.getDriver();
 	}
 	@Override
-	public String getSelector() {
+	public String getSelector() throws ControlException {
 		return super.getSelector();
 	}
 	@Override
-	public String getTagName() {
+	public String getTagName() throws ControlException {
 		return super.getTagName();
 	}
 	@Override
-	public TakesScreenshot getScreenshot() {
+	public TakesScreenshot getScreenshot() throws ControlException {
 		return super.getScreenshot();
 	}
 	@Override
-	public byte[] getScreenshotAsBytes() {
+	public byte[] getScreenshotAsBytes() throws ControlException {
 		return super.getScreenshotAsBytes();
 	}
 	@Override
-	public String getScreenshotAsBase64() {
+	public String getScreenshotAsBase64() throws ControlException {
 		return super.getScreenshotAsBase64();
 	}
 	@Override
-	public WebElement getElement() {
+	public WebElement getElement() throws ControlException {
 		return super.getElement();
 	}
 	
 
 	/** "Private" methods***************************************************************************/
-
+	
 	/**Protected methods*************************************************************************/
 	/**GETs & SETs*******************************************************************************/
-	
+	//**DEBUG*/
+	@Override
+	public String toString() {
+		return super.toString();
+	}
 	
 }

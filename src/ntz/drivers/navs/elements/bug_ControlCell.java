@@ -13,12 +13,12 @@ import ntz.exceptions.ControlException;
 * <p></p>
 * <p></p>
 */
-public class ControlCell extends ControlBase implements IControl{
+public class bug_ControlCell extends ControlBase implements IControl{
 	
-	public ControlCell(WebElement currentEle) throws ControlException {
+	public bug_ControlCell(WebElement currentEle) throws ControlException {
 		super(currentEle);			
 	}
-	public ControlCell(WebDriver driver, String cssSelector) throws ControlException{
+	public bug_ControlCell(WebDriver driver, String cssSelector) throws ControlException{
 		super(driver,cssSelector);		
 	}
 }

@@ -7,12 +7,17 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import ntz.drivers.modules.NavEventListener;
+import ntz.drivers.modules.EventsListener;
+import ntz.exceptions.NavException;
 import ntz.exceptions.TrandashaException;
 /**
 * @author netzulo.com
-* @since 2013-01-1
-* @version 0.5.1
+* @since 2016-07-25
+* @version 0.5.4
+* 
+* <p></p>
+* <p></p>
+* <p></p>
 */
 public interface ITrandasha {
 	//ENUMS
@@ -127,10 +132,11 @@ public interface ITrandasha {
 	Capabilities getCaps(int browser) throws TrandashaException;
 	/**
 	* @author netzulo.com
-	* @since 2013-01-1
-	* @version 0.5.1
+	* @since 2016-07-25
+	* @version 0.5.4
+	 * @throws NavException 
 	*/
-	void close();
+	void close() throws NavException;
 	//---
 	/**
 	* @author netzulo.com
@@ -173,7 +179,7 @@ public interface ITrandasha {
 	* @since 2013-01-1
 	* @version 0.5.1
 	*/
-	NavEventListener getDriverListener() throws TrandashaException;
+	EventsListener getDriverListener() throws TrandashaException;
 	/**
 	* @author netzulo.com
 	* @since 2013-01-1

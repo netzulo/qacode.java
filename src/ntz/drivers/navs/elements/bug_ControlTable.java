@@ -18,10 +18,10 @@ import ntz.tests.errors.ITestErrorMessage;
 * <p></p>
 * <p></p>
 */
-public class ControlTable extends ControlBase implements IControl{
+public class bug_ControlTable extends ControlBase implements IControl{
 
 	/**Fields************************************************************************************/
-	private ControlCell[][] tableGrid;
+	private bug_ControlCell[][] tableGrid;
 	private int tableCellsTotal;
 	//---	
 	private List<WebElement> tableBodyRows;
@@ -30,7 +30,7 @@ public class ControlTable extends ControlBase implements IControl{
 	private int tableWidth;
 	
 	/**Constructors******************************************************************************/
-	public ControlTable(WebElement currentEle) throws ControlException {
+	public bug_ControlTable(WebElement currentEle) throws ControlException {
 		super(currentEle);		
 		if(this.tagName.equalsIgnoreCase("table") == false){
 			throw new ControlException(ITestErrorMessage.ERROR_tableWrongTagname);
@@ -41,7 +41,7 @@ public class ControlTable extends ControlBase implements IControl{
 		}		
 	}
 
-	public ControlTable(WebDriver driver, String cssSelector) throws ControlException {
+	public bug_ControlTable(WebDriver driver, String cssSelector) throws ControlException {
 		super(driver, cssSelector);
 		if(this.tagName.equalsIgnoreCase("table") == false){
 			throw new ControlException(ITestErrorMessage.ERROR_tableWrongTagname);
@@ -70,7 +70,7 @@ public class ControlTable extends ControlBase implements IControl{
 			
 			this.tableWidth = tableBodyCellsTotal/tableBodyRowsTotal;					
 			//--		
-			this.tableGrid = new ControlCell[tableHeight][tableWidth];
+			this.tableGrid = new bug_ControlCell[tableHeight][tableWidth];
 			//--	
 			this.tableCellsTotal = tableBodyCells.size();
 		} catch (Exception e) {
@@ -83,7 +83,7 @@ public class ControlTable extends ControlBase implements IControl{
 			int extCounter = 0;
 			for (int rowPos = 0; rowPos < tableHeight; rowPos++) {				
 				for (int cellPos = 0; cellPos < tableWidth; cellPos++) {					
-					tableGrid[rowPos][cellPos] = new ControlCell(tableBodyCells.get(extCounter));
+					tableGrid[rowPos][cellPos] = new bug_ControlCell(tableBodyCells.get(extCounter));
 					extCounter++;
 				}
 			}			
@@ -95,11 +95,11 @@ public class ControlTable extends ControlBase implements IControl{
 	/**Protected methods*************************************************************************/
 	/**GETs & SETs*******************************************************************************/	
 		
-	public ControlCell[][] getTableGrid(){
+	public bug_ControlCell[][] getTableGrid(){
 		return this.tableGrid;
 	}
 	
-	public ControlCell getCellFromGrid(int row, int column){
+	public bug_ControlCell getCellFromGrid(int row, int column){
 		return tableGrid[row][column];
 	}
 	
@@ -109,8 +109,8 @@ public class ControlTable extends ControlBase implements IControl{
 		return txt.contains(textToSearch);
 	}
 	
-	public ControlCell getCellFromList(int cellPosition) throws ControlException{
-		return new ControlCell(tableBodyCells.get(cellPosition));
+	public bug_ControlCell getCellFromList(int cellPosition) throws ControlException{
+		return new bug_ControlCell(tableBodyCells.get(cellPosition));
 	}	
 	
 	public int getCellsTotal(){
@@ -119,7 +119,7 @@ public class ControlTable extends ControlBase implements IControl{
 		
 	public StringBuilder getCellsToStringBuilder(){
 		StringBuilder sb = new StringBuilder();
-		for (ControlCell[] cell : ((ControlTable)this).getTableGrid()) {
+		for (bug_ControlCell[] cell : ((bug_ControlTable)this).getTableGrid()) {
 			for (int i = 0; i < cell.length; i++) {
 				String txt = cell[i].getText();				
 				sb.append(txt);
@@ -129,10 +129,10 @@ public class ControlTable extends ControlBase implements IControl{
 		return sb;
 	}
 	
-	public Hashtable<Integer,ControlCell> getCellsTotoHashTable(){
-		Hashtable<Integer,ControlCell> ht = new Hashtable<>();
+	public Hashtable<Integer,bug_ControlCell> getCellsTotoHashTable(){
+		Hashtable<Integer,bug_ControlCell> ht = new Hashtable<>();
 		int counter = 0;
-		for (ControlCell[] cell : ((ControlTable)this).getTableGrid()) {
+		for (bug_ControlCell[] cell : ((bug_ControlTable)this).getTableGrid()) {
 			for (int i = 0; i < cell.length; i++) {										
 				ht.put(counter, cell[i]);
 				counter++;
@@ -144,7 +144,7 @@ public class ControlTable extends ControlBase implements IControl{
 	public Hashtable<Integer,String> getCellsTotoHashTableText(){
 		Hashtable<Integer,String> ht = new Hashtable<>();		
 		int counter = 0;
-		for (ControlCell[] cell : this.getTableGrid()) {
+		for (bug_ControlCell[] cell : this.getTableGrid()) {
 			for (int i = 0; i < cell.length; i++) {										
 				ht.put(counter, cell[i].getText());
 				counter++;
@@ -165,7 +165,7 @@ public class ControlTable extends ControlBase implements IControl{
 	public String getCellsToString(){
 		StringBuilder sb = new StringBuilder();
 		
-		for (ControlCell[] cell : this.getTableGrid()) {
+		for (bug_ControlCell[] cell : this.getTableGrid()) {
 			for (int i = 0; i < cell.length; i++) {
 				String txt = cell[i].getText();				
 				sb.append(txt);

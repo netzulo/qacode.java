@@ -17,15 +17,15 @@ import ntz.exceptions.ControlException;
 * <p></p>
 * <p></p>
 */
-public class ControlDropdown extends ControlBase implements IControl {
+public class bug_ControlDropdown extends ControlBase implements IControl {
 
 	/**Fields************************************************************************************/
 	/**Constructors******************************************************************************/
-	public ControlDropdown(WebDriver driver, String cssSelector) throws ControlException {
+	public bug_ControlDropdown(WebDriver driver, String cssSelector) throws ControlException {
 		super(driver, cssSelector);
 	}
 
-	public ControlDropdown(WebElement currentEle) throws ControlException {
+	public bug_ControlDropdown(WebElement currentEle) throws ControlException {
 		super(currentEle);
 	}
 

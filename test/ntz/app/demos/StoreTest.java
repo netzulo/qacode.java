@@ -14,9 +14,6 @@ import ntz.tests.TestInfoBase;
 
 public class StoreTest extends TestInfoBase implements ITestInfo{
   
-	
-	
-	
 	@Test
 	public void LoadPage() throws TrandashaException, PageException {
 		try {

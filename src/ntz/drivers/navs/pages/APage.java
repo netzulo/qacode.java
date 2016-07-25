@@ -9,6 +9,7 @@ import ntz.drivers.ITrandasha;
 import ntz.drivers.TrandashaBase;
 import ntz.drivers.navs.elements.IControl;
 import ntz.drivers.navs.pages.modules.IModel;
+import ntz.exceptions.NavException;
 import ntz.exceptions.PageException;
 import ntz.exceptions.WebNavException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -94,8 +95,9 @@ public abstract class APage implements IPage{
 	/**
 	 * Just use on inherits of PageBase class
 	 * @throws PageException
+	 * @throws NavException 
 	 */
-	public APage(ITrandasha bot, String pageUrl, boolean isNavigateNow, boolean isInitElements) throws PageException{
+	public APage(ITrandasha bot, String pageUrl, boolean isNavigateNow, boolean isInitElements) throws PageException, NavException{
 		this(bot, pageUrl,isNavigateNow);
 		if(isInitElements){
 			PageFactory.initElements(this.bot.webNav.getDriver(), this);
@@ -214,7 +216,7 @@ public abstract class APage implements IPage{
 	@Override
 	public void navToPageUrl() throws PageException {		
 		try {
-			this.bot.webNav.navigate(this.url);
+			this.bot.webNav.goToUrl(this.url);
 		} catch (Exception e) {
 			throw new PageException("Error at navigate to: "+ this.url);
 		}
@@ -225,7 +227,7 @@ public abstract class APage implements IPage{
 	public void navTabOpen() throws PageException {
 		try {
 			this.bot.webNav.tabOpen();
-		} catch (WebNavException e) {
+		} catch (NavException e) {
 			throw new PageException("[APage.navTabOpen][ERROR-xxx]: Can't open a new tab");
 		}	
 	}
@@ -235,7 +237,7 @@ public abstract class APage implements IPage{
 	public void navTabChange(int numTab) throws PageException {
 		try {
 			this.bot.webNav.tabChange(numTab);
-		} catch (WebNavException e) {
+		} catch (NavException e) {
 			throw new PageException("[APage.navTabChange][ERROR-xxx]: Can't open a new tab");
 		}	
 	}
@@ -245,7 +247,7 @@ public abstract class APage implements IPage{
 	public void navTabClose() throws PageException {
 		try {
 			this.bot.webNav.tabOpen();
-		} catch (WebNavException e) {
+		} catch (NavException e) {
 			throw new PageException("[APage.navTabClose][ERROR-xxx]: Can't open a new tab");
 		}	
 	}
@@ -256,7 +258,7 @@ public abstract class APage implements IPage{
 		try {
 			this.navTabChange(numTabToClose);
 			this.bot.webNav.tabClose();
-		} catch (WebNavException e) {
+		} catch (NavException e) {
 			throw new PageException("[APage.navTabClose][ERROR-3xx]: Can't open a new tab");
 		}
 	}

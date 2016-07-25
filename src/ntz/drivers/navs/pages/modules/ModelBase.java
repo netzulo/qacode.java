@@ -11,6 +11,7 @@ package ntz.drivers.navs.pages.modules;
 import ntz.drivers.ITrandasha;
 import ntz.drivers.navs.elements.IControl;
 import ntz.exceptions.ModelException;
+import ntz.exceptions.NavException;
 
 public class ModelBase extends AModel implements IModel {
 	
@@ -18,7 +19,7 @@ public class ModelBase extends AModel implements IModel {
 		super(_bot);
 	}
 
-	public ModelBase(ITrandasha _bot, String[] _selectors) throws ModelException {
+	public ModelBase(ITrandasha _bot, String[] _selectors) throws ModelException, NavException {
 		super(_bot, _selectors);
 	}
 

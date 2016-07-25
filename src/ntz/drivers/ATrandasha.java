@@ -20,10 +20,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium;
 
-import ntz.drivers.modules.NavEventListener;
-import ntz.drivers.modules.Nav;
+import ntz.drivers.modules.EventsListener;
+import ntz.drivers.modules.navs.NavBase;
+import ntz.exceptions.NavException;
 import ntz.exceptions.TrandashaException;
-import ntz.exceptions.WebNavException;
 import ntz.tests.errors.ITestErrorMessage;
 /**
 * @author netzulo.com
@@ -43,11 +43,11 @@ public abstract class ATrandasha implements ITrandasha{
 	private WebDriverBackedSelenium driverGridOne = null;
 	private RemoteWebDriver driverRemote = null;
 	private EventFiringWebDriver driverJs = null;
-	private NavEventListener driverListener = null;
+	private EventsListener driverListener = null;
 	private WebDriverWait driverWait = null;
 	
 	// Helpers browser classes
-	public Nav webNav;
+	public NavBase webNav;
 	
 	//----------------------------------------------------------------------------------------
 	
@@ -195,7 +195,7 @@ public abstract class ATrandasha implements ITrandasha{
 	}
 
 	@Override
-	public void close() {
+	public void close() throws NavException {
 		this.currDriver.close();
 		this.currDriver.quit();		
 		this.currDriver = null;
@@ -259,7 +259,7 @@ public abstract class ATrandasha implements ITrandasha{
 	}
 	
 	@Override
-	public NavEventListener getDriverListener() throws TrandashaException {
+	public EventsListener getDriverListener() throws TrandashaException {
 		if(currDriver == null){
 			throw new TrandashaException(ITestErrorMessage.ERROR_botNull);
 		}else{
@@ -419,7 +419,7 @@ public abstract class ATrandasha implements ITrandasha{
 		try {
 			this.driverWait = new WebDriverWait(currDriver,5000);
 			this.driverJs = new EventFiringWebDriver(currDriver);
-			this.driverListener = new NavEventListener(currDriver);
+			this.driverListener = new EventsListener(currDriver);
 		} catch (Exception e) {
 			throw new TrandashaException(e.getMessage(),e);
 		}
@@ -432,8 +432,8 @@ public abstract class ATrandasha implements ITrandasha{
 	@Override
 	public void loadModules() throws TrandashaException{
 		try {
-			this.webNav = new Nav(currDriver);
-		} catch (WebNavException e) {
+			this.webNav = new NavBase(currDriver);
+		} catch (NavException e) {
 			throw new TrandashaException(e.getMessage(),e);
 		}
 	}
