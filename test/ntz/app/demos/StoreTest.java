@@ -13,17 +13,14 @@ import ntz.tests.ITestInfo;
 import ntz.tests.TestInfoBase;
 
 public class StoreTest extends TestInfoBase implements ITestInfo{
-  
+	private IPage page;	
 	@Test
 	public void LoadPage() throws TrandashaException, PageException {
 		try {
 			this.bot = new TrandashaBase(DriverType.LOCAL, BrowserMode.CHROME);
-			IPage mainPage = new PageBase(bot,"http://store.demoqa.com/",true);
-			
-			
-			this.pageInit(bot, mainPage);
-			
-		} catch (Exception | AssertionError e) { onErrorAtFinish(e);}
-				
+			this.page =	this.pageInit(bot, new PageBase(bot,"http://store.demoqa.com/",true));			
+		} catch (Exception | AssertionError e) { onErrorAtFinish(e);}				
 	}
+	
+	
 }

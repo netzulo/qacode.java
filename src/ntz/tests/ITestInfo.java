@@ -43,4 +43,7 @@ public interface ITestInfo extends ITestErrorMessage{
 	void tryAssertNotEquals(String actual, String expected, PageException exception) throws PageException;
 	void tryAssertNotEquals(boolean actual, boolean expected, PageException exception) throws PageException;
 	void tryAssertNotEquals(Object actual, Object expected, PageException exception) throws PageException;
+
+	void logBeforeClass(String className);
+	void logAfterClass(String className);	
 }

@@ -24,6 +24,7 @@ import ntz.drivers.modules.EventsListener;
 import ntz.drivers.modules.navs.NavBase;
 import ntz.exceptions.NavException;
 import ntz.exceptions.TrandashaException;
+import ntz.logs.Log;
 import ntz.tests.errors.ITestErrorMessage;
 /**
 * @author netzulo.com
@@ -32,6 +33,7 @@ import ntz.tests.errors.ITestErrorMessage;
 */
 public abstract class ATrandasha implements ITrandasha{
 
+	
 	//COMMON properties
 	private WebDriver currDriver;	
 	private final String DRIVERSPATH = "libs\\drivers\\";
@@ -47,7 +49,7 @@ public abstract class ATrandasha implements ITrandasha{
 	private WebDriverWait driverWait = null;
 	
 	// Helpers browser classes
-	public NavBase webNav;
+	public NavBase navs;
 	
 	//----------------------------------------------------------------------------------------
 	
@@ -201,7 +203,7 @@ public abstract class ATrandasha implements ITrandasha{
 		this.currDriver = null;
 		
 		//Refresh childs webdriver adapters		
-		this.webNav.setDriver(this.currDriver);
+		this.navs.setDriver(this.currDriver);
 	}
 	//----------------------------------------------------------------------------------------
 	@Override
@@ -432,9 +434,17 @@ public abstract class ATrandasha implements ITrandasha{
 	@Override
 	public void loadModules() throws TrandashaException{
 		try {
-			this.webNav = new NavBase(currDriver);
+			this.navs = new NavBase(currDriver);
 		} catch (NavException e) {
 			throw new TrandashaException(e.getMessage(),e);
 		}
+	}
+	
+	@Override
+	public String toString() {
+		String text = "ATrandasha [currDriver=" + currDriver + ", DRIVERSPATH=" + DRIVERSPATH + ", serverUrl=" + serverUrl
+				+ ", driverGridOne=" + driverGridOne + ", driverRemote=" + driverRemote + ", driverJs=" + driverJs
+				+ ", driverListener=" + driverListener + ", driverWait=" + driverWait + ", navs=" + navs + "]";
+		return Log.toJson(text);
 	}
 }

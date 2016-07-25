@@ -7,17 +7,20 @@ import org.openqa.selenium.support.PageFactory;
 
 import ntz.drivers.ITrandasha;
 import ntz.drivers.TrandashaBase;
+import ntz.drivers.navs.elements.ControlBase;
 import ntz.drivers.navs.elements.IControl;
-import ntz.drivers.navs.pages.modules.IModel;
+import ntz.drivers.navs.pages.models.IModel;
+import ntz.exceptions.ControlException;
 import ntz.exceptions.NavException;
 import ntz.exceptions.PageException;
-import ntz.exceptions.WebNavException;
+import ntz.logs.Log;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
 * @author netzulo.com
-* @since 2016-07-22
-* @version 0.5.2
+* @since 2016-07-25
+* @version 0.5.4
+* @update FIX 0.5.4_a
 * 
 * <p></p>
 * <p></p>
@@ -26,17 +29,11 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public abstract class APage implements IPage{
 	
 	/**Fields************************************************************************************/
-
-
-
 	/***/
 	protected SearchType searcher;
 	
 	/*PAGE********************************************************/	
 	
-	
-
-
 	/***/
 	protected String url;
 	
@@ -100,81 +97,97 @@ public abstract class APage implements IPage{
 	public APage(ITrandasha bot, String pageUrl, boolean isNavigateNow, boolean isInitElements) throws PageException, NavException{
 		this(bot, pageUrl,isNavigateNow);
 		if(isInitElements){
-			PageFactory.initElements(this.bot.webNav.getDriver(), this);
+			PageFactory.initElements(this.bot.navs.getDriver(), this);
 		}
 	}
 
 	
-	/**Overrides*********************************************************************************/
+	/**Overrides *********************************************************************************/
 
 	
 	@Override
-	public void addModel(IModel model) {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+	public void addModel(IModel model) throws PageException {
+		if(model == null){throw new PageException("[APage.addModel][ERROR]: Null model");}
+		else{
+			this.models.add(model);
+		}
 	}
 
 
 	@Override
 	public void addControlToModel(IControl control) throws PageException {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+		if(control ==null ){throw new PageException("[APage.addControlToModel][ERROR]: Null control");}
+		else{
+			IModel firstModel = this.models.get(0);
+			if(firstModel == null){throw new PageException("[APage.addControlToModel][ERROR]: Null model");}
+			else{
+				firstModel.addControl(control);
+			}
+		}
 	}
 
 
 	@Override
 	public void addControlToModel(String selector) throws PageException {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+		try {
+			this.addControlsToModel(new ControlBase(this.bot.navs.getDriver(), selector));
+		} catch (ControlException | NavException e) {
+			throw new PageException(e.getMessage(),e);
+		}
 	}
 
 
 	@Override
-	public void addControlToModel(int modelPosition, IControl control) throws PageException {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+	public void addControlToModel(int modelPosition,IControl control) throws PageException {
+		this.models.get(modelPosition).addControl(control);
 	}
 
 
 	@Override
-	public void addControlsToModel(IControl control) throws PageException {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+	public void addControlsToModel(IControl... control) throws PageException {
+		for (IControl iControl : control) {
+			this.addControlToModel(iControl);
+		}
 	}
 
 
 	@Override
 	public void addControlsToModel(String... selectors) throws PageException {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+		for (String selector : selectors) {
+			this.addControlToModel(selector);
+		}
 	}
 
 
 	@Override
 	public void addControlsToModel(List<String> selectors) throws PageException {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+		for (String selector : selectors) {
+			this.addControlToModel(selector);
+		}
 	}
 
 
 	@Override
-	public void addControlsToModel(int modelPosition, IControl control) throws PageException {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+	public void addControlsToModel(int modelPosition, IControl... controls) throws PageException {
+		for (IControl iControl : controls) {
+			this.models.get(modelPosition).addControl(iControl);
+		}
 	}
 
 
 	@Override
 	public void addControlsToModel(int modelPosition, String... selectors) throws PageException {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+		for (String selector : selectors) {
+			this.addControlToModel(selector);
+		}
 	}
 
 
 	@Override
 	public void addControlsToModel(int modelPosition, List<String> selectors) throws PageException {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+		for (String selector : selectors) {
+			this.addControlToModel(selector);
+		}
 	}
 
 
@@ -216,7 +229,7 @@ public abstract class APage implements IPage{
 	@Override
 	public void navToPageUrl() throws PageException {		
 		try {
-			this.bot.webNav.goToUrl(this.url);
+			this.bot.navs.goToUrl(this.url);
 		} catch (Exception e) {
 			throw new PageException("Error at navigate to: "+ this.url);
 		}
@@ -226,7 +239,7 @@ public abstract class APage implements IPage{
 	@Override
 	public void navTabOpen() throws PageException {
 		try {
-			this.bot.webNav.tabOpen();
+			this.bot.navs.tabOpen();
 		} catch (NavException e) {
 			throw new PageException("[APage.navTabOpen][ERROR-xxx]: Can't open a new tab");
 		}	
@@ -236,7 +249,7 @@ public abstract class APage implements IPage{
 	@Override
 	public void navTabChange(int numTab) throws PageException {
 		try {
-			this.bot.webNav.tabChange(numTab);
+			this.bot.navs.tabChange(numTab);
 		} catch (NavException e) {
 			throw new PageException("[APage.navTabChange][ERROR-xxx]: Can't open a new tab");
 		}	
@@ -246,7 +259,7 @@ public abstract class APage implements IPage{
 	@Override
 	public void navTabClose() throws PageException {
 		try {
-			this.bot.webNav.tabOpen();
+			this.bot.navs.tabOpen();
 		} catch (NavException e) {
 			throw new PageException("[APage.navTabClose][ERROR-xxx]: Can't open a new tab");
 		}	
@@ -257,7 +270,7 @@ public abstract class APage implements IPage{
 	public void navTabClose(int numTabToClose) throws PageException {
 		try {
 			this.navTabChange(numTabToClose);
-			this.bot.webNav.tabClose();
+			this.bot.navs.tabClose();
 		} catch (NavException e) {
 			throw new PageException("[APage.navTabClose][ERROR-3xx]: Can't open a new tab");
 		}
@@ -268,21 +281,19 @@ public abstract class APage implements IPage{
 	public void navToIframe(int numIframeToChange) throws PageException {
 		try {
 			if(numIframeToChange == -1){
-				this.bot.webNav.getDriver().switchTo().defaultContent();
+				this.bot.navs.getDriver().switchTo().defaultContent();
 			}else{
-				this.bot.webNav.getDriver().switchTo().frame(numIframeToChange);
+				this.bot.navs.getDriver().switchTo().frame(numIframeToChange);
 			}
 		} catch (Exception e) {
 			throw new PageException("[APage.navToIframe][ERROR-xxx]: ");
 		}
 	}
 
-
 	@Override
 	public String getUrl() throws PageException {		
 		return this.url;
 	}
-
 
 	@Override
 	public void setUrl(String url) throws PageException {
@@ -322,5 +333,10 @@ public abstract class APage implements IPage{
 	@Override
 	public IModel getModel(int modelPosition) {
 		return this.models.get(modelPosition);
+	}
+	
+	@Override
+	public String toString() {
+		return Log.toJson("APage [searcher=" + searcher.name() + ", url=" + url + ", bot=" + bot.toString() + ", models=" + models.toString() + "]");
 	}
 }

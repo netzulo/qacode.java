@@ -1,4 +1,4 @@
-package ntz.drivers.navs.pages.modules;
+package ntz.drivers.navs.pages.models;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +14,9 @@ import ntz.exceptions.ModelException;
 import ntz.exceptions.NavException;
 /**
 * @author netzulo.com
-* @since 2016-07-22
-* @version 0.5.2
+* @since 2016-07-25
+* @version 0.5.4
+* @update FIX 0.5.4_a
 * 
 * <p></p>
 * <p></p>
@@ -24,10 +25,10 @@ import ntz.exceptions.NavException;
 public abstract class AModel implements IModel {
 	
 	/**Fields************************************************************************************/
-	
+
 	/***/
-	private ITrandasha bot;
-	
+	private ITrandasha bot;	
+	/***/	
 	/***/
 	private List<IControl> controls;
 	/**Constructors******************************************************************************/
@@ -35,28 +36,28 @@ public abstract class AModel implements IModel {
 	/***/
 	public AModel(ITrandasha _bot){
 		this.bot = _bot;
-		controls = new ArrayList<>();
+		this.controls = new ArrayList<>();				
 	}
 	
 	/**
 	 * @throws NavException */
-	public AModel(ITrandasha _bot, String[] _selectors) throws ModelException, NavException{
+	public AModel(ITrandasha _bot, String... _selectors) throws ModelException, NavException{
 		this(_bot);
 		for (String selector : _selectors) {
 			if(selector == null){throw new ModelException();}
 			else{
-				WebElement ele = ((TrandashaBase)this.bot).webNav.getDriver().findElement(By.cssSelector(selector));
+				WebElement ele = ((TrandashaBase)this.bot).navs.getDriver().findElement(By.cssSelector(selector));
 				try {
-					this.controls.add(new ControlBase(((TrandashaBase)this.bot).webNav.getDriver(), ele));
+					this.controls.add(new ControlBase(((TrandashaBase)this.bot).navs.getDriver(), ele));
 					
 				} catch (Exception e) {throw new ModelException("Error at try to load element");}
 			}
 		}//foreach
 			
 	}
-	
+			
 	/***/
-	public AModel(ITrandasha _bot, IControl[] _controls) throws ModelException{
+	public AModel(ITrandasha _bot, IControl... _controls) throws ModelException{
 		this(_bot);
 		for (IControl control : _controls) {
 			if(control == null){throw new ModelException();}
@@ -67,58 +68,6 @@ public abstract class AModel implements IModel {
 	}
 	
 	/**Overrides*********************************************************************************/
-	
-	
-	@Override
-	public void actionControl(int actionId, IControl control) throws ModelException {
-		switch (actionId) {
-		case 0:
-			//TODO: action to on control with this actionID
-			break;
-		case 1:
-			//TODO: action to on control with this actionID
-			break;
-		case 2:
-			//TODO: action to on control with this actionID
-			break;
-		default:
-			
-			throw new ModelException("Not defined action for control");			
-		}
-		
-	}
-
-	@Override
-	public void actionControl(ActionType action, IControl control) throws ModelException {
-		this.actionControl(action.ordinal(), control);
-	}
-
-	
-	//---
-	@SuppressWarnings("unused")
-	@Override
-	public void actionControl(int actionId, int controlPosition) throws ModelException {
-		IControl currControl = this.getControl(controlPosition);
-		switch (actionId) {
-		case 0:
-			//TODO: action to on control with this currControl			
-			break;
-		case 1:
-			//TODO: action to on control with this currControl
-			break;
-		case 2:
-			//TODO: action to on control with this currControl
-			break;
-		default:			
-			throw new ModelException("Not defined action for control");			
-		}
-	}
-
-	@Override
-	public void actionControl(ActionType action, int controlPosition) throws ModelException {
-		this.actionControl(action.ordinal(), controlPosition);
-	}
-	//---
 	
 	@Override
 	public IControl getControl(int position) throws ModelException {
@@ -155,9 +104,18 @@ public abstract class AModel implements IModel {
 
 	
 	@Override
-	public boolean runModel() throws ModelException {
-		//TODO: 
-		throw new ModelException("RunModel Method not defined functionality on AModel");
+	public void addControl(IControl control) {
+		if(control == null){}
+		else{
+			this.controls.add(control);
+		}
 	}
 	
+	
+	
+	@Override
+	public boolean runModel() throws ModelException {
+		//TODO: must be defined on BaseClass or inherits 
+		throw new ModelException("RunModel Method not defined functionality on AModel");
+	}
 }

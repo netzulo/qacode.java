@@ -70,7 +70,7 @@ public abstract class ATestInfo implements ITestInfo {
 		Log.info("[TESTs][INFO]: Loading IPage");
 		IPage myPage = page;
 		try {
-			PageFactory.initElements(bot.webNav.getDriver(), myPage);
+			PageFactory.initElements(bot.navs.getDriver(), myPage);
 		} catch (NavException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,13 +88,14 @@ public abstract class ATestInfo implements ITestInfo {
 	@Override
 	public void onErrorAtFinish(Throwable e) throws PageException{
 		String msg = e.getMessage();
-		
+		Log.error(msg);
 		switch (msg) {		
 			case ERROR_unknown:
 				throw new PageException(ERROR_unknown);
 			default:
 				throw new PageException(ERROR_unknown);			
 		}
+		
 	}
 	
 
@@ -158,5 +159,19 @@ public abstract class ATestInfo implements ITestInfo {
 		try { Assert.assertEquals(actual, expected); }
 		 catch (AssertionError e) { throw new PageException(exception.getMessage()); }
 		
+	}
+	
+	
+	@Override
+	public void logBeforeClass(String className){
+		Log.info("-----------------------------------------------");
+		Log.info("Starting test suite for: "+ className);
+		Log.info("-----------------------------------------------");
+	}
+	@Override
+	public void logAfterClass(String className){
+		Log.info("-----------------------------------------------");
+		Log.info("Finished test suite for: "+ className);
+		Log.info("-----------------------------------------------");
 	}
 }

@@ -12,12 +12,14 @@ import org.testng.xml.XmlSuite;
 
 /**
 * @author netzulo.com
-* @since 2013-01-1
-* @version 0.5.1
+* @since 2016-07-25
+* @version 0.5.4
+* @update FIX 0.5.4_a
 */
 public class TestLauncher {
 
 	private TestNG testng;
+	private HtmlReporter htmlReporter = new HtmlReporter();
 	
 	public TestNG getTestng() {
 		return testng;
@@ -33,14 +35,36 @@ public class TestLauncher {
 		}
 	}
 	
+	public TestLauncher(boolean isCustomReporter,boolean isCustomListener) {
+
+		if(!isCustomReporter && !isCustomListener){
+			//ALL its FALSE
+			testng = new TestNG(false);
+		}
+		else{
+			testng = new TestNG(true);
+			if(isCustomReporter){
+				testng.addListener(reporter());
+			}
+			else{
+				//DEFAULT REPORTERs
+			}
+			if(isCustomListener){
+				testng.addListener(listener());
+			}
+			else{
+				//DEFAULT LISTENERs
+			}
+		}
+	}
+	
 	
 	public IReporter reporter(){
 		return new IReporter(){
 
 			@Override
-			public void generateReport(List<XmlSuite> arg0, List<ISuite> arg1, String arg2) {
-				// TODO Auto-generated method stub
-				
+			public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {				
+				htmlReporter.generateReport(xmlSuites, suites, outputDirectory);				
 			}
 		};
 	}

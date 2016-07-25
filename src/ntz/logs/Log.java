@@ -27,17 +27,23 @@ public class Log {
 	}
 	
 	/**Public methods****************************************************************************/
-	 public static void info(String message) {Log.info(message);}
+	public static void info(String message) {Log.info(message);}
 	 
-	 public static void warn(String message) {Log.warn(message);}
+	public static void warn(String message) {Log.warn(message);}
 	 
-	 public static void error(String message) {Log.error(message);}
+	public static void error(String message) {Log.error(message);}
 	 
-	 public static void fatal(String message) {Log.fatal(message);}
+	public static void fatal(String message) {Log.fatal(message);}
+	
+	public static void debug(String message) {Log.debug(message);}
 	 
-	 public static void debug(String message) {Log.debug(message);} 
-	 
-	 
+	public static String toJson(String toStringObject){
+		String asJson = "";		
+		asJson = toStringObject.replace("[", "{\" ");
+		asJson = toStringObject.replace("]", " \"}");
+		asJson = toStringObject.replace("=", "\" : \"");		
+		return asJson;		
+	}
 	/*Private methods***************************************************************************/
 	/**Protected methods*************************************************************************/
 	/**GETs & SETs*******************************************************************************/

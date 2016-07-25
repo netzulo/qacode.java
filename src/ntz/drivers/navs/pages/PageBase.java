@@ -4,7 +4,7 @@ import java.util.List;
 
 import ntz.drivers.ITrandasha;
 import ntz.drivers.navs.elements.IControl;
-import ntz.drivers.navs.pages.modules.IModel;
+import ntz.drivers.navs.pages.models.IModel;
 import ntz.exceptions.NavException;
 import ntz.exceptions.PageException;
 /**
@@ -17,6 +17,8 @@ import ntz.exceptions.PageException;
 * <p></p>
 */
 public class PageBase extends APage {
+
+	
 
 	/**Constructors*************************************************************************/
 
@@ -31,10 +33,9 @@ public class PageBase extends APage {
 	public PageBase(ITrandasha bot) throws PageException {super(bot);}
 	/**Overrides*************************************************************************/
 	@Override
-	public void addModel(IModel model) {
+	public void addModel(IModel model) throws PageException {
 		super.addModel(model);
 	}
-
 
 	@Override
 	public void addControlToModel(IControl control) throws PageException {
@@ -52,7 +53,7 @@ public class PageBase extends APage {
 	}
 
 	@Override
-	public void addControlsToModel(IControl control) throws PageException {
+	public void addControlsToModel(IControl... control) throws PageException {
 		super.addControlsToModel(control);
 	}
 
@@ -67,73 +68,84 @@ public class PageBase extends APage {
 	}
 
 	@Override
-	public void addControlsToModel(int modelPosition, IControl control) throws PageException {		 
-		super.addControlsToModel(modelPosition, control);
+	public void addControlsToModel(int modelPosition, IControl... controls) throws PageException {
+		super.addControlsToModel(modelPosition, controls);
 	}
 
 	@Override
-	public void addControlsToModel(int modelPosition, String... selectors) throws PageException {		 
+	public void addControlsToModel(int modelPosition, String... selectors) throws PageException {
 		super.addControlsToModel(modelPosition, selectors);
 	}
 
 	@Override
-	public void addControlsToModel(int modelPosition, List<String> selectors) throws PageException {		
+	public void addControlsToModel(int modelPosition, List<String> selectors) throws PageException {
 		super.addControlsToModel(modelPosition, selectors);
 	}
 
 	@Override
-	public void findControlsByJs(String... selectors) throws PageException {		 
+	public void findControlsByJs(String... selectors) throws PageException {
 		super.findControlsByJs(selectors);
 	}
 
 	@Override
-	public void findControlsByJs(String scriptJs, String... selectors) throws PageException {		 
+	public void findControlsByJs(String scriptJs, String... selectors) throws PageException {
 		super.findControlsByJs(scriptJs, selectors);
 	}
 
 	@Override
-	public void findControlsByCss(String... selectors) throws PageException {		 
+	public void findControlsByCss(String... selectors) throws PageException {
 		super.findControlsByCss(selectors);
 	}
 
 	@Override
-	public void findControlsByXpath(String... selectors) throws PageException {		 
+	public void findControlsByXpath(String... selectors) throws PageException {
 		super.findControlsByXpath(selectors);
 	}
 
 	@Override
-	public boolean isUrlChanged() throws PageException {		 
+	public boolean isUrlChanged() throws PageException {
 		return super.isUrlChanged();
 	}
 
 	@Override
-	public void navToPageUrl() throws PageException {		 
+	public void navToPageUrl() throws PageException {
 		super.navToPageUrl();
 	}
 
 	@Override
-	public void navTabOpen() throws PageException {		 
+	public void navTabOpen() throws PageException {
 		super.navTabOpen();
 	}
 
 	@Override
-	public void navTabChange(int numTab) throws PageException {		 
+	public void navTabChange(int numTab) throws PageException {
 		super.navTabChange(numTab);
 	}
 
 	@Override
-	public void navTabClose() throws PageException {		 
+	public void navTabClose() throws PageException {
 		super.navTabClose();
 	}
 
 	@Override
-	public void navTabClose(int numTabToClose) throws PageException {		 
+	public void navTabClose(int numTabToClose) throws PageException {
 		super.navTabClose(numTabToClose);
 	}
 
 	@Override
-	public void navToIframe(int numIframeToChange) throws PageException {		 
+	public void navToIframe(int numIframeToChange) throws PageException {
 		super.navToIframe(numIframeToChange);
+	}
+
+	@Override
+	public IModel getModel(int modelPosition) {
+		return super.getModel(modelPosition);
+	}
+
+	@Override
+	public String toString() {
+
+		return super.toString();
 	}
 
 	/**GETs SETs methods*************************************************************************/
@@ -169,7 +181,6 @@ public class PageBase extends APage {
 
 	@Override
 	public List<IModel> getModels() {
-		// TODO Auto-generated method stub
 		return super.getModels();
 	}
 	

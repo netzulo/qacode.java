@@ -1,8 +1,9 @@
-package ntz.drivers.navs.pages.modules;
+package ntz.drivers.navs.pages.models;
 /**
 * @author netzulo.com
-* @since 2016-07-22
-* @version 0.5.2
+* @since 2016-07-25
+* @version 0.5.4
+* @update FIX 0.5.4_a
 * 
 * <p></p>
 * <p></p>
@@ -19,11 +20,11 @@ public class ModelBase extends AModel implements IModel {
 		super(_bot);
 	}
 
-	public ModelBase(ITrandasha _bot, String[] _selectors) throws ModelException, NavException {
+	public ModelBase(ITrandasha _bot,String... _selectors) throws ModelException, NavException {
 		super(_bot, _selectors);
 	}
 
-	public ModelBase(ITrandasha _bot, IControl[] _controls) throws ModelException {
+	public ModelBase(ITrandasha _bot, IControl... _controls) throws ModelException {
 		super(_bot, _controls);
 	}
 

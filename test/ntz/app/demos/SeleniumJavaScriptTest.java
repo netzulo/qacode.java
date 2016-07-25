@@ -21,8 +21,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterClass;
-
+/**
+* @author netzulo.com
+* @since 2016-07-25
+* @version 0.5.4_a
+* 
+* <p></p>
+* <p></p>
+* <p></p>
+*/
 public class SeleniumJavaScriptTest extends TestInfoBase{
+	@SuppressWarnings("unused")
 	private IPage pageDemo;
 	private ControlBase control;
 	
@@ -65,7 +74,7 @@ public class SeleniumJavaScriptTest extends TestInfoBase{
 	  public void Test_Javascript(String selector) throws TrandashaException, ControlException, NavException {
 		  JavascriptExecutor driverJS = this.bot.getDriverJsExec();
 		  //this.control = new ControlBase(this.bot.webNav.getDriver(), selector);
-		  WebElement ele = bot.webNav.getDriver().findElement(By.cssSelector(selector));
+		  WebElement ele = bot.navs.getDriver().findElement(By.cssSelector(selector));
 		  Object returned = null;
 		  
 		  try {

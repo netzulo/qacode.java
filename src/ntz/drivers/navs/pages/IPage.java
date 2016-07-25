@@ -4,7 +4,7 @@ import java.util.List;
 
 import ntz.drivers.ITrandasha;
 import ntz.drivers.navs.elements.IControl;
-import ntz.drivers.navs.pages.modules.IModel;
+import ntz.drivers.navs.pages.models.IModel;
 import ntz.exceptions.PageException;
 
 /**
@@ -22,8 +22,9 @@ public interface IPage {
 	enum SearchType{CSS,JS,XPATH}
 	/*MODELS********************************************************/
 	
-	/***/	
-	void addModel(IModel model);
+	/**
+	 * @throws PageException */	
+	void addModel(IModel model) throws PageException;
 	
 	/**
 	 * Add to first model
@@ -36,14 +37,14 @@ public interface IPage {
 	
 		
 	/***/
-	void addControlsToModel(IControl control) throws PageException;
+	void addControlsToModel(IControl... control) throws PageException;
 	/***/
 	void addControlsToModel(String... selectors) throws PageException;
 	/***/
 	void addControlsToModel(List<String> selectors) throws PageException;
 
 	/***/
-	void addControlsToModel(int modelPosition,IControl control) throws PageException;
+	void addControlsToModel(int modelPosition,IControl... controls) throws PageException;
 	/***/
 	void addControlsToModel(int modelPosition,String... selectors) throws PageException;
 	/***/
@@ -98,9 +99,13 @@ public interface IPage {
 	/***/
 	void setSearcher(SearchType searcher) throws PageException;
 	
-	/***/
+	/**
+	 * Get all models for this page object 
+	 * */
 	List<IModel> getModels();
 	
 	/***/
-	IModel getModel(int modelPosition);
+	IModel getModel(int modelPosition);	
+
+	
 }
