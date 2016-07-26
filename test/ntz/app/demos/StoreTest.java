@@ -13,6 +13,7 @@ import ntz.tests.ITestInfo;
 import ntz.tests.TestInfoBase;
 
 public class StoreTest extends TestInfoBase implements ITestInfo{
+	@SuppressWarnings("unused")
 	private IPage page;	
 	@Test
 	public void LoadPage() throws TrandashaException, PageException {

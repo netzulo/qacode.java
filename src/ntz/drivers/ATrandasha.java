@@ -24,7 +24,7 @@ import ntz.drivers.modules.EventsListener;
 import ntz.drivers.modules.navs.NavBase;
 import ntz.exceptions.NavException;
 import ntz.exceptions.TrandashaException;
-import ntz.logs.Log;
+import ntz.files.FileManager;
 import ntz.tests.errors.ITestErrorMessage;
 /**
 * @author netzulo.com
@@ -445,6 +445,6 @@ public abstract class ATrandasha implements ITrandasha{
 		String text = "ATrandasha [currDriver=" + currDriver + ", DRIVERSPATH=" + DRIVERSPATH + ", serverUrl=" + serverUrl
 				+ ", driverGridOne=" + driverGridOne + ", driverRemote=" + driverRemote + ", driverJs=" + driverJs
 				+ ", driverListener=" + driverListener + ", driverWait=" + driverWait + ", navs=" + navs + "]";
-		return Log.toJson(text);
+		return FileManager.toJson(text);
 	}
 }

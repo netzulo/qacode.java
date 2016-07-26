@@ -44,11 +44,45 @@ public class DemoQATest extends TestInfoBase implements ITestInfo{
 	@AfterClass
 	public void CloseSuite() throws PageException{
 		try {
+			String txt = "";
+			try {txt = this.page.toString();} catch (Exception e) {
+				e.getMessage();
+			}
+			Log.info("----------------------------------------------");
+			Log.info("Page.toJson: "+ txt);
+			Log.info("----------------------------------------------");
+			
 			this.botFinish(bot);			
 			this.logAfterClass(this.getClass().getName());				
 		} catch (Exception | AssertionError e) { onErrorAtFinish(e);}	
 	}
 
+	
+	@Test
+	public void LoadPageControls_on_model_creation() throws PageException {
+		try {						
+			this.page.addModel(new ModelBase(bot,
+					"#site_navigation > div > div.collapse.navbar-collapse.navbar-ex1-collapse"
+//					"#post-9 > div > div:nth-child(1)",
+//					"#post-9 > div > div:nth-child(2)",
+//					"#post-9 > div > div:nth-child(3)",
+//					"#post-9 > div > div.col-md-6.tabcontents"
+			));
+				
+			@SuppressWarnings("unused")
+			List<IModel> models = this.page.getModels();
+			
+			
+		} catch (Exception | AssertionError e) { 
+			onErrorAtFinish(e);
+		}
+	}
+	
+	
+	
+	
+	
+	
 	@Test
 	public void LoadPageControls_after_model_creation() throws PageException {
 		try {						
@@ -61,10 +95,7 @@ public class DemoQATest extends TestInfoBase implements ITestInfo{
 					"#post-9 > div > div.col-md-6.tabcontents"
 			);			
 			@SuppressWarnings("unused")
-			List<IModel> models = this.page.getModels();							
-			Log.info("----------------------------------------------");
-			Log.info("Page.toJson: "+ page.toString());
-			Log.info("----------------------------------------------");
+			List<IModel> models = this.page.getModels();									
 		} catch (Exception | AssertionError e) { 
 			onErrorAtFinish(e);
 		}

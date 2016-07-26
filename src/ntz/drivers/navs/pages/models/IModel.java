@@ -26,4 +26,7 @@ public interface IModel {
 	
 	/***/
 	void addControl(IControl control);
+		
+	/***/
+	String toString();
 }

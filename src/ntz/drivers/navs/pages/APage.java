@@ -13,13 +13,13 @@ import ntz.drivers.navs.pages.models.IModel;
 import ntz.exceptions.ControlException;
 import ntz.exceptions.NavException;
 import ntz.exceptions.PageException;
-import ntz.logs.Log;
+import ntz.files.FileManager;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
 * @author netzulo.com
 * @since 2016-07-25
-* @version 0.5.4
+* @version 0.5.5
 * @update FIX 0.5.4_a
 * 
 * <p></p>
@@ -337,6 +337,18 @@ public abstract class APage implements IPage{
 	
 	@Override
 	public String toString() {
-		return Log.toJson("APage [searcher=" + searcher.name() + ", url=" + url + ", bot=" + bot.toString() + ", models=" + models.toString() + "]");
+		String botToLog = "";
+		String modelsToLog = "";
+		String searcherName = "NULL";
+		try {
+			botToLog = bot.toString();
+			modelsToLog = models.toString();
+			
+			searcherName = searcher.name();
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		String json = FileManager.toJson("APage [searcher=" + searcherName + ", url=" + url + ", bot=" + botToLog + ", models=" + modelsToLog + "]");
+		return json;
 	}
 }

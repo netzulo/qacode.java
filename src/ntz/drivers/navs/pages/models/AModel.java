@@ -25,7 +25,6 @@ import ntz.exceptions.NavException;
 public abstract class AModel implements IModel {
 	
 	/**Fields************************************************************************************/
-
 	/***/
 	private ITrandasha bot;	
 	/***/	
@@ -110,12 +109,17 @@ public abstract class AModel implements IModel {
 			this.controls.add(control);
 		}
 	}
-	
-	
-	
+	 
 	@Override
 	public boolean runModel() throws ModelException {
 		//TODO: must be defined on BaseClass or inherits 
 		throw new ModelException("RunModel Method not defined functionality on AModel");
 	}
+	
+	
+	
+	
 }
+
+
+

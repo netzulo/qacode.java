@@ -17,20 +17,27 @@ import ntz.tests.errors.ITestErrorMessage;
 * <p></p>
 * <p></p>
 */
-public class bug_ControlList extends ControlBase implements IControl {
+public class ControlList extends ControlBase implements IControl {
 
 	/**Fields************************************************************************************/
-	protected List<bug_ControlLink> listItemsLinks;	
+	protected List<ControlLink> listItemsLinks;	
 	
 	
 	/**Constructors******************************************************************************/
-	public bug_ControlList(WebElement currentEle) throws ControlException {
-		super(currentEle);		
+	public ControlList(WebDriver driver, String selector) throws ControlException {
+		super(driver, selector);
 		loadListLink();
 	}
 
-	public bug_ControlList(WebDriver driver, String cssSelector) throws ControlException {
-		super(driver, cssSelector);
+
+	public ControlList(WebDriver driver, WebElement element) throws ControlException {
+		super(driver, element);
+		loadListLink();
+	}
+
+
+	public ControlList(WebDriver driver) throws ControlException {
+		super(driver);
 		loadListLink();
 	}
 
@@ -42,7 +49,7 @@ public class bug_ControlList extends ControlBase implements IControl {
 			for (WebElement _li : _listItems) {
 				WebElement _link = _li.findElement(By.cssSelector("a"));
 				
-				listItemsLinks.add(new bug_ControlLink(_link));		
+				listItemsLinks.add(new ControlLink(this.driver, _link));		
 			}		
 		} catch (Exception e) {
 			throw new ControlException(ITestErrorMessage.ERROR_listLinksNotFound);
@@ -50,8 +57,10 @@ public class bug_ControlList extends ControlBase implements IControl {
 	}
 	
 	
+
+
 	/**GETs & SETs methods****************************************************************************/
-	public List<bug_ControlLink> getListItemsLinks() {
+	public List<ControlLink> getListItemsLinks() {
 		return listItemsLinks;
 	}
 

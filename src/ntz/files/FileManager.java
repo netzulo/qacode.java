@@ -15,16 +15,27 @@ public class FileManager {
 	/******************************************************************************************************************/
 
 	public static ArrayList<String> readFileFromPath(String path) throws FileNotFoundException, IOException {
-		ArrayList<String> casos = new ArrayList<>();
+		ArrayList<String> testcases = new ArrayList<>();
 		String cadena;
 		FileReader file = new FileReader(path);
 
 		BufferedReader buffer = new BufferedReader(file);
 		while ((cadena = buffer.readLine()) != null) {
-			casos.add(cadena);
+			testcases.add(cadena);
 		}
 		buffer.close();
 
-		return casos;
+		return testcases;
+	}
+	
+	
+	public static String toJson(String toStringObject){
+		String asJson = "";		
+		if(toStringObject != null){
+			asJson = toStringObject.replace("[", "{\" ");
+			asJson = toStringObject.replace("]", " \"}");
+			asJson = toStringObject.replace("=", "\" : \"");	
+		}	
+		return asJson;		
 	}
 }

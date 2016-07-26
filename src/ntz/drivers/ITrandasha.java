@@ -296,4 +296,10 @@ public interface ITrandasha {
 	*/
 	void loadModules() throws TrandashaException;
 	
+	/**
+	* @author netzulo.com
+	* @since 2016-07-25
+	* @version 0.5.5
+	*/
+	String toString();
 }

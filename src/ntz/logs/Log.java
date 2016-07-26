@@ -36,14 +36,7 @@ public class Log {
 	public static void fatal(String message) {Log.fatal(message);}
 	
 	public static void debug(String message) {Log.debug(message);}
-	 
-	public static String toJson(String toStringObject){
-		String asJson = "";		
-		asJson = toStringObject.replace("[", "{\" ");
-		asJson = toStringObject.replace("]", " \"}");
-		asJson = toStringObject.replace("=", "\" : \"");		
-		return asJson;		
-	}
+		
 	/*Private methods***************************************************************************/
 	/**Protected methods*************************************************************************/
 	/**GETs & SETs*******************************************************************************/

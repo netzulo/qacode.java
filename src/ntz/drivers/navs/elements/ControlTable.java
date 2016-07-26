@@ -11,17 +11,17 @@ import ntz.exceptions.ControlException;
 import ntz.tests.errors.ITestErrorMessage;
 /**
 * @author netzulo.com
-* @since 2016-07-22
-* @version 0.5.1
+* @since 2016-07-25
+* @version 0.5.5
 * 
 * <p></p>
 * <p></p>
 * <p></p>
 */
-public class bug_ControlTable extends ControlBase implements IControl{
+public class ControlTable extends ControlBase implements IControl{
 
 	/**Fields************************************************************************************/
-	private bug_ControlCell[][] tableGrid;
+	private ControlBase[][] tableGrid;
 	private int tableCellsTotal;
 	//---	
 	private List<WebElement> tableBodyRows;
@@ -30,8 +30,13 @@ public class bug_ControlTable extends ControlBase implements IControl{
 	private int tableWidth;
 	
 	/**Constructors******************************************************************************/
-	public bug_ControlTable(WebElement currentEle) throws ControlException {
-		super(currentEle);		
+	public ControlTable(WebDriver driver) throws ControlException {
+		super(driver);
+		throw new ControlException("[ControlTable][WARNING]: constructor without table element can't work, denied constructor");
+	}
+	
+	public ControlTable(WebDriver driver,WebElement currentEle) throws ControlException {
+		super(driver, currentEle);		
 		if(this.tagName.equalsIgnoreCase("table") == false){
 			throw new ControlException(ITestErrorMessage.ERROR_tableWrongTagname);
 		}else{
@@ -41,7 +46,7 @@ public class bug_ControlTable extends ControlBase implements IControl{
 		}		
 	}
 
-	public bug_ControlTable(WebDriver driver, String cssSelector) throws ControlException {
+	public ControlTable(WebDriver driver, String cssSelector) throws ControlException {
 		super(driver, cssSelector);
 		if(this.tagName.equalsIgnoreCase("table") == false){
 			throw new ControlException(ITestErrorMessage.ERROR_tableWrongTagname);
@@ -62,15 +67,15 @@ public class bug_ControlTable extends ControlBase implements IControl{
 		int tableBodyRowsTotal = -1, tableBodyCellsTotal = -1;
 		
 		try {				
-			this.tableBodyRows = this.element.findElements(By.cssSelector("tbody tr"));
-			this.tableBodyCells = this.element.findElements(By.cssSelector("tbody td"));
+			this.tableBodyRows = this.element.findElements(By.cssSelector("tr"));
+			this.tableBodyCells = this.element.findElements(By.cssSelector("td"));
 			
 			this.tableHeight = tableBodyRowsTotal = tableBodyRows.size();
 			tableBodyCellsTotal = tableBodyCells.size();					
 			
 			this.tableWidth = tableBodyCellsTotal/tableBodyRowsTotal;					
 			//--		
-			this.tableGrid = new bug_ControlCell[tableHeight][tableWidth];
+			this.tableGrid = new ControlBase[tableHeight][tableWidth];
 			//--	
 			this.tableCellsTotal = tableBodyCells.size();
 		} catch (Exception e) {
@@ -83,7 +88,7 @@ public class bug_ControlTable extends ControlBase implements IControl{
 			int extCounter = 0;
 			for (int rowPos = 0; rowPos < tableHeight; rowPos++) {				
 				for (int cellPos = 0; cellPos < tableWidth; cellPos++) {					
-					tableGrid[rowPos][cellPos] = new bug_ControlCell(tableBodyCells.get(extCounter));
+					tableGrid[rowPos][cellPos] = new ControlBase(this.driver,tableBodyCells.get(extCounter));
 					extCounter++;
 				}
 			}			
@@ -95,22 +100,22 @@ public class bug_ControlTable extends ControlBase implements IControl{
 	/**Protected methods*************************************************************************/
 	/**GETs & SETs*******************************************************************************/	
 		
-	public bug_ControlCell[][] getTableGrid(){
+	public ControlBase[][] getTableGrid(){
 		return this.tableGrid;
 	}
 	
-	public bug_ControlCell getCellFromGrid(int row, int column){
+	public ControlBase getCellFromGrid(int row, int column){
 		return tableGrid[row][column];
 	}
 	
 	public boolean isContainOnCell(int row, int column, String textToSearch){		
-		String txt = tableGrid[row][column].getText();
+		String txt = tableGrid[row][column].text;
 		
 		return txt.contains(textToSearch);
 	}
 	
-	public bug_ControlCell getCellFromList(int cellPosition) throws ControlException{
-		return new bug_ControlCell(tableBodyCells.get(cellPosition));
+	public ControlBase getCellFromList(int cellPosition) throws ControlException{
+		return new ControlBase(this.driver,tableBodyCells.get(cellPosition));
 	}	
 	
 	public int getCellsTotal(){
@@ -119,9 +124,9 @@ public class bug_ControlTable extends ControlBase implements IControl{
 		
 	public StringBuilder getCellsToStringBuilder(){
 		StringBuilder sb = new StringBuilder();
-		for (bug_ControlCell[] cell : ((bug_ControlTable)this).getTableGrid()) {
+		for (ControlBase[] cell : ((ControlTable)this).getTableGrid()) {
 			for (int i = 0; i < cell.length; i++) {
-				String txt = cell[i].getText();				
+				String txt = cell[i].text;				
 				sb.append(txt);
 				sb.append("|");
 			}
@@ -129,10 +134,10 @@ public class bug_ControlTable extends ControlBase implements IControl{
 		return sb;
 	}
 	
-	public Hashtable<Integer,bug_ControlCell> getCellsTotoHashTable(){
-		Hashtable<Integer,bug_ControlCell> ht = new Hashtable<>();
+	public Hashtable<Integer,ControlBase> getCellsTotoHashTable(){
+		Hashtable<Integer,ControlBase> ht = new Hashtable<>();
 		int counter = 0;
-		for (bug_ControlCell[] cell : ((bug_ControlTable)this).getTableGrid()) {
+		for (ControlBase[] cell : ((ControlTable)this).getTableGrid()) {
 			for (int i = 0; i < cell.length; i++) {										
 				ht.put(counter, cell[i]);
 				counter++;
@@ -144,9 +149,9 @@ public class bug_ControlTable extends ControlBase implements IControl{
 	public Hashtable<Integer,String> getCellsTotoHashTableText(){
 		Hashtable<Integer,String> ht = new Hashtable<>();		
 		int counter = 0;
-		for (bug_ControlCell[] cell : this.getTableGrid()) {
+		for (ControlBase[] cell : this.getTableGrid()) {
 			for (int i = 0; i < cell.length; i++) {										
-				ht.put(counter, cell[i].getText());
+				ht.put(counter, cell[i].text);
 				counter++;
 			}
 		}		
@@ -165,9 +170,9 @@ public class bug_ControlTable extends ControlBase implements IControl{
 	public String getCellsToString(){
 		StringBuilder sb = new StringBuilder();
 		
-		for (bug_ControlCell[] cell : this.getTableGrid()) {
+		for (ControlBase[] cell : this.getTableGrid()) {
 			for (int i = 0; i < cell.length; i++) {
-				String txt = cell[i].getText();				
+				String txt = cell[i].text;				
 				sb.append(txt);
 			}
 		}		

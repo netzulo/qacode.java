@@ -14,16 +14,14 @@ import ntz.drivers.modules.IJscripts;
 import ntz.exceptions.ControlException;
 /**
 * @author netzulo.com
-* @since 2016-07-23
-* @version 0.5.3
+* @since 2016-07-25
+* @version 0.5.5
 * 
 * <p></p>
 * <p></p>
 * <p></p>
 */
 public class AControl implements IControl {
-
-
 	
 	/**Fields************************************************************************************/
 	/***/
@@ -152,6 +150,7 @@ public class AControl implements IControl {
 	}
 	@Override
 	public IControl InitJS() throws ControlException {
+		@SuppressWarnings("unused")
 		String allEleEvents = "";
 		try {
 			allEleEvents = ((JavascriptExecutor)this.driver).executeScript(IJscripts.js_getAllEventListeners, this.element).toString();

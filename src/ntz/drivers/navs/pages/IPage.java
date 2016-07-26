@@ -107,5 +107,7 @@ public interface IPage {
 	/***/
 	IModel getModel(int modelPosition);	
 
+	/***/
+	String toString();
 	
 }
