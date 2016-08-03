@@ -18,12 +18,10 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
 import ntz.drivers.modules.EventsListener;
 import ntz.drivers.modules.navs.NavBase;
 import ntz.exceptions.NavException;
 import ntz.exceptions.TrandashaException;
-import ntz.files.FileManager;
 import ntz.tests.errors.ITestErrorMessage;
 /**
 * @author netzulo.com
@@ -449,6 +447,6 @@ public abstract class ATrandasha implements ITrandasha{
 		String text = "ATrandasha [currDriver=" + currDriver + ", DRIVERSPATH=" + DRIVERSPATH + ", serverUrl=" + serverUrl
 				+ ", driverRemote=" + driverRemote + ", driverJs=" + driverJs
 				+ ", driverListener=" + driverListener + ", driverWait=" + driverWait + ", navs=" + navs + "]";
-		return FileManager.toJson(text);
+		return text;
 	}
 }

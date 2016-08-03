@@ -13,7 +13,6 @@ import ntz.drivers.navs.pages.models.IModel;
 import ntz.exceptions.ControlException;
 import ntz.exceptions.NavException;
 import ntz.exceptions.PageException;
-import ntz.files.FileManager;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -340,15 +339,18 @@ public abstract class APage implements IPage{
 		String botToLog = "";
 		String modelsToLog = "";
 		String searcherName = "NULL";
+		String text = "";
 		try {
 			botToLog = bot.toString();
 			modelsToLog = models.toString();
 			
 			searcherName = searcher.name();
+			
+			text = "APage [searcher=" + searcherName + ", url=" + url + ", bot=" + botToLog + ", models=" + modelsToLog + "]";
 		} catch (Exception e) {
 			e.getMessage();
 		}
-		String json = FileManager.toJson("APage [searcher=" + searcherName + ", url=" + url + ", bot=" + botToLog + ", models=" + modelsToLog + "]");
-		return json;
+		
+		return text;
 	}
 }
