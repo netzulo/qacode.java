@@ -1,41 +1,59 @@
 package ntz.files;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 /**
 * @author netzulo.com
-* @since 2013-01-1
-* @version 0.5.1
+* @since 2016-08-03
+* @version 0.5.6
+* @updateFrom 0.5.1
 */
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Properties;
+
+import ntz.exceptions.FileManagerException;
 public class FileManager {
 
 	/******************************************************************************************************************/
 
-	public static ArrayList<String> readFileFromPath(String path) throws FileNotFoundException, IOException {
-		ArrayList<String> testcases = new ArrayList<>();
-		String cadena;
-		FileReader file = new FileReader(path);
+	public static List<String> readFileFromPath(String path) throws FileManagerException {
+		ArrayList<String> lanes = new ArrayList<>();
+		String lane;
+		try {
+			FileReader file = new FileReader(path);
 
-		BufferedReader buffer = new BufferedReader(file);
-		while ((cadena = buffer.readLine()) != null) {
-			testcases.add(cadena);
+			BufferedReader buffer = new BufferedReader(file);
+			while ((lane = buffer.readLine()) != null) {
+				lanes.add(lane);
+			}
+			buffer.close();
+		} catch (Exception e) {
+			throw new FileManagerException("[FileManager][ERROR]: at read file "+ path);
 		}
-		buffer.close();
-
-		return testcases;
+		return lanes;
 	}
 	
-	
-	public static String toJson(String toStringObject){
-		String asJson = "";		
-		if(toStringObject != null){
-			asJson = toStringObject.replace("[", "{\" ");
-			asJson = toStringObject.replace("]", " \"}");
-			asJson = toStringObject.replace("=", "\" : \"");	
-		}	
-		return asJson;		
-	}
+	/**
+	 * Need complete pathname + filename + extension to works
+	 * */
+	public static Hashtable<String, String> readProperties(String path) throws FileManagerException{
+		Hashtable<String, String> props = new Hashtable<>();
+		Properties propsFile = new Properties();
+		InputStream is = null;
+		try {
+			is = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+			propsFile.load(is);			
+			if(propsFile != null && is!= null){
+				props.put("url", propsFile.getProperty("url"));
+				props.put("devkey", propsFile.getProperty("devkey"));
+			}								
+		} catch (Exception e) {
+			throw new FileManagerException("[FileManager][ERROR]: at read properties file on "+ path);
+		}		
+		
+		return props;		
+	} 
 }

@@ -17,9 +17,7 @@ import ntz.exceptions.PageException;
 * <p></p>
 */
 public class PageBase extends APage {
-
 	
-
 	/**Constructors*************************************************************************/
 
 	public PageBase() throws PageException {super();}
@@ -34,7 +32,7 @@ public class PageBase extends APage {
 	/**Overrides*************************************************************************/
 	@Override
 	public void addModel(IModel model) throws PageException {
-		super.addModel(model);
+		super.addModel(model);		
 	}
 
 	@Override

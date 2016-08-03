@@ -3,7 +3,7 @@ package ntz.app;
 import org.testng.annotations.Test;
 
 import ntz.exceptions.TrandashaException;
-import ntz.testlink.TestlinkConnector;
+import ntz.testlink.TestlinkBase;
 /**
 * @author netzulo.com
 * @since 2013-01-1
@@ -12,10 +12,10 @@ import ntz.testlink.TestlinkConnector;
 public class TestlinkTest {
 	@Test
 	public void ConnectorTest() throws TrandashaException {
-		TestlinkConnector testlink;
+		TestlinkBase testlink;
 		
 		try {		
-			testlink = new TestlinkConnector();
+			testlink = new TestlinkBase();
 			
 			//TODO: create structure from code
 			

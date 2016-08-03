@@ -72,7 +72,6 @@ public class DemoQATest extends TestInfoBase implements ITestInfo{
 			@SuppressWarnings("unused")
 			List<IModel> models = this.page.getModels();
 			
-			
 		} catch (Exception | AssertionError e) { 
 			onErrorAtFinish(e);
 		}
