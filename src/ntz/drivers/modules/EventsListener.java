@@ -144,5 +144,17 @@ public class EventsListener implements WebDriverEventListener {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void afterChangeValueOf(WebElement arg0, WebDriver arg1, CharSequence[] arg2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void beforeChangeValueOf(WebElement arg0, WebDriver arg1, CharSequence[] arg2) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

@@ -18,7 +18,6 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium;
 
 import ntz.drivers.modules.EventsListener;
 import ntz.drivers.modules.navs.NavBase;
@@ -30,19 +29,20 @@ import ntz.tests.errors.ITestErrorMessage;
 * @author netzulo.com
 * @since 2013-01-1
 * @version 0.5.1
+* @versionUpdate 0.5.6
 */
 public abstract class ATrandasha implements ITrandasha{
 
 	
 	//COMMON properties
 	private WebDriver currDriver;	
-	private final String DRIVERSPATH = "libs\\drivers\\";
+	private final String DRIVERSPATH = "libs\\addons\\drivers\\";
 	
 	//REMOTE properties
 	private String serverUrl = "http://localhost:11000/wd/hub";
 
 	// USABLE drivers
-	private WebDriverBackedSelenium driverGridOne = null;
+	//private WebDriverBackedSelenium driverGridOne = null;
 	private RemoteWebDriver driverRemote = null;
 	private EventFiringWebDriver driverJs = null;
 	private EventsListener driverListener = null;
@@ -282,7 +282,7 @@ public abstract class ATrandasha implements ITrandasha{
 
 	/**
 	 *@see Open FIREFOX browser
-	 * */	
+	 * */		
 	@Override
 	public void openFirefox() {
 		currDriver = new FirefoxDriver(capsFirefox());
@@ -335,7 +335,11 @@ public abstract class ATrandasha implements ITrandasha{
 	 * */
 	@Override
 	public Capabilities capsFirefox() {
-		return DesiredCapabilities.firefox();
+		System.setProperty("webdriver.gecko.driver", DRIVERSPATH+"geckodriver.exe");
+		DesiredCapabilities caps = DesiredCapabilities.firefox();	
+		((DesiredCapabilities )caps).setCapability("marionette", true);
+		
+		return caps;
 	}
 
 	/**
@@ -343,7 +347,7 @@ public abstract class ATrandasha implements ITrandasha{
 	 * */
 	@Override
 	public Capabilities capsChrome() {
-		System.setProperty("webdriver.chrome.driver", DRIVERSPATH+"chromeDriver.exe");
+		System.setProperty("webdriver.chrome.driver", DRIVERSPATH+"chromedriver.exe");
 		return DesiredCapabilities.chrome();
 	}
 
@@ -397,7 +401,7 @@ public abstract class ATrandasha implements ITrandasha{
 		int readyDrivers = 0;//Cuenta cuantos drivers están listos
 		//---		
 		
-		if(driverGridOne != null){ isReadyDrivers[0] = true; }
+		//if(driverGridOne != null){ isReadyDrivers[0] = true; }
 		if(driverRemote != null){ isReadyDrivers[1] = true; }
 		if(driverJs != null){ isReadyDrivers[2] = true; }		
 		
@@ -443,7 +447,7 @@ public abstract class ATrandasha implements ITrandasha{
 	@Override
 	public String toString() {
 		String text = "ATrandasha [currDriver=" + currDriver + ", DRIVERSPATH=" + DRIVERSPATH + ", serverUrl=" + serverUrl
-				+ ", driverGridOne=" + driverGridOne + ", driverRemote=" + driverRemote + ", driverJs=" + driverJs
+				+ ", driverRemote=" + driverRemote + ", driverJs=" + driverJs
 				+ ", driverListener=" + driverListener + ", driverWait=" + driverWait + ", navs=" + navs + "]";
 		return FileManager.toJson(text);
 	}

@@ -63,7 +63,7 @@ public class TrandashaTest extends TestInfoBase implements ITestInfo{
 	
 	
 	
-	@Test()
+	@Test(dataProvider="browsersDP")
 	public void TestCase_IPage(DriverType type,BrowserMode browser) throws PageException {
 		String url = "http://192.168.0.100:11001/wd/hub";
 		try {
