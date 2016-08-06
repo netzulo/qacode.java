@@ -1,6 +1,8 @@
 package ntz.files;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -16,7 +18,9 @@ import java.util.Properties;
 
 import ntz.exceptions.FileManagerException;
 public class FileManager {
-
+	/******************************************************************************************************************/
+	public final static String PATH_MYSQL = "/libs/configs/db/mysql.properties";
+	public final static String PATH_TESTLINK = "/libs/configs/testlink/testlink.properties";
 	/******************************************************************************************************************/
 
 	public static List<String> readFileFromPath(String path) throws FileManagerException {
@@ -39,16 +43,23 @@ public class FileManager {
 	/**
 	 * Need complete pathname + filename + extension to works
 	 * */
-	public static Hashtable<String, String> readProperties(String path) throws FileManagerException{
+	public static Hashtable<String, String> readProperties(String path, String... _props) throws FileManagerException{
 		Hashtable<String, String> props = new Hashtable<>();
 		Properties propsFile = new Properties();
 		InputStream is = null;
 		try {
-			is = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
-			propsFile.load(is);			
+			//is =Class.class.getResourceAsStream(path);
+			is = new FileInputStream(new File(System.getProperty("user.dir")+path));
+			propsFile.load(is);		
+			//Validate if file was loaded rightly
 			if(propsFile != null && is!= null){
-				props.put("url", propsFile.getProperty("url"));
-				props.put("devkey", propsFile.getProperty("devkey"));
+				//Validate parameters
+				if(_props.length > 0){
+					for (String _prop : _props) {
+						//GET property from file and put into HashTable
+						props.put(_prop, propsFile.getProperty(_prop));
+					}
+				}
 			}								
 		} catch (Exception e) {
 			throw new FileManagerException("[FileManager][ERROR]: at read properties file on "+ path);

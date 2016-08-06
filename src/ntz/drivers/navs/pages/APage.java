@@ -13,6 +13,7 @@ import ntz.drivers.navs.pages.models.IModel;
 import ntz.exceptions.ControlException;
 import ntz.exceptions.NavException;
 import ntz.exceptions.PageException;
+import ntz.tests.errors.ITestErrorMessage;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -352,5 +353,20 @@ public abstract class APage implements IPage{
 		}
 		
 		return text;
+	}
+	/**Page public methods*************************************************************************/
+		
+	@Override
+	public String getCurrentUrl() throws PageException{
+		String currUrl = "";
+		try {
+			
+			currUrl = this.bot.navs.getCurrentUrl();
+			
+			
+		} catch (Exception e) {
+			throw new PageException(ITestErrorMessage.ERROR_url);
+		}
+		return currUrl;
 	}
 }

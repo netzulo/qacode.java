@@ -82,7 +82,7 @@ public interface IPage {
 	/***/
 	void navToIframe(int numIframeToChange) throws PageException;
 	
-	/**GETs SETs me1thods*************************************************************************/
+	/**GETs SETs methods*************************************************************************/
 	
 	/***/
 	String getUrl()throws PageException;
@@ -109,5 +109,11 @@ public interface IPage {
 
 	/***/
 	String toString();
+	
+	/**Page public methods*************************************************************************/
+	
+	/**
+	 * @throws PageException */
+	String getCurrentUrl() throws PageException;
 	
 }

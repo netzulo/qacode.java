@@ -15,6 +15,7 @@ import org.testng.xml.XmlSuite;
 * @since 2016-07-25
 * @version 0.5.4
 * @update FIX 0.5.4_a
+* @TODO: change addListener to load ITestNGListener classes instead of ITestListener
 */
 public class TestLauncher {
 
@@ -26,6 +27,7 @@ public class TestLauncher {
 	}
 
 
+	@SuppressWarnings("deprecation")
 	public TestLauncher(boolean defaultListeners) {
 			
 		testng = new TestNG(defaultListeners);				
@@ -35,6 +37,7 @@ public class TestLauncher {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public TestLauncher(boolean isCustomReporter,boolean isCustomListener) {
 
 		if(!isCustomReporter && !isCustomListener){

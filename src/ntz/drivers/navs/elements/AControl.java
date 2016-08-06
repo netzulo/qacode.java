@@ -170,9 +170,16 @@ public class AControl implements IControl {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	@Override
+	public String eleRead() throws ControlException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	@Override
 	public boolean eleWrite(String text) throws ControlException {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub		
 		return false;
 	}
 	@Override
@@ -276,6 +283,11 @@ public class AControl implements IControl {
 		throw new ControlException("Funtion not defined");
 	}
 	
+	@Override
+	public String getText() throws ControlException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	//**DEBUG*/
 	
 	@Override
@@ -285,5 +297,6 @@ public class AControl implements IControl {
 				+ ", 'screenShotAsBase64':" + screenShotAsBase64 + ", 'eventsJS':" + eventsJS + ", 'stylesHTML':" + stylesHTML
 				+ ", 'stylesCSS':" + stylesCSS + "}";
 	}
+	
 	
 }

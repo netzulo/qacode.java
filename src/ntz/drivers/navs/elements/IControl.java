@@ -44,7 +44,7 @@ public interface IControl {
 	boolean runControl() throws ControlException;
 	/**Commons **********************************************************************************/
 	boolean eleScreenShot() throws ControlException;
-	
+	String eleRead() throws ControlException;
 	boolean eleWrite(String text) throws ControlException;
 	boolean eleWrite(String text, boolean isClear) throws ControlException;
 	boolean eleClear() throws ControlException;
@@ -73,6 +73,8 @@ public interface IControl {
 	/***/
 	String getTagName() throws ControlException;
 	
+	/***/
+	String getText() throws ControlException;
 	/***/
 	TakesScreenshot getScreenshot() throws ControlException;
 	/***/

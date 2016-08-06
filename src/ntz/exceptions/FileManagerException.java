@@ -2,6 +2,11 @@ package ntz.exceptions;
 
 public class FileManagerException extends Exception {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4954411872091327737L;
+
 	public FileManagerException() {
 		// TODO Auto-generated constructor stub
 	}

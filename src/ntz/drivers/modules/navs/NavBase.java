@@ -7,9 +7,9 @@ import ntz.exceptions.NavException;
 
 /**
  * Store List<WebControl> controls of a website scrapped by searchers
- * @author netzulo.com
-* @since 2016-07-25
-* @version 0.5.4
+ *@author netzulo.com
+* @since 2016-08-06
+* @version 0.5.7
 * 
 * <p></p>
 * <p></p>
@@ -79,11 +79,6 @@ public class NavBase extends ANav implements INav{
 	}
 
 	@Override
-	public boolean text(IControl control) throws NavException {
-		return super.text(control);
-	}
-
-	@Override
 	public boolean text(IControl control, String setText) throws NavException {
 		return super.text(control, setText);
 	}
@@ -99,7 +94,7 @@ public class NavBase extends ANav implements INav{
 	}
 
 	@Override
-	public boolean attribute(IControl control, String getAttrName) throws NavException {
+	public String attribute(IControl control, String getAttrName) throws NavException {
 		return super.attribute(control, getAttrName);
 	}
 
@@ -132,7 +127,12 @@ public class NavBase extends ANav implements INav{
 	@Override
 	public boolean setDriver(WebDriver driver) throws NavException {
 		return super.setDriver(driver);
-	}	
+	}
+	
+	@Override
+	public String getCurrentUrl() throws NavException{
+		return super.getCurrentUrl();
+	}
 	/**Private methods***************************************************************************/
 	/**Protected methods*************************************************************************/
 	/**GETs & SETs*******************************************************************************/
