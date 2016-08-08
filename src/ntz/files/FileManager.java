@@ -19,8 +19,8 @@ import java.util.Properties;
 import ntz.exceptions.FileManagerException;
 public class FileManager {
 	/******************************************************************************************************************/
-	public final static String PATH_MYSQL = "/libs/configs/db/mysql.properties";
-	public final static String PATH_TESTLINK = "/libs/configs/testlink/testlink.properties";
+	public final static String PATH_MYSQL = System.getProperty("user.dir") + "\\libs\\configs\\db\\mysql.properties";
+	public final static String PATH_TESTLINK = System.getProperty("user.dir") + "\\libs\\configs\\testlink\\testlink.properties";
 	/******************************************************************************************************************/
 
 	public static List<String> readFileFromPath(String path) throws FileManagerException {
@@ -49,7 +49,7 @@ public class FileManager {
 		InputStream is = null;
 		try {
 			//is =Class.class.getResourceAsStream(path);
-			is = new FileInputStream(new File(System.getProperty("user.dir")+path));
+			is = new FileInputStream(new File(path));
 			propsFile.load(is);		
 			//Validate if file was loaded rightly
 			if(propsFile != null && is!= null){

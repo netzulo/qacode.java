@@ -16,6 +16,7 @@ import br.eti.kinoshita.testlinkjavaapi.model.TestPlan;
 import br.eti.kinoshita.testlinkjavaapi.model.TestProject;
 import br.eti.kinoshita.testlinkjavaapi.model.TestSuite;
 import ntz.exceptions.TestlinkException;
+import ntz.files.FileManager;
 /**
 * @author netzulo.com
 * @since 2016-08-05
@@ -60,6 +61,28 @@ public abstract class ATestlink implements ITestlink {
 		else{
 			if(!load(url,devKey)){
 				throw new TestlinkException();
+			}
+		}
+			
+	}
+	/**
+	 * @param pathname : use default Class FileManager.PATH_TESTLINK
+	 * */
+	public ATestlink(String pathname) throws TestlinkException{
+		Hashtable<String,String> props;
+		if(pathname.length() <= 0){throw new TestlinkException("[ATestlink][ERROR] bad pathname for properties file");}
+		else{
+			try {
+				props = FileManager.readProperties(pathname, "url","devkey");
+			} catch (Exception e) {
+				throw new TestlinkException("[ATestlink][ERROR]: bad properties pathname, or values | "+ e.getMessage());
+			}
+			
+			if(props.get("url").length() <= 0 && props.get("devkey").length() <= 0){throw new TestlinkException("[ATestlink][ERROR]: Bad url or developer key");}
+			else{
+				if(!load(props.get("url"),props.get("devkey"))){
+					throw new TestlinkException();
+				}
 			}
 		}
 			

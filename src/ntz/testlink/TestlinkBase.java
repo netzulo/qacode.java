@@ -8,6 +8,10 @@ import ntz.exceptions.TestlinkException;
 */
 public class TestlinkBase extends ATestlink implements ITestlink {
 
+	public TestlinkBase(String pathname) throws TestlinkException {
+		super(pathname);
+	}
+
 	public TestlinkBase(String url, String devKey) throws TestlinkException {
 		super(url, devKey);
 	}

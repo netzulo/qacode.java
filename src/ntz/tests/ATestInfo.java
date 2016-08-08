@@ -1,14 +1,22 @@
 package ntz.tests;
 
+import java.util.Hashtable;
+
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import org.testng.Reporter;
 
+import br.eti.kinoshita.testlinkjavaapi.constants.ExecutionStatus;
+import br.eti.kinoshita.testlinkjavaapi.model.TestCase;
 import ntz.drivers.TrandashaBase;
 import ntz.drivers.navs.pages.IPage;
 import ntz.exceptions.NavException;
 import ntz.exceptions.PageException;
+import ntz.exceptions.TestlinkException;
 import ntz.exceptions.TrandashaException;
+import ntz.files.FileManager;
 import ntz.logs.Log;
+import ntz.testlink.TestlinkBase;
 import ntz.tests.errors.ITestErrorMessage;
 /**
 * @author netzulo.com
@@ -19,30 +27,52 @@ public abstract class ATestInfo implements ITestInfo {
 
 	/**@FIELDs***********************************************************************************/
 	protected TrandashaBase bot;	
+	protected TestlinkBase testlink;
 	/**@CONSTRUCTORs***********************************************************************************/
 	
 	public ATestInfo() {}
-	/**@throws WebNavException 
+	/**@throws TestlinkException 
+	 * @throws WebNavException 
 	 * @throws TrandashaException 
 	 * @Public_methods***************************************************************************/
 	
-	@SuppressWarnings("null")
+	@Override
+	public TestlinkBase testlinkInit(TestlinkBase _testlink) throws TestlinkException{
+		Log.info("[TESTLINK][INIT]: starting testlink API");
+		try {			
+			if(_testlink == null || _testlink.api == null){
+				Hashtable<String,String> props = FileManager.readProperties(FileManager.PATH_TESTLINK, "url","devkey");
+				this.testlink = new TestlinkBase(props.get("url"), props.get("devkey"));			
+			}else{
+				this.testlink = _testlink;
+			}
+			Log.info("[TESTLINK][DONE]: started testlink API");
+		} catch (Exception e) {
+			Log.error("[TESTLINK][ERROR]: can't start testlink API");
+			throw new TestlinkException();
+		}
+		return this.testlink;
+	}
+	
 	@Override
 	public TrandashaBase botInit(TrandashaBase bot) throws TrandashaException{
 		Log.info("[TESTs][INIT]: starting bot");
 		try {
 			
 			if(bot == null) throw new TrandashaException();
+			else{
+				this.bot = bot;
+			}
 			
 			Log.info("[TESTs][DONE]: started bot");			
 		} catch (TrandashaException e) {
 			Log.error("[TESTs][ERROR]: can't start bot");
 			try {
-				bot.close();
+				this.bot.close();
 			} catch (NavException e1) {	e1.printStackTrace();}
 			throw new TrandashaException(e);
 			}
-		return bot;
+		return this.bot;
 	} 
 	
 	@Override
@@ -83,6 +113,71 @@ public abstract class ATestInfo implements ITestInfo {
 	
 	
 	/**@Commons***************************************************************************/
+	
+	@Override
+	public void reportAll(String logLevel, String logMessage){
+		//Loggers
+		switch (logLevel) {
+		case "INFO":
+		case "INIT":
+		case "DONE":
+			Reporter.log("[INFO]"+logMessage);
+			Log.info("["+logLevel+"]: "+logMessage);
+			break;
+		case "WARNING":
+			Reporter.log("[WARNING]"+logMessage);
+			Log.warn(logMessage);
+			break;
+		case "ERROR":
+			Reporter.log("[ERROR]"+logMessage);
+			Log.error(logMessage);
+			break;
+		case "DEBUG":
+			Reporter.log("[DEBUG]"+logMessage);
+			Log.debug(logMessage);
+			break;
+		default:			
+			break;
+		}
+	}
+	
+	
+	/***/
+	@Override
+	public void reportAll(String logLevel, String logMessage, TestCase testcase, ExecutionStatus status) {
+		//Loggers
+		switch (logLevel) {
+		case "INFO":
+		case "INIT":
+		case "DONE":
+			Reporter.log("["+testcase.getName()+"][INFO]"+logMessage);
+			Log.info("["+logLevel+"]: "+logMessage);
+			break;
+		case "WARNING":
+			Reporter.log("["+testcase.getName()+"][WARNING]"+logMessage);
+			Log.warn(logMessage);
+			break;
+		case "ERROR":
+			Reporter.log("["+testcase.getName()+"][ERROR]"+logMessage);
+			Log.error(logMessage);
+			break;
+		case "DEBUG":
+			Reporter.log("["+testcase.getName()+"][DEBUG]"+logMessage);
+			Log.debug(logMessage);
+			break;
+		default:			
+			break;
+		}
+		
+		//Testlink reporter
+		try {
+			testcase.setExecutionStatus(status);
+			this.testlink.apiAddResult(testcase);	
+		} catch (Exception e) {
+			Log.error("[TESTLINK]: can't set or add to executed testcase this testlink testcase | "+ testcase.toString());
+		}
+	}
+	
 	
 	/***/
 	@Override

@@ -34,7 +34,7 @@ public abstract class ATrandasha implements ITrandasha{
 	
 	//COMMON properties
 	private WebDriver currDriver;	
-	private final String DRIVERSPATH = "libs\\addons\\drivers\\";
+	private final String DRIVERSPATH = System.getProperty("user.dir")+ "\\libs\\addons\\drivers\\";
 	
 	//REMOTE properties
 	private String serverUrl = "http://localhost:11000/wd/hub";

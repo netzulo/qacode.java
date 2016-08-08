@@ -1,9 +1,13 @@
 package ntz.tests;
 
+import br.eti.kinoshita.testlinkjavaapi.constants.ExecutionStatus;
+import br.eti.kinoshita.testlinkjavaapi.model.TestCase;
 import ntz.drivers.TrandashaBase;
 import ntz.drivers.navs.pages.IPage;
 import ntz.exceptions.TrandashaException;
+import ntz.testlink.TestlinkBase;
 import ntz.exceptions.PageException;
+import ntz.exceptions.TestlinkException;
 import ntz.tests.errors.ITestErrorMessage;
 /**
 * @author netzulo.com
@@ -45,5 +49,11 @@ public interface ITestInfo extends ITestErrorMessage{
 	void tryAssertNotEquals(Object actual, Object expected, PageException exception) throws PageException;
 
 	void logBeforeClass(String className);
-	void logAfterClass(String className);	
+	void logAfterClass(String className);
+
+	TestlinkBase testlinkInit(TestlinkBase _testlink) throws TestlinkException;
+
+	void reportAll(String logLevel, String logMessage, TestCase testcase, ExecutionStatus passed);
+
+	void reportAll(String logLevel, String logMessage);	
 }

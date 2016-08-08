@@ -2,7 +2,15 @@
  * 
  */
 package ntz.exceptions;
-
+/**
+* @author netzulo.com
+* @since 2016-08-06
+* @version 0.5.7
+* 
+* <p></p>
+* <p></p>
+* <p></p>
+*/
 import java.io.PrintStream;
 import java.io.PrintWriter;
 

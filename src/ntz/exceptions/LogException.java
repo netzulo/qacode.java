@@ -4,8 +4,12 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 /**
 * @author netzulo.com
-* @since 2016-03-31
-* @version 0.5.1
+* @since 2016-08-06
+* @version 0.5.7
+* 
+* <p></p>
+* <p></p>
+* <p></p>
 */
 public class LogException extends Exception {
 

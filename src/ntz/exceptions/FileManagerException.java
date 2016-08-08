@@ -1,5 +1,13 @@
 package ntz.exceptions;
-
+/**
+* @author netzulo.com
+* @since 2016-08-06
+* @version 0.5.7
+* 
+* <p></p>
+* <p></p>
+* <p></p>
+*/
 public class FileManagerException extends Exception {
 
 	/**
