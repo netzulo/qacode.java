@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.MarionetteDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
@@ -48,6 +49,13 @@ public abstract class ATrandasha implements ITrandasha{
 	
 	// Helpers browser classes
 	public NavBase navs;
+	
+	
+	//
+	private DriverType currDriverType;
+	
+	private BrowserMode currBrowserMode;
+	
 	
 	//----------------------------------------------------------------------------------------
 	
@@ -92,7 +100,9 @@ public abstract class ATrandasha implements ITrandasha{
 	public ATrandasha(int type, int browser,String _serverUrl) throws TrandashaException {	
 		if(_serverUrl.isEmpty() || _serverUrl.length() < 7){
 			throw new TrandashaException(ITestErrorMessage.ERROR_serverUrlNULL);
-		}else{			
+		}else{
+			this.currDriverType = DriverType.fromInteger(type);
+			this.currBrowserMode = BrowserMode.fromInteger(browser);
 			//--
 			if(!_serverUrl.contains("VALUE_DEFAULT")){
 				this.serverUrl = _serverUrl;
@@ -283,7 +293,7 @@ public abstract class ATrandasha implements ITrandasha{
 	 * */		
 	@Override
 	public void openFirefox() {
-		currDriver = new FirefoxDriver(capsFirefox());
+		currDriver = new MarionetteDriver(capsFirefox());
 	}
 
 	/**
@@ -333,9 +343,12 @@ public abstract class ATrandasha implements ITrandasha{
 	 * */
 	@Override
 	public Capabilities capsFirefox() {
-		System.setProperty("webdriver.gecko.driver", DRIVERSPATH+"geckodriver.exe");
+		
+		if(currDriverType != DriverType.REMOTE){
+			System.setProperty("webdriver.gecko.driver", DRIVERSPATH+"geckodriver.exe");
+		}		
 		DesiredCapabilities caps = DesiredCapabilities.firefox();	
-		((DesiredCapabilities )caps).setCapability("marionette", true);
+		//((DesiredCapabilities )caps).setCapability("marionette", true);
 		
 		return caps;
 	}
@@ -345,16 +358,21 @@ public abstract class ATrandasha implements ITrandasha{
 	 * */
 	@Override
 	public Capabilities capsChrome() {
-		System.setProperty("webdriver.chrome.driver", DRIVERSPATH+"chromedriver.exe");
+		if(currDriverType != DriverType.REMOTE){
+			System.setProperty("webdriver.chrome.driver", DRIVERSPATH+"chromedriver.exe");
+		}
 		return DesiredCapabilities.chrome();
 	}
 
 	/**
 	 * @see get settings(capabilities) for IEXPLORER browser
+	 * TODO:Check SO version before to choose driver filename 
 	 * */
 	@Override
 	public Capabilities capsIExplorer() {
-		System.setProperty("webdriver.ie.driver", DRIVERSPATH+"IEDriverServer.exe");
+		if(currDriverType != DriverType.REMOTE){
+			System.setProperty("webdriver.ie.driver", DRIVERSPATH+"IEDriverServer_64.exe");
+		}
 		return DesiredCapabilities.internetExplorer();
 	}
 
@@ -363,9 +381,12 @@ public abstract class ATrandasha implements ITrandasha{
 	 * */
 	@Override
 	public Capabilities capsPhantomJS() {
+		
 		DesiredCapabilities caps = DesiredCapabilities.phantomjs();	
 		((DesiredCapabilities )caps).setJavascriptEnabled(true);
-		caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,DRIVERSPATH+"phantomjs.exe");		
+		if(currDriverType != DriverType.REMOTE){
+			caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,DRIVERSPATH+"phantomjs.exe");
+		}
 		return caps;
 	}
 
@@ -374,8 +395,10 @@ public abstract class ATrandasha implements ITrandasha{
 	 * */
 	@Override
 	public Capabilities capsOpera() {
-		System.setProperty("webdriver.opera.driver", DRIVERSPATH+"operadriver.exe");
-		System.setProperty("opera.binary", DRIVERSPATH+"operadriver.exe");
+		if(currDriverType != DriverType.REMOTE){
+			System.setProperty("webdriver.opera.driver", DRIVERSPATH+"operadriver_32.exe");
+			System.setProperty("opera.binary", DRIVERSPATH+"operadriver_32.exe");
+		}
 		return DesiredCapabilities.operaBlink();
 	}
 
@@ -384,7 +407,9 @@ public abstract class ATrandasha implements ITrandasha{
 	 * */
 	@Override
 	public Capabilities capsEdge() {
-		System.setProperty("webdriver.edge.driver", DRIVERSPATH+"edgedriver.exe");		
+		if(currDriverType != DriverType.REMOTE){
+			System.setProperty("webdriver.edge.driver", DRIVERSPATH+"edgedriver.exe");
+		}
 		return DesiredCapabilities.edge();
 	}
 	

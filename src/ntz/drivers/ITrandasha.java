@@ -43,7 +43,21 @@ public interface ITrandasha {
 		 * @since 2013-01-1
 		 * @version 0.5.1
 		 * */
-		GRIDONE,		
+		GRIDONE;
+		
+		public static DriverType fromInteger(int x) {
+	        switch(x) {
+	        case 0:
+	            return DriverType.LOCAL;
+	        case 1:
+	            return DriverType.REMOTE;
+	        case 2:
+	            return DriverType.GRIDONE;	        
+	        default:
+	        	return null;
+	        }	        
+	    }//fromInteger
+		
 		};
 	public enum BrowserMode {
 		/**
@@ -109,7 +123,32 @@ public interface ITrandasha {
 		 * @since 2013-01-1
 		 * @version 0.5.1
 		 * */
-		ANDROID
+		ANDROID;
+		
+		public static BrowserMode fromInteger(int x) {
+	        switch(x) {
+	        case 0:
+	            return BrowserMode.FIREFOX;
+	        case 1:
+	            return BrowserMode.CHROME;
+	        case 2:
+	            return BrowserMode.IEXPLORER;
+	        case 3:
+	            return BrowserMode.PHANTHOMJS;
+	        case 4:
+	            return BrowserMode.OPERA;
+	        case 5:
+	            return BrowserMode.EDGE;
+	        case 6:
+	            return BrowserMode.IPHONE;
+	        case 7:
+	            return BrowserMode.IPAD;
+	        case 8:
+	            return BrowserMode.ANDROID;
+	        default:
+	        	return null;
+	        }	        
+	    }//fromInteger
 	};	
 	
 	/**
