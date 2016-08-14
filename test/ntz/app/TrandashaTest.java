@@ -37,24 +37,24 @@ public class TrandashaTest extends TestInfoBase implements ITestInfo{
 	@DataProvider(name="browsersDP")
 	public Object[][] browsersDP(){
 		return new Object[][]{
-//			{DriverType.LOCAL,BrowserMode.FIREFOX},//OK: 15-06-2016
-//			{DriverType.LOCAL,BrowserMode.CHROME},//OK: 15-06-2016					
-//			{DriverType.LOCAL,BrowserMode.IEXPLORER},//OK: 15-06-2016			
-//			{DriverType.LOCAL,BrowserMode.PHANTHOMJS},//OK: 15-06-2016
-//			{DriverType.LOCAL,BrowserMode.OPERA},// ?
-//			{DriverType.LOCAL,BrowserMode.EDGE},// ?
-//			{DriverType.LOCAL,BrowserMode.IPHONE},// KO
-//			{DriverType.LOCAL,BrowserMode.IPAD},// KO
-//			{DriverType.LOCAL,BrowserMode.ANDROID},// KO
-			{DriverType.REMOTE,BrowserMode.FIREFOX}, //ERROR: 15-06-2016
-			{DriverType.REMOTE,BrowserMode.CHROME},//OK: 15-06-2016					
-			{DriverType.REMOTE,BrowserMode.IEXPLORER},//OK: 15-06-2016	
-//			{DriverType.REMOTE,BrowserMode.OPERA},//ERROR: 15-06-2016
-			{DriverType.REMOTE,BrowserMode.PHANTHOMJS},//OK: 15-06-2016			
-//			{DriverType.REMOTE,BrowserMode.EDGE},// ?
-//			{DriverType.REMOTE,BrowserMode.IPHONE},// KO
-//			{DriverType.REMOTE,BrowserMode.IPAD},// KO
-//			{DriverType.REMOTE,BrowserMode.ANDROID}// ?
+//			{DriverType.LOCAL,BrowserMode.FIREFOX},
+//			{DriverType.LOCAL,BrowserMode.CHROME},					
+//			{DriverType.LOCAL,BrowserMode.IEXPLORER},			
+//			{DriverType.LOCAL,BrowserMode.PHANTHOMJS},
+//			{DriverType.LOCAL,BrowserMode.OPERA},
+//			{DriverType.LOCAL,BrowserMode.EDGE},
+//			{DriverType.LOCAL,BrowserMode.IPHONE},
+//			{DriverType.LOCAL,BrowserMode.IPAD},
+//			{DriverType.LOCAL,BrowserMode.ANDROID},
+//			{DriverType.REMOTE,BrowserMode.FIREFOX}, 
+			{DriverType.REMOTE,BrowserMode.CHROME},					
+//			{DriverType.REMOTE,BrowserMode.IEXPLORER},	
+//			{DriverType.REMOTE,BrowserMode.OPERA},
+//			{DriverType.REMOTE,BrowserMode.PHANTHOMJS},			
+//			{DriverType.REMOTE,BrowserMode.EDGE},
+//			{DriverType.REMOTE,BrowserMode.IPHONE},
+//			{DriverType.REMOTE,BrowserMode.IPAD},
+//			{DriverType.REMOTE,BrowserMode.ANDROID}
 		};
 	}
 	/*** Data Providers****************************************************************************/

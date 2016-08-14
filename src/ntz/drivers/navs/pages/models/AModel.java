@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import ntz.drivers.ITrandasha;
 import ntz.drivers.TrandashaBase;
 import ntz.drivers.navs.elements.ControlBase;
+import ntz.drivers.navs.elements.ControlList;
 import ntz.drivers.navs.elements.IControl;
 import ntz.exceptions.ModelException;
 import ntz.exceptions.NavException;
@@ -47,7 +48,10 @@ public abstract class AModel implements IModel {
 			else{
 				WebElement ele = ((TrandashaBase)this.bot).navs.getDriver().findElement(By.cssSelector(selector));
 				try {
-					this.controls.add(new ControlBase(((TrandashaBase)this.bot).navs.getDriver(), ele));
+					
+					IControl ctl = getControlType(new ControlBase(((TrandashaBase)this.bot).navs.getDriver(), ele));
+					
+					this.controls.add(ctl);
 					
 				} catch (Exception e) {throw new ModelException("Error at try to load element");}
 			}
@@ -55,6 +59,27 @@ public abstract class AModel implements IModel {
 			
 	}
 			
+	private IControl getControlType(ControlBase controlBase) throws ModelException {
+		IControl ctlCasted = null;
+		try {
+			
+			switch (controlBase.getTagName()) {
+			case "ul":
+			case "ol":
+				ctlCasted = ((ControlList)controlBase);
+				break;
+
+			default:
+				return controlBase;
+			}
+			
+		} catch (Exception e) {
+			throw new ModelException("[AModel.getControlType][ERROR]: error at cast control Object");
+		}
+		
+		return ctlCasted;
+	}
+
 	/***/
 	public AModel(ITrandasha _bot, IControl... _controls) throws ModelException{
 		this(_bot);

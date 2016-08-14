@@ -41,7 +41,8 @@ public class TestlinkTest extends TestInfoBase {
 			{"configs\\testlink\\testlink.properties"},
 			{"\\testlink\\testlink.properties"},
 			{"testlink\\testlink.properties"},
-			{"testlink.properties"}			
+			{"testlink.properties"},
+			{FileManager.PATH_TESTLINK, "url", "devkey"}
 		};
 	}
 	
@@ -77,7 +78,7 @@ public class TestlinkTest extends TestInfoBase {
 	@Test()
 	public void ConnectorTest() throws PageException {
 		try {					
-			props = FileManager.readProperties("/libs/configs/testlink/testlink.properties", "url","devkey");
+			props = FileManager.readProperties(FileManager.PATH_TESTLINK, "url", "devkey");
 			testlink = new TestlinkBase(props.get("url"), props.get("devkey"));								
 //			TestCase test001 = testlink.api.getTestCaseByExternalId("wd-1", 1);
 //			TestCase test002 = testlink.api.getTestCaseByExternalId("wd-2", 1);
@@ -96,8 +97,8 @@ public class TestlinkTest extends TestInfoBase {
 		try {					
 			props = FileManager.readProperties(FileManager.PATH_TESTLINK, "url","devkey");
 			testlink = new TestlinkBase(props.get("url"), props.get("devkey"));								
-			TestCase loginOK = testlink.getTestCaseByExtId("wd-1");
-			TestCase loginKO = testlink.getTestCaseByExtId("wd-2");
+			TestCase loginOK = testlink.getTestCaseByExtId("ntz-1");
+			TestCase loginKO = testlink.getTestCaseByExtId("ntz-3");
 
 			Log.warn("[TESTCASE]: "+ loginOK.toString());
 			Log.warn("[TESTCASE]: "+ loginKO.toString());
@@ -110,12 +111,12 @@ public class TestlinkTest extends TestInfoBase {
 	@Test()
 	public void TestUpdater() throws PageException {
 		try {					
-			props = FileManager.readProperties("/libs/configs/testlink/testlink.properties", "url","devkey");
+			props = FileManager.readProperties(FileManager.PATH_TESTLINK, "url", "devkey");
 			testlink = new TestlinkBase(props.get("url"), props.get("devkey"));								
-			TestCase loginOK = testlink.getTestCaseByExtId("wd-1");
-			TestCase loginKO = testlink.getTestCaseByExtId("wd-2");
+			TestCase loginOK = testlink.getTestCaseByExtId("ntz-1");
+			TestCase loginKO = testlink.getTestCaseByExtId("ntz-3");
 
-			loginOK.setExecutionStatus(ExecutionStatus.PASSED);
+			loginOK.setExecutionStatus(ExecutionStatus.BLOCKED);
 			loginKO.setExecutionStatus(ExecutionStatus.BLOCKED);
 			
 			testlink.apiAddResult(loginOK);
@@ -132,7 +133,7 @@ public class TestlinkTest extends TestInfoBase {
 	@Test()
 	public void TestSpecificUpdater() throws PageException {
 		try {					
-			props = FileManager.readProperties("/libs/configs/testlink/testlink.properties", "url","devkey");
+			props = FileManager.readProperties(FileManager.PATH_TESTLINK, "url", "devkey");
 			testlink = new TestlinkBase(props.get("url"), props.get("devkey"));								
 			ExecutionStatus newState = ExecutionStatus.PASSED;
 			
