@@ -1,43 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="libs"/>
+	<classpathentry kind="src" path="libs">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="ntzXagobah/libs"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="src" path="test"/>
-	<classpathentry kind="lib" path="libs/log4j/log4j-1.2.17.jar"/>
-	<classpathentry kind="lib" path="libs/testlink/testlink-java-api-1.9.13-0.jar"/>
-	<classpathentry kind="lib" path="libs/testlink/libs/commons-configuration-1.7.jar"/>
-	<classpathentry kind="lib" path="libs/testlink/libs/commons-httpclient-3.1.jar"/>
-	<classpathentry kind="lib" path="libs/testlink/libs/commons-io-2.0.1.jar"/>
-	<classpathentry kind="lib" path="libs/testlink/libs/slf4j-simple-1.7.5.jar"/>
-	<classpathentry kind="lib" path="libs/testlink/libs/xml-apis-1.0.b2.jar"/>
-	<classpathentry kind="lib" path="libs/testlink/libs/xmlrpc-client-3.1.3.jar"/>
-	<classpathentry kind="lib" path="libs/testlink/libs/xmlrpc-common-3.1.3.jar"/>
-	<classpathentry kind="lib" path="libs/testlink/libs/commons-lang-2.5.jar"/>
-	<classpathentry kind="lib" path="libs/testlink/libs/jetty-server-8.0.1.v20110908.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/selenium-java-2.53.0.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/apache-mime4j-0.6.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/bsh-2.0b4.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/cglib-nodep-2.1_3.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/commons-codec-1.10.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/commons-exec-1.3.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/commons-io-2.4.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/commons-logging-1.2.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/gson-2.3.1.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/guava-19.0.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/hamcrest-core-1.3.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/hamcrest-library-1.3.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/httpclient-4.5.1.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/httpcore-4.4.3.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/httpmime-4.5.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/jcommander-1.48.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/jna-4.1.0.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/jna-platform-4.1.0.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/junit-4.12.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/netty-3.5.7.Final.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/phantomjsdriver-1.2.1.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/v2.53/libs/testng-6.9.9.jar"/>
-	<classpathentry kind="lib" path="libs/servers/selendroid-standalone-0.17.0-with-dependencies.jar"/>
-	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
+	<classpathentry kind="src" path="app_webdata"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="libs/addons/testlink/1.9.14/commons-codec-1.2.jar"/>
+	<classpathentry kind="lib" path="libs/addons/testlink/1.9.14/commons-configuration-1.10.jar"/>
+	<classpathentry kind="lib" path="libs/addons/testlink/1.9.14/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="libs/addons/testlink/1.9.14/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="libs/addons/testlink/1.9.14/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="libs/addons/testlink/1.9.14/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="libs/addons/testlink/1.9.14/junit-3.8.1.jar"/>
+	<classpathentry kind="lib" path="libs/addons/testlink/1.9.14/slf4j-api-1.7.21.jar"/>
+	<classpathentry kind="lib" path="libs/addons/testlink/1.9.14/slf4j-simple-1.7.21.jar"/>
+	<classpathentry kind="lib" path="libs/addons/testlink/1.9.14/testlink-java-api-1.9.14-0.jar"/>
+	<classpathentry kind="lib" path="libs/addons/testlink/1.9.14/ws-commons-util-1.0.2.jar"/>
+	<classpathentry kind="lib" path="libs/addons/testlink/1.9.14/xml-apis-1.0.b2.jar"/>
+	<classpathentry kind="lib" path="libs/addons/testlink/1.9.14/xmlrpc-client-3.1.3.jar"/>
+	<classpathentry kind="lib" path="libs/addons/testlink/1.9.14/xmlrpc-common-3.1.3.jar"/>
+	<classpathentry kind="lib" path="libs/addons/log4j/activation-1.1.1.jar"/>
+	<classpathentry kind="lib" path="libs/addons/log4j/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="libs/addons/log4j/mail.jar"/>
+	<classpathentry kind="lib" path="libs/addons/log4j/slf4j-api-1.7.19.jar"/>
+	<classpathentry kind="lib" path="libs/addons/log4j/slf4j-log4j12-1.7.19.jar"/>
+	<classpathentry kind="lib" path="libs/addons/dbs/mysql/mysql-connector-java-5.1.39-bin.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/selenium-java-2.53.1.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/apache-mime4j-0.6.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/bsh-2.0b4.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/cglib-nodep-2.1_3.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/commons-exec-1.3.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/gson-2.3.1.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/guava-19.0.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/hamcrest-library-1.3.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/httpclient-4.5.1.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/httpcore-4.4.3.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/httpmime-4.5.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/jcommander-1.48.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/jna-4.1.0.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/jna-platform-4.1.0.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/netty-3.5.7.Final.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/phantomjsdriver-1.2.1.jar"/>
+	<classpathentry kind="lib" path="libs/addons/selenium/v2.53.1/libs/testng-6.9.9.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
