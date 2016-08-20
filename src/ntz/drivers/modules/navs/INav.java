@@ -31,9 +31,11 @@ public interface INav {
 	/***/
 	boolean tabChange(int numTab) throws NavException;	
 	/***/
-	boolean click(IControl control) throws NavException;
+	boolean eleClick(IControl control) throws NavException;
 	/***/
-	boolean clickJS(IControl control) throws NavException;
+	boolean eleClickJS(IControl control) throws NavException;
+	/***/
+	boolean eleClear(IControl control) throws NavException;	
 	/***/
 	String text(IControl control) throws NavException;
 	/***/
@@ -52,10 +54,21 @@ public interface INav {
 	boolean checkbox(IControl control,  boolean newState) throws NavException;
 	/***/
 	boolean checkboxJS(IControl control,  boolean newState) throws NavException;
-	/***/
+	/**
+	 * Get current driver instance
+	 * */
 	WebDriver getDriver() throws NavException;
-	/***/
+	/**
+	 * Set current driver instance
+	 * */
 	boolean setDriver(WebDriver driver) throws NavException;
-	/***/
-	String getCurrentUrl() throws NavException;	
+	/**
+	 * Get current url
+	 * */
+	String getCurrentUrl() throws NavException;
+	
+	/**
+	 * Maximize browser window for full resolution
+	 * */
+	boolean maximize()  throws NavException;;	
 }

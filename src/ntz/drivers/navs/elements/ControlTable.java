@@ -4,9 +4,9 @@ import java.util.Hashtable;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import ntz.drivers.ITrandasha;
 import ntz.exceptions.ControlException;
 import ntz.tests.errors.ITestErrorMessage;
 /**
@@ -30,13 +30,13 @@ public class ControlTable extends ControlBase implements IControl{
 	private int tableWidth;
 	
 	/**Constructors******************************************************************************/
-	public ControlTable(WebDriver driver) throws ControlException {
-		super(driver);
+	public ControlTable(ITrandasha bot) throws ControlException {
+		super(bot);
 		throw new ControlException("[ControlTable][WARNING]: constructor without table element can't work, denied constructor");
 	}
 	
-	public ControlTable(WebDriver driver,WebElement currentEle) throws ControlException {
-		super(driver, currentEle);		
+	public ControlTable(ITrandasha bot,WebElement currentEle) throws ControlException {
+		super(bot, currentEle);		
 		if(this.tagName.equalsIgnoreCase("table") == false){
 			throw new ControlException(ITestErrorMessage.ERROR_tableWrongTagname);
 		}else{
@@ -46,8 +46,8 @@ public class ControlTable extends ControlBase implements IControl{
 		}		
 	}
 
-	public ControlTable(WebDriver driver, String cssSelector) throws ControlException {
-		super(driver, cssSelector);
+	public ControlTable(ITrandasha bot, String cssSelector) throws ControlException {
+		super(bot, cssSelector);
 		if(this.tagName.equalsIgnoreCase("table") == false){
 			throw new ControlException(ITestErrorMessage.ERROR_tableWrongTagname);
 		}else{
@@ -88,7 +88,7 @@ public class ControlTable extends ControlBase implements IControl{
 			int extCounter = 0;
 			for (int rowPos = 0; rowPos < tableHeight; rowPos++) {				
 				for (int cellPos = 0; cellPos < tableWidth; cellPos++) {					
-					tableGrid[rowPos][cellPos] = new ControlBase(this.driver,tableBodyCells.get(extCounter));
+					tableGrid[rowPos][cellPos] = new ControlBase(this.bot,tableBodyCells.get(extCounter));
 					extCounter++;
 				}
 			}			
@@ -115,7 +115,7 @@ public class ControlTable extends ControlBase implements IControl{
 	}
 	
 	public ControlBase getCellFromList(int cellPosition) throws ControlException{
-		return new ControlBase(this.driver,tableBodyCells.get(cellPosition));
+		return new ControlBase(this.bot,tableBodyCells.get(cellPosition));
 	}	
 	
 	public int getCellsTotal(){

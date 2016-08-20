@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
 import ntz.drivers.ITrandasha;
 import ntz.drivers.TrandashaBase;
 import ntz.drivers.navs.elements.ControlBase;
+import ntz.drivers.navs.elements.ControlLink;
 import ntz.drivers.navs.elements.ControlList;
 import ntz.drivers.navs.elements.IControl;
 import ntz.exceptions.ModelException;
@@ -45,32 +44,35 @@ public abstract class AModel implements IModel {
 		this(_bot);
 		for (String selector : _selectors) {
 			if(selector == null){throw new ModelException();}
-			else{
-				WebElement ele = ((TrandashaBase)this.bot).navs.getDriver().findElement(By.cssSelector(selector));
+			else{				
 				try {
 					
-					IControl ctl = getControlType(new ControlBase(((TrandashaBase)this.bot).navs.getDriver(), ele));
+					IControl ctl = getControlType(selector);
 					
 					this.controls.add(ctl);
 					
-				} catch (Exception e) {throw new ModelException("Error at try to load element");}
+				} catch (Exception e) {throw new ModelException("[AModel][ERROR]: Error at try to load element");}
 			}
 		}//foreach
 			
 	}
 			
-	private IControl getControlType(ControlBase controlBase) throws ModelException {
+	private IControl getControlType(String selector) throws ModelException {
 		IControl ctlCasted = null;
+		String tagName = "";
 		try {
-			
-			switch (controlBase.getTagName()) {
+			tagName = ((TrandashaBase)this.bot).navs.getDriver().findElement(By.cssSelector(selector)).getTagName();
+			switch (tagName) {
 			case "ul":
 			case "ol":
-				ctlCasted = ((ControlList)controlBase);
+				ctlCasted = new ControlList(this.bot, selector);
 				break;
-
+			case "a":
+				ctlCasted = new ControlLink(this.bot, selector);
+				break;
 			default:
-				return controlBase;
+				ctlCasted = new ControlBase(this.bot);
+				break;
 			}
 			
 		} catch (Exception e) {

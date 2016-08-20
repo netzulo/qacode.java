@@ -6,6 +6,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import ntz.drivers.ITrandasha;
 import ntz.exceptions.ControlException;
 
 /**
@@ -46,18 +47,18 @@ public class ControlLink extends ControlBase {
 	/**Constructors******************************************************************************/
 	
 	
-	public ControlLink(WebDriver driver, String selector) throws ControlException {
-		super(driver, selector);
+	public ControlLink(ITrandasha bot, String selector) throws ControlException {
+		super(bot, selector);
 		this.Init();
 	}
 
-	public ControlLink(WebDriver driver, WebElement element) throws ControlException {
-		super(driver, element);
+	public ControlLink(ITrandasha bot, WebElement element) throws ControlException {
+		super(bot, element);
 		this.Init();
 	}
 
-	public ControlLink(WebDriver driver) throws ControlException {
-		super(driver);
+	public ControlLink(ITrandasha bot) throws ControlException {
+		super(bot);
 		this.Init();
 	}
 	

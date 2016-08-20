@@ -7,12 +7,14 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.security.Credentials;
+
+import ntz.drivers.ITrandasha;
 import ntz.exceptions.ControlException;
 
 /**
 * @author netzulo.com
-* @since 2016-07-22
-* @version 0.5.5
+* @since 2016-08-20
+* @version 0.5.9
 * 
 * <p></p>
 * <p></p>
@@ -27,39 +29,40 @@ public class ControlAlert extends ControlBase implements IControl{
 	
 	/**Constructors******************************************************************************/
 
-	public ControlAlert(WebDriver driver, String selector) throws ControlException {
-		super(driver, selector);
-		this.elementAlert = driver.switchTo().alert();
+	public ControlAlert(ITrandasha bot, String selector) throws ControlException {
+		super(bot, selector);
+		this.elementAlert = this.getDriver().switchTo().alert();
 	}
 
-	public ControlAlert(WebDriver driver, WebElement element) throws ControlException {
-		super(driver, element);
-		this.elementAlert = driver.switchTo().alert();
+	public ControlAlert(ITrandasha bot, WebElement element) throws ControlException {
+		super(bot, element);
+		this.elementAlert = this.getDriver().switchTo().alert();
 	}
 
-	public ControlAlert(WebDriver driver) throws ControlException {
-		super(driver);
-		this.elementAlert = driver.switchTo().alert();
+	public ControlAlert(ITrandasha bot) throws ControlException {
+		super(bot);
+		this.elementAlert = this.getDriver().switchTo().alert();
 	}
 	
-	/**Custom controls ***************************************************************************/
+	/**Custom controls 
+	 * @throws ControlException ***************************************************************************/
 	
-	public void eleAlertAccept(){
+	public void eleAlertAccept() throws ControlException{
 		this.elementAlert.accept();
 		this.eleAlertBackToPage();
 	}
 	
-	public void eleAlertCancel(){
+	public void eleAlertCancel() throws ControlException{
 		this.elementAlert.dismiss();
-		this.driver.switchTo().defaultContent();
+		this.getDriver().switchTo().defaultContent();
 	}
 	
-	public String eleAlertReadText(){
+	public String eleAlertReadText() throws ControlException{
 		return this.elementAlert.getText();
 	}
 	
-	public void eleAlertBackToPage(){
-		this.driver.switchTo().defaultContent();
+	public void eleAlertBackToPage() throws ControlException{
+		this.getDriver().switchTo().defaultContent();
 	}
 	
 	/**Overrides *********************************************************************************/

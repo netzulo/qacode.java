@@ -7,8 +7,13 @@ import org.testng.ISuite;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import org.testng.Reporter;
+import org.testng.TestListenerAdapter;
 import org.testng.TestNG;
 import org.testng.xml.XmlSuite;
+
+
+
 
 /**
 * @author netzulo.com
@@ -27,17 +32,20 @@ public class TestLauncher {
 	}
 
 
-	@SuppressWarnings("deprecation")
 	public TestLauncher(boolean defaultListeners) {
 			
-		testng = new TestNG(defaultListeners);				
+		testng = new TestNG(defaultListeners);
+		
 		if(!defaultListeners){
 			testng.addListener(reporter());
 			testng.addListener(listener());
 		}
+		else{
+//			testng.addListener(new Reporter());
+			testng.addListener(new TestListenerAdapter());
+		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	public TestLauncher(boolean isCustomReporter,boolean isCustomListener) {
 
 		if(!isCustomReporter && !isCustomListener){
@@ -51,12 +59,14 @@ public class TestLauncher {
 			}
 			else{
 				//DEFAULT REPORTERs
+				testng.addListener(new Reporter());
 			}
 			if(isCustomListener){
 				testng.addListener(listener());
 			}
 			else{
 				//DEFAULT LISTENERs
+				testng.addListener(new TestListenerAdapter());
 			}
 		}
 	}
@@ -68,7 +78,7 @@ public class TestLauncher {
 			@Override
 			public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {				
 				htmlReporter.generateReport(xmlSuites, suites, outputDirectory);				
-			}
+			}			
 		};
 	}
 	
@@ -116,5 +126,13 @@ public class TestLauncher {
 				
 			}
 		};
+	}
+
+
+	public void execTestPlan(Class[] testClasses, String outputDir) {
+		testng.setTestClasses(testClasses);
+		testng.setOutputDirectory(outputDir);
+		testng.run();
+		
 	}
 }

@@ -18,9 +18,8 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
 * @author netzulo.com
-* @since 2016-07-25
-* @version 0.5.5
-* @update FIX 0.5.4_a
+* @since 2016-08-20
+* @version 0.5.9
 * 
 * <p></p>
 * <p></p>
@@ -104,6 +103,24 @@ public abstract class APage implements IPage{
 	
 	/**Overrides *********************************************************************************/
 
+
+	@Override
+	public void removeModels() throws PageException {
+		try {
+			if(this.models.size() <= 0){throw new PageException("[APage.addModel][ERROR]: No models to remove was found");}
+			else{
+				for (int i = 0; i < this.models.size(); i++) {
+					this.models.remove(i);
+				}
+				//reinitialize instance
+				this.models = new ArrayList<>();
+			} 
+		} catch (Exception e) {
+			throw new PageException("[APage.addModel][ERROR]: error at iterate to remove each model");
+		}
+		
+	}
+	
 	
 	@Override
 	public void addModel(IModel model) throws PageException {
@@ -130,8 +147,8 @@ public abstract class APage implements IPage{
 	@Override
 	public void addControlToModel(String selector) throws PageException {
 		try {
-			this.addControlsToModel(new ControlBase(this.bot.navs.getDriver(), selector));
-		} catch (ControlException | NavException e) {
+			this.addControlsToModel(new ControlBase(this.bot, selector));
+		} catch (ControlException e) {
 			throw new PageException(e.getMessage(),e);
 		}
 	}
@@ -369,4 +386,8 @@ public abstract class APage implements IPage{
 		}
 		return currUrl;
 	}
+
+
+	
+	
 }

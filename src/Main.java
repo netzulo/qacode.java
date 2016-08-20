@@ -1,4 +1,3 @@
-import ntz.app.TrandashaTest;
 import ntz.core.tests.PLoginTest;
 import ntz.tests.reports.TestLauncher;
 /**
@@ -9,25 +8,24 @@ import ntz.tests.reports.TestLauncher;
 public class Main {
 	@SuppressWarnings("rawtypes")
 	public static void main(String[] args) throws Exception {
-		
+//		args = new String[1];
+//		args[0] = "login";	
+		/////		
+		TestLauncher launcher;
+		Class[] testClasses;
+		final String outputDir = "/results";
 		if(args.length > 0){
 			//Load testPlan options
-			String outputDir = "/results";
-			TestLauncher launcher = new TestLauncher(true);
-			Class[] testClasses = getTestClasses(args);
+				
+			launcher = new TestLauncher(true);	
+			testClasses = getTestClasses(args);
 			
 			//Execs testPlan
-			launcher.getTestng().setTestClasses(testClasses);
-			launcher.getTestng().setOutputDirectory(outputDir);
-			launcher.getTestng().run();
+			launcher.execTestPlan(testClasses, outputDir);
 		}
 		else{
 			throw new Exception("Not testclases selected");
 		}
-		
-		
-		
-		
 		
 	}
 
@@ -37,6 +35,7 @@ public class Main {
 	 * 
 	 * TODO:Rewrite this method switch before to use ^^
 	 * */
+	@SuppressWarnings("rawtypes")
 	private static Class[] getTestClasses(String[] args) throws Exception {
 		Class[] testClasses = new Class[args.length];		
 		for (int i = 0; i < args.length; i++) {

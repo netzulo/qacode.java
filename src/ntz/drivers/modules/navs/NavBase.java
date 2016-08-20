@@ -69,13 +69,19 @@ public class NavBase extends ANav implements INav{
 	}
 
 	@Override
-	public boolean click(IControl control) throws NavException {
-		return super.click(control);
+	public boolean eleClick(IControl control) throws NavException {
+		return super.eleClick(control);
 	}
 
 	@Override
-	public boolean clickJS(IControl control) throws NavException {
-		return super.clickJS(control);
+	public boolean eleClear(IControl control) throws NavException {		
+		return super.eleClear(control);
+	}
+	
+	
+	@Override
+	public boolean eleClickJS(IControl control) throws NavException {
+		return super.eleClickJS(control);
 	}
 
 	@Override
@@ -136,5 +142,10 @@ public class NavBase extends ANav implements INav{
 	/**Private methods***************************************************************************/
 	/**Protected methods*************************************************************************/
 	/**GETs & SETs*******************************************************************************/
-	
+
+	@Override
+	public boolean maximize() throws NavException {
+		return super.maximize();
+	}
+
 }

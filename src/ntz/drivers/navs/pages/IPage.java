@@ -115,5 +115,9 @@ public interface IPage {
 	/**
 	 * @throws PageException */
 	String getCurrentUrl() throws PageException;
+
+	/**
+	 * @throws PageException */
+	void removeModels()throws PageException;
 	
 }

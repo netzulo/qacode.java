@@ -11,6 +11,7 @@ import ntz.drivers.modules.IJscripts;
 import ntz.drivers.navs.elements.IControl;
 import ntz.exceptions.NavException;
 import ntz.logs.Log;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 /**
  *@author netzulo.com
 * @since 2016-08-06
@@ -146,20 +147,34 @@ public abstract class ANav implements INav {
 	}
 
 	@Override
-	public boolean click(IControl control) throws NavException {
-		Log.info("[NAV.tabOpen][INIT]: open new tab");
+	public boolean eleClick(IControl control) throws NavException {
+		Log.info("[NAV.eleClick][INIT]: click element");
 		try {
-			control.eleClick();
-			Log.info("[NAV.tabOpen][DONE]: open new tab");
+			control.getElement().click();
+			Log.info("[NAV.eleClick][DONE]: click element");
 		} catch (Exception e) {
-			Log.error("[NAV.tabOpen][ERROR]: open new tab |"+ e.getStackTrace());	
+			Log.error("[NAV.eleClick][ERROR]: click element |"+ e.getStackTrace());	
+			return false;
+		}		
+		return true;
+	}
+	
+
+	@Override
+	public boolean eleClear(IControl control) throws NavException {
+		Log.info("[NAV.eleClear][INIT]: clear text on element");
+		try {
+			control.getElement().clear();
+			Log.info("[NAV.eleClear][DONE]: clear text on element");
+		} catch (Exception e) {
+			Log.error("[NAV.eleClear][ERROR]: clear text on element |"+ e.getStackTrace());	
 			return false;
 		}		
 		return true;
 	}
 
 	@Override
-	public boolean clickJS(IControl control) throws NavException {
+	public boolean eleClickJS(IControl control) throws NavException {
 		try {
 			if (control.getElement().isEnabled() && control.getElement().isDisplayed()) {
 				Log.info("[NAV.clickJS][INIT]: Clicking on element with using java script click");
@@ -184,9 +199,11 @@ public abstract class ANav implements INav {
 	
 	@Override
 	public String text(IControl control) throws NavException {
-		String text = "";		
+		String text = "";
+		Log.info("[NAV.text][INIT]: get text on element |");
 		try {
 			text = control.getElement().getText();
+			Log.info("[NAV.text][DONE]: get text on element |");
 		} catch (Exception e) {
 			Log.error("[NAV.text][ERROR]: Unable to get text on element |"+ e.getStackTrace());
 		}		
@@ -196,9 +213,11 @@ public abstract class ANav implements INav {
 	@Override
 	public boolean text(IControl control, String setText) throws NavException {
 		boolean isExecuted = false;
+		Log.info("[NAV.text][INIT]: send text on element ");
 		try {
 			control.getElement().sendKeys(setText);
 			isExecuted = true;
+			Log.error("[NAV.text][DONE]: send text on element");
 		} catch (Exception e) {
 			Log.error("[NAV.text][ERROR]: Unable to send text on element |"+ e.getStackTrace());
 		}
@@ -209,6 +228,7 @@ public abstract class ANav implements INav {
 	public boolean textJS(IControl control) throws NavException {
 		try {
 			//TODO: do it
+			throw new NotImplementedException();
 		} catch (Exception e) {
 			Log.error("[NAV.text][ERROR]: Unable to send text on element By JS |"+ e.getStackTrace());
 		}
@@ -219,6 +239,7 @@ public abstract class ANav implements INav {
 	public boolean textJS(IControl control, String setText) throws NavException {
 		try {
 			//TODO: do it
+			throw new NotImplementedException();
 		} catch (Exception e) {
 			Log.error("[NAV.text][ERROR]: Unable to send text on element By JS |"+ e.getStackTrace());
 		}
@@ -229,7 +250,7 @@ public abstract class ANav implements INav {
 	public String attribute(IControl control, String getAttrName) throws NavException {
 		String attr = "";	
 		try {
-			//TODO: do it
+			//TODO: do it 
 			attr = control.getElement().getAttribute(getAttrName);
 		} catch (Exception e) {
 			Log.error("[NAV.text][ERROR]: Unable to send text on element By JS |"+ e.getStackTrace());
@@ -241,18 +262,23 @@ public abstract class ANav implements INav {
 	public boolean attributeJS(IControl control, String getAttrName) throws NavException {
 		try {
 			//TODO: do it
+			throw new NotImplementedException();
 		} catch (Exception e) {
-			Log.error("[NAV.text][ERROR]: Unable to send text on element By JS |"+ e.getStackTrace());
+			Log.error("[NAV.attributeJS][ERROR]: Unable to send text on element By JS |"+ e.getStackTrace());
 		}
 		return false;
 	}
 
 	@Override
 	public boolean attributeJS(IControl control, String getAttrName, String setAttrValue) throws NavException {
+		
+		Log.info("[NAV.attributeJS][INIT]: set attribute by JS ");
 		try {
 			//TODO: do it
+			throw new NotImplementedException();
+			//Log.info("[NAV.attributeJS][DONE]: set attribute by JS");
 		} catch (Exception e) {
-			Log.error("[NAV.text][ERROR]: Unable to send text on element By JS |"+ e.getStackTrace());
+			Log.error("[NAV.attributeJS][ERROR]: Unable to set attribute by JS |"+ e.getStackTrace());
 		}
 		return false;
 	}
@@ -261,6 +287,7 @@ public abstract class ANav implements INav {
 	public boolean checkbox(IControl control, boolean newState) throws NavException {
 		try {
 			//TODO: do it
+			throw new NotImplementedException();
 		} catch (Exception e) {
 			Log.error("[NAV.text][ERROR]: Unable to send text on element By JS |"+ e.getStackTrace());
 		}
@@ -271,6 +298,7 @@ public abstract class ANav implements INav {
 	public boolean checkboxJS(IControl control, boolean newState) throws NavException {
 		try {
 			//TODO: do it
+			throw new NotImplementedException();
 		} catch (Exception e) {
 			Log.error("[NAV.text][ERROR]: Unable to send text on element By JS |"+ e.getStackTrace());
 		}
@@ -291,11 +319,26 @@ public abstract class ANav implements INav {
 	@Override
 	public String getCurrentUrl() throws NavException{
 		String currUrl = "";		
+		Log.info("[NAV.getCurrentUrl][INIT]: get current url");
 		try {
 			currUrl = this.driver.getCurrentUrl();
+			Log.info("[NAV.getCurrentUrl][DONE]: get current url");
 		} catch (Exception e) {
-			Log.error("[NAV.text][ERROR]: Unable to send text on element By JS |"+ e.getStackTrace());
+			Log.error("[NAV.getCurrentUrl][ERROR]: Unable to get current url |"+ e.getStackTrace());
 		}		
 		return  currUrl;
+	}
+
+	@Override
+	public boolean maximize() throws NavException{
+		Log.info("[NAV.maximize][INIT]: maximize browser window ");
+		try {
+			this.getDriver().manage().window().maximize();
+			Log.info("[NAV.maximize][DONE]: maximize browser window ");
+		} catch (Exception e) {
+			Log.error("[NAV.maximize][ERROR]: Unable to maximize browser window |"+ e.getStackTrace());
+		}
+		
+		return false;
 	}
 }

@@ -6,6 +6,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import ntz.drivers.ITrandasha;
 import ntz.exceptions.ControlException;
 /**
 * @author netzulo.com
@@ -22,14 +23,14 @@ public class ControlBase extends AControl implements IControl{
 	/**Fields************************************************************************************/		
 	/**Constructors******************************************************************************/
 
-	public ControlBase(WebDriver driver, String selector) throws ControlException {
-		super(driver, selector);
+	public ControlBase(ITrandasha bot, String selector) throws ControlException {
+		super(bot, selector);
 	}
-	public ControlBase(WebDriver driver, WebElement element) throws ControlException {
-		super(driver, element);
+	public ControlBase(ITrandasha bot, WebElement element) throws ControlException {
+		super(bot, element);
 	}
-	public ControlBase(WebDriver driver) throws ControlException {
-		super(driver);
+	public ControlBase(ITrandasha bot) throws ControlException {
+		super(bot);
 	}
 	
 	/**Public methods****************************************************************************/

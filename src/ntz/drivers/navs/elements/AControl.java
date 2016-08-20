@@ -10,13 +10,17 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import ntz.drivers.ITrandasha;
+import ntz.drivers.TrandashaBase;
 import ntz.drivers.modules.IJscripts;
 import ntz.exceptions.ControlException;
+import ntz.exceptions.NavException;
 /**
 * @author netzulo.com
 * @since 2016-07-25
 * @version 0.5.5
 * 
+* @TODO: change driver for bot instance
 * <p></p>
 * <p></p>
 * <p></p>
@@ -25,7 +29,7 @@ public class AControl implements IControl {
 	
 	/**Fields************************************************************************************/
 	/***/
-	protected WebDriver driver;
+	protected ITrandasha bot;
 	/***/
 	protected WebElement element;
 	/***/
@@ -49,37 +53,37 @@ public class AControl implements IControl {
 	/***/	
 	protected Hashtable<String,String> stylesCSS;
 	/**Constructors******************************************************************************/
-	public AControl(WebDriver driver) throws ControlException{		
-		if(driver == null){throw new ControlException();}
+	public AControl(ITrandasha bot) throws ControlException{		
+		if(bot == null){throw new ControlException();}
 		else{
-			this.driver = driver;
+			this.bot = bot;
 			eventsJS = new Hashtable<>();
 			stylesHTML = new Hashtable<>();
 			stylesCSS = new Hashtable<>();		
 		}
 	}
-	public AControl(WebDriver driver,String selector) throws ControlException {
-		this(driver);
-		
-		if(selector.length() <= 0){throw new ControlException();}
-		else{
-			this.selector = selector;
-			this.element = driver.findElement(By.cssSelector(selector));
-			if(this.element == null){throw new ControlException("Can't found element");}
+	public AControl(ITrandasha bot,String selector) throws ControlException {
+ 		this(bot);		
+			if(selector.length() <= 0){throw new ControlException();}
 			else{
-				//init element
-				this.Init();
+				this.selector = selector;		
+				this.element = this.getDriver().findElement(By.cssSelector(selector));
+				if(this.element == null){throw new ControlException("[AControl][ERROR]: Can't found element");}
+				else{
+					//init element
+					this.Init();
+				}
 			}
-		}
+		
 	}
-	public AControl(WebDriver driver,WebElement element)throws ControlException {
-		this(driver);
+	public AControl(ITrandasha bot,WebElement element)throws ControlException {
+		this(bot);
 		
 		if(element == null){throw new ControlException();}
 		else{
 			this.selector = "NOTLOADED";
 			this.element = element;
-			if(this.element == null){throw new ControlException("Can't found element");}
+			if(this.element == null){throw new ControlException("[AControl][ERROR]: Can't found element");}
 			else{
 				//init element
 				this.Init();
@@ -153,7 +157,7 @@ public class AControl implements IControl {
 		@SuppressWarnings("unused")
 		String allEleEvents = "";
 		try {
-			allEleEvents = ((JavascriptExecutor)this.driver).executeScript(IJscripts.js_getAllEventListeners, this.element).toString();
+			allEleEvents = ((JavascriptExecutor)this.getDriver()).executeScript(IJscripts.js_getAllEventListeners, this.element).toString();
 		} catch (Exception e) {}
 		
 		this.eventsJS.put("", this.element.getCssValue("margin-left"));
@@ -189,13 +193,21 @@ public class AControl implements IControl {
 	}
 	@Override
 	public boolean eleClear() throws ControlException {
-		// TODO Auto-generated method stub
-		return false;
+		boolean isCleared = false;
+		try {
+			((TrandashaBase)this.bot).navs.eleClear(this);
+		} catch (NavException e) {
+			throw new ControlException("["+this.selector+"]: Error at click element| " + e.getStackTrace().toString());
+		}
+		return isCleared;
 	}
 	@Override
 	public void eleClick() throws ControlException {
-		// TODO Auto-generated method stub
-		
+		try {
+			((TrandashaBase)this.bot).navs.eleClick(this);
+		} catch (NavException e) {
+			throw new ControlException("["+this.selector+"]: Error at click element| " + e.getStackTrace().toString());
+		}
 	}
 	@Override
 	public void eleClickByJS() throws ControlException {
@@ -205,97 +217,102 @@ public class AControl implements IControl {
 	@Override
 	public IControl eleChild() throws ControlException {
 		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		throw new ControlException("[AControl][WARNING]: Function not defined");
 	}
 	@Override
 	public IControl eleChildByPos(int... childsPosition) throws ControlException{
 		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		throw new ControlException("[AControl][WARNING]: Function not defined");
 	}
 	@Override
 	public IControl eleChildFirst() throws ControlException {
 		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		throw new ControlException("[AControl][WARNING]: Function not defined");
 	}
 	@Override
 	public IControl eleChildLast() throws ControlException {
 		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		throw new ControlException("[AControl][WARNING]: Function not defined");
 	}
 	@Override
 	public List<IControl> eleChildren() throws ControlException {
 		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		throw new ControlException("[AControl][WARNING]: Function not defined");
 	}
 	@Override
 	public List<IControl> eleChildrenByPos(int... childsPosition) throws ControlException {
 		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		throw new ControlException("[AControl][WARNING]: Function not defined");
 	}
 	@Override
 	public IControl eleNext() throws ControlException {
 		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		throw new ControlException("[AControl][WARNING]: Function not defined");
 	}
 	@Override
 	public IControl elePrevious() throws ControlException {
 		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		throw new ControlException("[AControl][WARNING]: Function not defined");
 	}
 	@Override
 	public IControl eleParent() throws ControlException {
 		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		throw new ControlException("[AControl][WARNING]: Function not defined");
 	}
 	@Override
 	public WebDriver getDriver() throws ControlException {
-		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		try {
+			return ((TrandashaBase)this.bot).navs.getDriver();		
+		} catch (Exception e) {
+			if(e instanceof NavException){
+				throw new ControlException("[AControl][ERROR]: can't load driver from navs.getDriver()");
+			}
+			else{
+				throw new ControlException("[AControl][ERROR]: unkown error | "+ e.getStackTrace());
+			}
+		}		
 	}
+	
 	@Override
 	public String getSelector() throws ControlException {
-		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		return this.selector;
 	}
 	@Override
 	public String getTagName() throws ControlException {
-		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		return this.tagName;
 	}
 	@Override
 	public TakesScreenshot getScreenshot() throws ControlException {
-		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		return this.screenShot;
 	}
 	@Override
 	public byte[] getScreenshotAsBytes() throws ControlException {
-		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		return this.screenShotAsBytes;
 	}
 	@Override
 	public String getScreenshotAsBase64() throws ControlException {
-		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		return this.screenShotAsBase64;
 	}
 	@Override
 	public WebElement getElement() throws ControlException {
-		// TODO Auto-generated method stub
-		throw new ControlException("Funtion not defined");
+		return this.element;
 	}
 	
 	@Override
 	public String getText() throws ControlException {
-		// TODO Auto-generated method stub
-		return null;
+		return this.text;
 	}
 	//**DEBUG*/
 	
 	@Override
 	public String toString() {
-		return "AControl {'driver':" + driver + ", 'element':" + element + ", 'selector':" + selector + ", 'tagName':" + tagName
-				+ ", 'screenShot':" + screenShot + ", 'screenShotAsBytes':" + Arrays.toString(screenShotAsBytes)
-				+ ", 'screenShotAsBase64':" + screenShotAsBase64 + ", 'eventsJS':" + eventsJS + ", 'stylesHTML':" + stylesHTML
-				+ ", 'stylesCSS':" + stylesCSS + "}";
+		try {
+			return "AControl {'driver':" + this.getDriver().toString() + ", 'element':" + element + ", 'selector':" + selector + ", 'tagName':" + tagName
+					+ ", 'screenShot':" + screenShot + ", 'screenShotAsBytes':" + Arrays.toString(screenShotAsBytes)
+					+ ", 'screenShotAsBase64':" + screenShotAsBase64 + ", 'eventsJS':" + eventsJS + ", 'stylesHTML':" + stylesHTML
+					+ ", 'stylesCSS':" + stylesCSS + "}";
+		} catch (ControlException e) { e.printStackTrace();	}
+		return "[AControl.toString][ERROR]: Error at toString";
 	}
 	
 	

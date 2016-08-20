@@ -1,8 +1,8 @@
 package ntz.drivers.navs.elements;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import ntz.drivers.ITrandasha;
 import ntz.exceptions.ControlException;
 /**
 * @author netzulo.com
@@ -15,13 +15,13 @@ import ntz.exceptions.ControlException;
 */
 public class ControlInput extends ControlBase implements IControl {
 	
-	public ControlInput(WebDriver driver,WebElement currentEle) throws ControlException {
-		super(driver,currentEle);
+	public ControlInput(ITrandasha bot,WebElement currentEle) throws ControlException {
+		super(bot,currentEle);
 		this.Init();
 	}
 
-	public ControlInput(WebDriver driver, String cssSelector) throws ControlException {
-		super(driver, cssSelector);
+	public ControlInput(ITrandasha bot, String cssSelector) throws ControlException {
+		super(bot, cssSelector);
 		this.Init();
 	}
 

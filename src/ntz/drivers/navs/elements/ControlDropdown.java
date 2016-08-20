@@ -1,8 +1,8 @@
 package ntz.drivers.navs.elements;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import ntz.drivers.ITrandasha;
 import ntz.exceptions.ControlException;
 
 /**
@@ -18,13 +18,13 @@ public class ControlDropdown extends ControlBase implements IControl {
 
 	/**Fields************************************************************************************/
 	/**Constructors******************************************************************************/
-	public ControlDropdown(WebDriver driver, String cssSelector) throws ControlException {
-		super(driver, cssSelector);
+	public ControlDropdown(ITrandasha bot, String cssSelector) throws ControlException {
+		super(bot, cssSelector);
 		throw new ControlException();
 	}
 
-	public ControlDropdown(WebDriver driver,WebElement currentEle) throws ControlException {
-		super(driver,currentEle);
+	public ControlDropdown(ITrandasha bot,WebElement currentEle) throws ControlException {
+		super(bot,currentEle);
 		throw new ControlException();
 	}
 

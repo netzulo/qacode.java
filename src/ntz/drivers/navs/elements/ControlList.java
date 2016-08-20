@@ -2,9 +2,9 @@ package ntz.drivers.navs.elements;
 
 import java.util.List;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import ntz.drivers.ITrandasha;
 import ntz.exceptions.ControlException;
 import ntz.tests.errors.ITestErrorMessage;
 
@@ -24,20 +24,20 @@ public class ControlList extends ControlBase implements IControl {
 	
 	
 	/**Constructors******************************************************************************/
-	public ControlList(WebDriver driver, String selector) throws ControlException {
-		super(driver, selector);
+	public ControlList(ITrandasha bot, String selector) throws ControlException {
+		super(bot, selector);
 		loadListLink();
 	}
 
 
-	public ControlList(WebDriver driver, WebElement element) throws ControlException {
-		super(driver, element);
+	public ControlList(ITrandasha bot, WebElement element) throws ControlException {
+		super(bot, element);
 		loadListLink();
 	}
 
 
-	public ControlList(WebDriver driver) throws ControlException {
-		super(driver);
+	public ControlList(ITrandasha bot) throws ControlException {
+		super(bot);
 		loadListLink();
 	}
 
@@ -49,7 +49,7 @@ public class ControlList extends ControlBase implements IControl {
 			for (WebElement _li : _listItems) {
 				WebElement _link = _li.findElement(By.cssSelector("a"));
 				
-				listItemsLinks.add(new ControlLink(this.driver, _link));		
+				listItemsLinks.add(new ControlLink(this.bot, _link));		
 			}		
 		} catch (Exception e) {
 			throw new ControlException(ITestErrorMessage.ERROR_listLinksNotFound);
