@@ -20,6 +20,7 @@ import ntz.exceptions.NavException;
 * @since 2016-07-25
 * @version 0.5.5
 * 
+* 
 * @TODO: change driver for bot instance
 * <p></p>
 * <p></p>
