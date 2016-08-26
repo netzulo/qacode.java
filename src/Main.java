@@ -1,3 +1,4 @@
+import ntz.core.tests.PDashboardTest;
 import ntz.core.tests.PLoginTest;
 import ntz.tests.reports.TestLauncher;
 /**
@@ -9,11 +10,11 @@ public class Main {
 	@SuppressWarnings("rawtypes")
 	public static void main(String[] args) throws Exception {
 //		args = new String[1];
-//		args[0] = "login";	
+//		args[0] = "sidemenu";	
 		/////		
 		TestLauncher launcher;
 		Class[] testClasses;
-		final String outputDir = "/results";
+		final String outputDir = System.getProperty("user.dir")+"/results";
 		if(args.length > 0){
 			//Load testPlan options
 				
@@ -42,6 +43,9 @@ public class Main {
 			  switch (args[i]) {
 			case "login":
 				testClasses[i] = PLoginTest.class;
+				break;
+			case "sidemenu":
+				testClasses[i] = PDashboardTest.class;
 				break;
 			default:
 				throw new Exception("Unkown TestClass name");

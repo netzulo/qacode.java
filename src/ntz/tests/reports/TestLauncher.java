@@ -11,6 +11,7 @@ import org.testng.Reporter;
 import org.testng.TestListenerAdapter;
 import org.testng.TestNG;
 import org.testng.xml.XmlSuite;
+import org.testng.xml.XmlSuite.ParallelMode;
 
 
 
@@ -34,7 +35,8 @@ public class TestLauncher {
 
 	public TestLauncher(boolean defaultListeners) {
 			
-		testng = new TestNG(defaultListeners);
+		testng = new TestNG(defaultListeners);				
+		//testng.setParallel(ParallelMode.TRUE);
 		
 		if(!defaultListeners){
 			testng.addListener(reporter());
@@ -50,7 +52,7 @@ public class TestLauncher {
 
 		if(!isCustomReporter && !isCustomListener){
 			//ALL its FALSE
-			testng = new TestNG(false);
+			testng = new TestNG(false);			
 		}
 		else{
 			testng = new TestNG(true);
