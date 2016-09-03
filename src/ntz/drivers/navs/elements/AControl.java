@@ -213,7 +213,30 @@ public class AControl implements IControl {
 	@Override
 	public void eleClickByJS() throws ControlException {
 		// TODO Auto-generated method stub
-		
+		throw new ControlException("[AControl][WARNING]: Function not defined");		
+	}
+	
+	@Override
+	public Hashtable<String,String> eleAttrs() throws ControlException{
+		return this.stylesHTML;
+	}
+	
+	@Override
+	public IControl eleAttr(String attrName) throws ControlException {
+		try {
+			String attr = "";
+			//Validate non-existent attributes
+			try {
+				attr = this.element.getAttribute(attrName).toString();
+			} catch (Exception e) {}
+			//Redefine attr if null
+			attr = (attr.equalsIgnoreCase(""))? "undefined" : attr;
+			
+			this.stylesHTML.put(attrName, attr);
+		} catch (Exception e) {
+			throw new ControlException("["+this.selector+"]: Error at get HTML tag attribute from element| " + e.getStackTrace().toString());
+		}
+ 		return this;
 	}
 	@Override
 	public IControl eleChild() throws ControlException {
@@ -272,8 +295,7 @@ public class AControl implements IControl {
 				throw new ControlException("[AControl][ERROR]: unkown error | "+ e.getStackTrace());
 			}
 		}		
-	}
-	
+	}	
 	@Override
 	public String getSelector() throws ControlException {
 		return this.selector;
@@ -297,14 +319,13 @@ public class AControl implements IControl {
 	@Override
 	public WebElement getElement() throws ControlException {
 		return this.element;
-	}
-	
+	}	
 	@Override
 	public String getText() throws ControlException {
 		return this.text;
 	}
-	//**DEBUG*/
 	
+	//**DEBUG*/	
 	@Override
 	public String toString() {
 		try {
@@ -314,7 +335,5 @@ public class AControl implements IControl {
 					+ ", 'stylesCSS':" + stylesCSS + "}";
 		} catch (ControlException e) { e.printStackTrace();	}
 		return "[AControl.toString][ERROR]: Error at toString";
-	}
-	
-	
+	}	
 }

@@ -188,7 +188,7 @@ public abstract class ATestInfo implements ITestInfo {
 			case ERROR_unknown:
 				throw new PageException(ERROR_unknown);
 			default:
-				throw new PageException(ERROR_unknown);			
+				throw new PageException(ERROR_unknown + "| "+ e.getMessage());			
 		}
 		
 	}

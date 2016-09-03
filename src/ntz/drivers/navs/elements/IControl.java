@@ -1,5 +1,6 @@
 package ntz.drivers.navs.elements;
 
+import java.util.Hashtable;
 import java.util.List;
 
 import org.openqa.selenium.TakesScreenshot;
@@ -43,24 +44,41 @@ public interface IControl {
 	/***/
 	boolean runControl() throws ControlException;
 	/**Commons **********************************************************************************/
+	/***/
 	boolean eleScreenShot() throws ControlException;
+	/***/
 	String eleRead() throws ControlException;
+	/***/
 	boolean eleWrite(String text) throws ControlException;
+	/***/
 	boolean eleWrite(String text, boolean isClear) throws ControlException;
+	/***/
 	boolean eleClear() throws ControlException;
+	/***/
 	void eleClick() throws ControlException;
-	void eleClickByJS() throws ControlException;
-		
+	/***/
+	void eleClickByJS() throws ControlException;	
+	/***/
+	Hashtable<String,String> eleAttrs() throws ControlException;
+	/***/
+	IControl eleAttr(String attrName) throws ControlException;
+	/***/
 	IControl eleChild() throws ControlException;
+	/***/
 	IControl eleChildByPos(int... childsPosition) throws ControlException;
+	/***/
 	IControl eleChildFirst() throws ControlException;
+	/***/
 	IControl eleChildLast() throws ControlException;
-	
+	/***/	
 	List<IControl> eleChildren() throws ControlException;
+	/***/
 	List<IControl> eleChildrenByPos(int... childsPosition) throws ControlException;
-		
+	/***/
 	IControl eleNext() throws ControlException;
+	/***/
 	IControl elePrevious() throws ControlException;
+	/***/
 	IControl eleParent() throws ControlException;
 	/**GETs & SETs*******************************************************************************/
 	
@@ -85,4 +103,5 @@ public interface IControl {
 	
 	//**DEBUG*/
 	String toString();
+	
 }

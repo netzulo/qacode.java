@@ -7,9 +7,11 @@ import org.openqa.selenium.By;
 import ntz.drivers.ITrandasha;
 import ntz.drivers.TrandashaBase;
 import ntz.drivers.navs.elements.ControlBase;
+import ntz.drivers.navs.elements.ControlInput;
 import ntz.drivers.navs.elements.ControlLink;
 import ntz.drivers.navs.elements.ControlList;
 import ntz.drivers.navs.elements.IControl;
+import ntz.exceptions.ControlException;
 import ntz.exceptions.ModelException;
 import ntz.exceptions.NavException;
 /**
@@ -70,8 +72,16 @@ public abstract class AModel implements IModel {
 			case "a":
 				ctlCasted = new ControlLink(this.bot, selector);
 				break;
+			case "input":
+				ctlCasted = new ControlInput(this.bot, selector);
+				break;
+			case "":
+				throw new ControlException("[AModel.getControlType][ERROR]: selector was bad");
 			default:
 				ctlCasted = new ControlBase(this.bot);
+				if(ctlCasted.getSelector() == null){
+					throw new ControlException("[AModel.getControlType][ERROR]: selector was bad");
+				}
 				break;
 			}
 			

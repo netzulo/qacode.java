@@ -34,34 +34,60 @@ public class ControlInput extends ControlBase implements IControl {
 	}
 	
 	@Override
-	public IControl InitHTML() {		
+	public IControl InitHTML() throws ControlException {		
+		super.InitHTML();
 		//Load specific attributes
 		switch (this.tagName) {
 		case "input":
 			//Commons
-			this.stylesHTML.put("name", this.element.getAttribute("name"));
-			this.stylesHTML.put("value", this.element.getAttribute("value"));
-			this.stylesHTML.put("type", this.element.getAttribute("type"));
-			this.stylesHTML.put("placeholder", this.element.getAttribute("placeholder"));
-			this.stylesHTML.put("autofocus", this.element.getAttribute("autofocus"));			
+			this.eleAttr("name");
+			this.eleAttr("value");
+			this.eleAttr("type");
+			this.eleAttr("placeholder");
+			this.eleAttr("autofocus");			
 			
 			//Modifiers HTML5
-			this.stylesHTML.put("readonly", this.element.getAttribute("readonly"));
-			this.stylesHTML.put("disabled", this.element.getAttribute("disabled"));			
+			this.eleAttr("readonly");
+			this.eleAttr("disabled");					
 			
 			//Validations
-			this.stylesHTML.put("required", this.element.getAttribute("required"));
-			this.stylesHTML.put("pattern", this.element.getAttribute("pattern"));
-			this.stylesHTML.put("min", this.element.getAttribute("min"));
-			this.stylesHTML.put("max", this.element.getAttribute("max"));
-			this.stylesHTML.put("maxlength", this.element.getAttribute("maxlength"));
-			this.stylesHTML.put("size", this.element.getAttribute("size"));
-			this.stylesHTML.put("step", this.element.getAttribute("step"));			
+			this.eleAttr("required");
+			this.eleAttr("pattern");
+			this.eleAttr("min");
+			this.eleAttr("max");
+			this.eleAttr("maxlength");
+			this.eleAttr("size");
+			this.eleAttr("step");					
 			
-			//especificos
-			this.stylesHTML.put("checked", this.element.getAttribute("checked"));
-			this.stylesHTML.put("list", this.element.getAttribute("list"));
-			this.stylesHTML.put("multiple", this.element.getAttribute("multiple"));			
+			//TODO:for each control
+			String inputType = this.attrType();
+						
+			switch (inputType ) {
+			case "text"://TODO: build functionality				
+				this.eleAttr("list");
+				break;
+			case "file"://TODO: build functionality				
+				this.eleAttr("list");
+				break;
+			case "checkbox":
+				this.eleAttr("checked");
+				break;
+			case "button"://TODO: build functionality
+				throw new ControlException("[ControlInput][ERROR]: Not implemented");	
+			case "number"://TODO: build functionality
+				throw new ControlException("[ControlInput][ERROR]: Not implemented");	
+			case "date"://TODO: build functionality
+				throw new ControlException("[ControlInput][ERROR]: Not implemented");	
+			case "email"://TODO: build functionality
+				throw new ControlException("[ControlInput][ERROR]: Not implemented");	
+			case "submit"://TODO: build functionality
+				throw new ControlException("[ControlInput][ERROR]: Not implemented");	
+				
+			case "undefined":
+			default:
+				throw new ControlException("[ControlInput][ERROR]: Not implemented");	
+			}
+			//								
 			break;
 		default:
 			break;
@@ -70,71 +96,71 @@ public class ControlInput extends ControlBase implements IControl {
 	}
 	/**GETs & SETs methods****************************************************************************/
 
-	public String eleInputName() {
+	public String attrName() {
 		return this.stylesHTML.get("name");
 	}
 
-	public String eleInputValue() {
+	public String attrValue() {
 		return this.stylesHTML.get("value");
 	}
 
-	public String eleInputType() {
+	public String attrType() {
 		return this.stylesHTML.get("type");
 	}
 
-	public String eleInputPlaceholder() {
+	public String attrPlaceholder() {
 		return this.stylesHTML.get("placeholder");
 	}
 
-	public String eleInputAutofocus() {
+	public String attrAutofocus() {
 		return this.stylesHTML.get("autofocus");
 	}
 
-	public String eleInputReadonly() {
+	public String attrReadonly() {
 		return this.stylesHTML.get("readonly");
 	}
 
-	public String eleInputDisabled() {
+	public String attrDisabled() {
 		return this.stylesHTML.get("disabled");
 	}
 
-	public String eleInputRequired() {
+	public String attrRequired() {
 		return this.stylesHTML.get("required");
 	}
 
-	public String getPattern() {
+	public String getAttrPattern() {
 		return this.stylesHTML.get("pattern");
 	}
 
-	public String getMin() {
+	public String getAttrMin() {
 		return this.stylesHTML.get("min");
 	}
 
-	public String getMax() {
+	public String getAttrMax() {
 		return this.stylesHTML.get("max");
 	}
 
-	public String getMaxlength() {
+	public String getAttrMaxlength() {
 		return this.stylesHTML.get("maxlength");
 	}
 
-	public String getSize() {
+	public String getAttrSize() {
 		return this.stylesHTML.get("size");
 	}
 
-	public String getStep() {
+	public String getAttrStep() {
 		return this.stylesHTML.get("step");
 	}
 
-	public String getChecked() {
+	public String getAttrChecked() {
 		return this.stylesHTML.get("checked");
 	}
 
-	public String getDatalist() {
+	public String getAttrDatalist() {
 		return this.stylesHTML.get("datalist");
 	}
 
-	public String getMultiple() {
+	public String getAttrMultiple() {
 		return this.stylesHTML.get("multiple");
 	}
 }
